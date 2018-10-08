@@ -89,3 +89,9 @@ search:
   field: all
   #field:post
   limit: 10000
+
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
