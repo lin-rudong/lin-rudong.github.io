@@ -79,14 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="MySQL架构MySQL逻辑架构 连接/线程处理 查询缓存 解析器 优化器 存储引擎（InnoDB会解析外键定义）  并发控制 读写锁，读锁是共享锁，写锁是排他锁。 锁粒度 表锁 行级锁   最大程度地支持并发处理，同时也带来了最大的锁开销。    事务 一组原子性地SQL查询 123start transaction;...commit;  事务处理系统具备ACID，A原子性，C一致性，I隔离性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高性能MySQL">
+<meta property="og:url" content="http://yoursite.com/2018/10/08/高性能MySQL/index.html">
 <meta property="og:site_name" content="林如东的博客">
+<meta property="og:description" content="MySQL架构MySQL逻辑架构 连接/线程处理 查询缓存 解析器 优化器 存储引擎（InnoDB会解析外键定义）  并发控制 读写锁，读锁是共享锁，写锁是排他锁。 锁粒度 表锁 行级锁   最大程度地支持并发处理，同时也带来了最大的锁开销。    事务 一组原子性地SQL查询 123start transaction;...commit;  事务处理系统具备ACID，A原子性，C一致性，I隔离性">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-08T07:19:31.738Z">
+<meta property="og:updated_time" content="2018-10-08T08:09:06.294Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="高性能MySQL">
+<meta name="twitter:description" content="MySQL架构MySQL逻辑架构 连接/线程处理 查询缓存 解析器 优化器 存储引擎（InnoDB会解析外键定义）  并发控制 读写锁，读锁是共享锁，写锁是排他锁。 锁粒度 表锁 行级锁   最大程度地支持并发处理，同时也带来了最大的锁开销。    事务 一组原子性地SQL查询 123start transaction;...commit;  事务处理系统具备ACID，A原子性，C一致性，I隔离性">
 
 
 
@@ -116,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/08/高性能MySQL/"/>
 
 
 
 
 
-  <title>tags | 林如东的博客</title>
+  <title>高性能MySQL | 林如东的博客</title>
   
 
 
@@ -273,40 +276,321 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/08/高性能MySQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="林如东">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林如东的博客">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                1 tag in total
+          <h1 class="post-title" itemprop="name headline">高性能MySQL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-08T16:08:42+08:00">
+                2018-10-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-08T16:09:06+08:00">
+                2018-10-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/08/高性能MySQL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/08/高性能MySQL/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/10/08/高性能MySQL/" class="leancloud_visitors" data-flag-title="高性能MySQL">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  534
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
             </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/JDK8/" style="font-size: 12px; color: #ccc">JDK8</a>
-            </div>
-          </div>
-        
-      </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="MySQL架构"><a href="#MySQL架构" class="headerlink" title="MySQL架构"></a>MySQL架构</h1><h2 id="MySQL逻辑架构"><a href="#MySQL逻辑架构" class="headerlink" title="MySQL逻辑架构"></a>MySQL逻辑架构</h2><ol>
+<li>连接/线程处理</li>
+<li>查询缓存 解析器 优化器</li>
+<li>存储引擎（InnoDB会解析外键定义）</li>
+</ol>
+<h2 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h2><ol>
+<li>读写锁，读锁是共享锁，写锁是排他锁。</li>
+<li>锁粒度<ol>
+<li>表锁</li>
+<li>行级锁</li>
+</ol>
+<ul>
+<li>最大程度地支持并发处理，同时也带来了最大的锁开销。</li>
+</ul>
+</li>
+</ol>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><ul>
+<li><p>一组原子性地SQL查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start transaction;</span><br><span class="line">...</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>事务处理系统具备ACID，A原子性，C一致性，I隔离性，D持久性。</p>
+<ol>
+<li>原子性</li>
+</ol>
+<ul>
+<li>要么全部提交，要么全部回滚。</li>
+</ul>
+<ol start="2">
+<li>一致性</li>
+</ol>
+<ul>
+<li>从一个一致性状态转换到另一个一致性状态。</li>
+</ul>
+<ol start="3">
+<li>隔离性</li>
+</ol>
+<ul>
+<li>一个事务的修改在最终提交以前，对其他事务是不可见的。</li>
+</ul>
+<ol start="4">
+<li>持久性</li>
+</ol>
+<ul>
+<li>一旦事务提交，所做的修改就会永久保存到数据库中。</li>
+</ul>
+</li>
+</ul>
+<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set transaction isolation level read committed;</span><br><span class="line">set session transaction isolation level read committed;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>read uncommitted 未提交读</li>
+</ol>
+<ul>
+<li>事务中的修改，即使没有提交，对其他事务也都是可见的。</li>
+<li>脏读：事务可以读取未提交的数据。</li>
+<li>性能比其他级别不会好太多，却缺乏很多好处，很少使用。</li>
+</ul>
+<ol start="2">
+<li>read committed 提交读</li>
+</ol>
+<ul>
+<li>事务只能看见已经提交的事务的修改。</li>
+<li>大多数数据库的默认隔离级别，MySQL不是。</li>
+<li>未提交事务就可以读取数据，导致一个事务内2次读取数据可能是不一样的，即保证了可见性却没有原子性。</li>
+</ul>
+<ol start="3">
+<li>repeatable read 可重复读</li>
+</ol>
+<ul>
+<li>保证同一个事务中多次读取同样的记录的结果是一致的。</li>
+<li>MySQL默认隔离级别。</li>
+<li>不能解决幻读。</li>
+</ul>
+<ol start="4">
+<li>serializable 可串行化</li>
+</ol>
+<ul>
+<li>最高的隔离级别，强制事务串行执行。</li>
+<li>每一行数据都加锁，导致大量的超时和锁争用问题，很少使用。</li>
+</ul>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><ul>
+<li>InnoDB处理死锁的方法，将持有最少行级排他锁的事务进行回滚。</li>
+</ul>
+<h3 id="事务日志"><a href="#事务日志" class="headerlink" title="事务日志"></a>事务日志</h3><ul>
+<li>顺序I/O，速度快。</li>
+</ul>
+<h3 id="MySQL中的事务"><a href="#MySQL中的事务" class="headerlink" title="MySQL中的事务"></a>MySQL中的事务</h3><ul>
+<li>事务型存储引擎：InnoDB和NDB Cluster。</li>
+</ul>
+<ol>
+<li>自动提交</li>
+</ol>
+<ul>
+<li>MySQL默认模式，autocommit=1。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set autocommit=0;</span><br><span class="line">...</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/08/集合/" rel="next" title="集合">
+                <i class="fa fa-chevron-left"></i> 集合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/08/Spring事务机制/" rel="prev" title="Spring事务机制">
+                Spring事务机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -315,6 +599,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -335,8 +626,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -400,6 +700,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL架构"><span class="nav-number">1.</span> <span class="nav-text">MySQL架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL逻辑架构"><span class="nav-number">1.1.</span> <span class="nav-text">MySQL逻辑架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发控制"><span class="nav-number">1.2.</span> <span class="nav-text">并发控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">1.3.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隔离级别"><span class="nav-number">1.3.1.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁"><span class="nav-number">1.3.2.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务日志"><span class="nav-number">1.3.3.</span> <span class="nav-text">事务日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL中的事务"><span class="nav-number">1.3.4.</span> <span class="nav-text">MySQL中的事务</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
