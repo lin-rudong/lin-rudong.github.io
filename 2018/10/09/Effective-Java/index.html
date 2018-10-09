@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Redis作用 缓存 list保存最新的数据 队列系统 lpush ltrim zset保存权重最大的数据 优先级队列系统 zadd zrevrange zrank set数据排重 清除过期数据 计数 subscribe/publish构建实时消息系统">
+<meta name="description" content="创建和销毁对象考虑用静态工厂方法代替构造器 有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis面试">
-<meta property="og:url" content="http://yoursite.com/2018/10/08/Redis面试/index.html">
+<meta property="og:title" content="Effective Java">
+<meta property="og:url" content="http://yoursite.com/2018/10/09/Effective-Java/index.html">
 <meta property="og:site_name" content="林如东的博客">
-<meta property="og:description" content="Redis作用 缓存 list保存最新的数据 队列系统 lpush ltrim zset保存权重最大的数据 优先级队列系统 zadd zrevrange zrank set数据排重 清除过期数据 计数 subscribe/publish构建实时消息系统">
+<meta property="og:description" content="创建和销毁对象考虑用静态工厂方法代替构造器 有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-08T12:21:09.897Z">
+<meta property="og:updated_time" content="2018-10-09T01:19:41.196Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis面试">
-<meta name="twitter:description" content="Redis作用 缓存 list保存最新的数据 队列系统 lpush ltrim zset保存权重最大的数据 优先级队列系统 zadd zrevrange zrank set数据排重 清除过期数据 计数 subscribe/publish构建实时消息系统">
+<meta name="twitter:title" content="Effective Java">
+<meta name="twitter:description" content="创建和销毁对象考虑用静态工厂方法代替构造器 有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/08/Redis面试/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/09/Effective-Java/"/>
 
 
 
 
 
-  <title>Redis面试 | 林如东的博客</title>
+  <title>Effective Java | 林如东的博客</title>
   
 
 
@@ -288,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/08/Redis面试/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Effective-Java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="林如东">
@@ -305,7 +305,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Redis面试</h2>
+          <h2 class="post-title" itemprop="name headline">Effective Java</h2>
         
 
         <div class="post-meta">
@@ -317,8 +317,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-08T16:03:17+08:00">
-                2018-10-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-09T08:45:37+08:00">
+                2018-10-09
               </time>
             
 
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-08T20:21:09+08:00">
-                2018-10-08
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-09T09:19:41+08:00">
+                2018-10-09
               </time>
             
           </span>
@@ -352,8 +352,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -370,8 +370,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/08/Redis面试/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/08/Redis面试/" itemprop="commentCount"></span>
+                <a href="/2018/10/09/Effective-Java/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/09/Effective-Java/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -379,7 +379,7 @@
 
           
           
-             <span id="/2018/10/08/Redis面试/" class="leancloud_visitors" data-flag-title="Redis面试">
+             <span id="/2018/10/09/Effective-Java/" class="leancloud_visitors" data-flag-title="Effective Java">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  62
+                  121
                 </span>
               
 
@@ -441,14 +441,10 @@
       
 
       
-        <h1 id="Redis作用"><a href="#Redis作用" class="headerlink" title="Redis作用"></a>Redis作用</h1><ol>
-<li>缓存</li>
-<li>list保存最新的数据 队列系统 lpush ltrim</li>
-<li>zset保存权重最大的数据 优先级队列系统 zadd zrevrange zrank</li>
-<li>set数据排重</li>
-<li>清除过期数据</li>
-<li>计数</li>
-<li>subscribe/publish构建实时消息系统</li>
+        <h1 id="创建和销毁对象"><a href="#创建和销毁对象" class="headerlink" title="创建和销毁对象"></a>创建和销毁对象</h1><h2 id="考虑用静态工厂方法代替构造器"><a href="#考虑用静态工厂方法代替构造器" class="headerlink" title="考虑用静态工厂方法代替构造器"></a>考虑用静态工厂方法代替构造器</h2><ol>
+<li><code>有名称</code>,能确切地描述正被返回的对象。</li>
+<li><code>不必在每次调用的时候都创建一个新对象</code>,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。</li>
+<li><code>可以返回原返回类型的任何子类型对象</code>,可以隐藏底层的实现使API变得简洁。  </li>
 </ol>
 
       
@@ -474,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/08/MyBatis面试/" rel="next" title="MyBatis面试">
-                <i class="fa fa-chevron-left"></i> MyBatis面试
+              <a href="/2018/10/08/WebSocket/" rel="next" title="WebSocket">
+                <i class="fa fa-chevron-left"></i> WebSocket
               </a>
             
           </div>
@@ -483,10 +479,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/08/JavaScript事件绑定与方法调用/" rel="prev" title="JavaScript事件绑定与方法调用">
-                JavaScript事件绑定与方法调用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -625,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis作用"><span class="nav-number">1.</span> <span class="nav-text">Redis作用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">考虑用静态工厂方法代替构造器</span></a></li></ol></li></ol></div>
             
 
           </div>
