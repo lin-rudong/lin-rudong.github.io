@@ -1,8 +1,9 @@
 ---
 title: Spring标记
+categories: Spring
+abbrlink: 40925
 date: 2018-10-08 16:10:53
 tags:
-categories: Spring
 ---
 # The IoC container
 ## Bean scopes

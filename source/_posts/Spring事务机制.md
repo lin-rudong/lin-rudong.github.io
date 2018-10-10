@@ -1,8 +1,9 @@
 ---
 title: Spring事务机制
+categories: Spring
+abbrlink: 18565
 date: 2018-10-08 16:09:47
 tags:
-categories: Spring
 ---
 # 事务机制
 ## 事务的传播行为

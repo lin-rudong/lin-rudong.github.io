@@ -1,8 +1,9 @@
 ---
 title: JDK8新特性
-date: 2018-10-07 22:02:53
 tags: JDK8
 categories: Java
+abbrlink: 64019
+date: 2018-10-07 22:02:53
 ---
 # Java语言
 

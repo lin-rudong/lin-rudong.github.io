@@ -1,8 +1,9 @@
 ---
 title: JavaScript事件绑定与方法调用
+categories: JavaScript
+abbrlink: 54209
 date: 2018-10-08 16:05:45
 tags:
-categories: JavaScript
 ---
 # 事件绑定
 1. 事件与对象绑定，而不是与引用绑定，如果引用的对象改变，事件也会随着改变。

@@ -1,8 +1,9 @@
 ---
 title: WebSocket
+Categories: WebSocket
+abbrlink: 26563
 date: 2018-10-08 16:19:30
 tags:
-Categories: WebSocket
 ---
 ## WebSocket
 实现服务器和浏览器全双工通信。

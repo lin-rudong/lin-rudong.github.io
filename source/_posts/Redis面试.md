@@ -1,8 +1,9 @@
 ---
 title: Redis面试
+categories: Redis
+abbrlink: 26338
 date: 2018-10-08 16:03:17
 tags:
-categories: Redis
 ---
 # Redis作用
 1. 缓存

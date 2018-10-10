@@ -1,8 +1,9 @@
 ---
 title: 高性能MySQL
+categories: MySQL
+abbrlink: 58527
 date: 2018-10-08 16:08:42
 tags:
-categories: MySQL
 ---
 # MySQL架构
 ## MySQL逻辑架构

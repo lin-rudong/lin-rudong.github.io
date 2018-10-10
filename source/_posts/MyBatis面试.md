@@ -1,8 +1,9 @@
 ---
 title: MyBatis面试
-date: 2018-10-08 15:37:20
-tags: 
 categories: MyBatis
+abbrlink: 23946
+date: 2018-10-08 15:37:20
+tags:
 ---
 # MyBatis如何防止注入？
 * #{}是预编译处理，${}是字符串替换。
