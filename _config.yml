@@ -82,7 +82,7 @@ deploy:
   # repo: https://github.com/lin-rudong/lin-rudong.github.io
   repo: 
     - git@github.com:lin-rudong/lin-rudong.github.io.git
-    - git@git.coding.net:lin-rudong/lin-rudong.coding.me.git
+    # - git@git.coding.net:lin-rudong/lin-rudong.coding.me.git
   branch: master
   message: site updated {{ now('YYYY-MM-DD HH:mm:ss') }}
   

@@ -173,7 +173,7 @@ public class Student{
 1. 检查等价关系。
     * 覆盖equals时总要覆盖hashCode。
     * 不要企图让equals方法过于智能。
-    * 不要将equals声明中的Object对象替换成其他的类型。重写时参数类型必须是一样的，返回类型可以说子类型。
+    * 不要将equals声明中的Object对象替换成其他的类型。重写时参数类型必须是一样的，返回类型可以是子类型。
 
 ```
 public class Student{
@@ -254,7 +254,92 @@ public int hashCode(){
 1. 指定了格式的缺点是必须始终如一地坚持。
 
 ## 谨慎地覆盖clone
+1. Object.clone是protected的，如果子类没有实现Cloneable，那么调用clone会抛出CloneNotSuportedException。
+1. Object.clone是特殊的方法，它会通过反射将当前对象的所有字段进行浅拷贝。
 
+```
+class Student implements Cloneable{
+    @Override
+    public Student clone() throws CloneNotSupportedException {
+        return (Student)super.clone();
+    }
+}
+```
+
+3. 永远不要让客户去做任何类库能够替客户完成的事情。
+1. 如果想要实现深拷贝，可以递归地调用clone方法。
+1. clone架构与final对象不兼容，final对象无法深拷贝。
+
+```
+class Student implements Cloneable{
+    private String id="id";
+    private String name;
+    private int age;
+    private int[] scores;
+
+    @Override
+    public Student clone() throws CloneNotSupportedException {
+        Student clone = (Student) super.clone();
+        clone.scores=scores.clone();
+        return clone;
+    }
+}
+```
+
+**拷贝构造器或拷贝工厂代替Cloneeable/clone**
+1.  另一个实现对象拷贝地好办法是提供一个拷贝构造器或拷贝工厂，拷贝构造器或拷贝工厂唯一的参数类型和返回的类型相同。这2种方法都比Cloneable/clone方法更具有优势。
+    * 不用实现Cloneable，不用修改clone为public和它的返回类型。
+    * 不会抛出受检异常。
+    * 支持final对象。
+    * 不用类型转换。
+    * 返回类型有更多选择。
+
+## 考虑实现Comparable接口
+
+**约定**
+1. x.compareTo(y)==-y.compareTo(x)。
+1. 比较关系是可传递的。
+1. 强烈建议(x.compareTo(y)==0)==(x.equals(y))。
+
+**compareTo与equals**
+1. 依赖比较关系的类包括有序集合类PriorityQueue、TreeSet和TreeMap，以及工具类Collections和Arrays。
+1. 与equals不同，在跨越不同类的时候，compareTo可以不做比较。
+1. 除却例外，x.compareTo(y)==0和x.equals(y)是一致的。例外如，BigDecimal("1.0")和BigDecimal("1.00")，通过equals比较是不相等的，而通过compareTo比较是相等的。
+1. Comparable接口是参数化的，因此compareTo方法不必进行类型检查和类型转换。
+1. 浮点的比较用Float.compare和Double.compare。
+
+```
+public static int compare(double d1, double d2) {
+        if (d1 < d2) return -1; 
+        if (d1 > d2) return 1; 
+
+        long thisBits    = Double.doubleToLongBits(d1);
+        long anotherBits = Double.doubleToLongBits(d2);
+
+        return thisBits == anotherBits ?  0 : (thisBits < anotherBits ? -1 : 1);
+}
+```
+
+```
+class Student implements Comparable<Student>{
+    private String id="id";
+    private String name;
+    private int age;
+
+    @Override
+    public int compareTo(Student o) {
+        int result=id.compareTo(o.id);
+        if (result!=0) return result;
+        
+        result=name.compareTo(o.name);
+        if (result!=0) return result;
+
+        return age-o.age;
+    }
+}
+```
+
+# 类和接口
 
 
 
