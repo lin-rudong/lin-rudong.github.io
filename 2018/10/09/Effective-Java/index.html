@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="创建和销毁对象考虑用静态工厂方法代替构造器优点  有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。  静态工厂方法是服务提供者框架的基础，服务提供者框架包含3个组件：服务接口、提供者注册API和服">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-12T03:55:48.290Z">
+<meta property="og:updated_time" content="2018-10-12T07:15:48.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Java">
 <meta name="twitter:description" content="创建和销毁对象考虑用静态工厂方法代替构造器优点  有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。  静态工厂方法是服务提供者框架的基础，服务提供者框架包含3个组件：服务接口、提供者注册API和服">
@@ -333,7 +333,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-12T11:55:48+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-12T15:15:48+08:00">
                 2018-10-12
               </time>
             
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  2.9k
+                  3.1k
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  11
+                  12
                 </span>
               
             </div>
@@ -600,7 +600,8 @@
 <li>clone架构与final对象不兼容，final对象无法深拷贝。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Student implements Cloneable&#123;</span><br><span class="line">    private String id=&quot;id&quot;;</span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line">    private int[] scores;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Student clone() throws CloneNotSupportedException &#123;</span><br><span class="line">        Student clone = (Student) super.clone();</span><br><span class="line">        clone.scores=scores.clone();</span><br><span class="line">        return clone;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="6">
+<p><strong>拷贝构造器或拷贝工厂代替Cloneeable/clone</strong></p>
+<ol>
 <li>另一个实现对象拷贝地好办法是提供一个拷贝构造器或拷贝工厂，拷贝构造器或拷贝工厂唯一的参数类型和返回的类型相同。这2种方法都比Cloneable/clone方法更具有优势。<ul>
 <li>不用实现Cloneable，不用修改clone为public和它的返回类型。</li>
 <li>不会抛出受检异常。</li>
@@ -610,7 +611,23 @@
 </ul>
 </li>
 </ol>
-
+<h2 id="考虑实现Comparable接口"><a href="#考虑实现Comparable接口" class="headerlink" title="考虑实现Comparable接口"></a>考虑实现Comparable接口</h2><p><strong>约定</strong></p>
+<ol>
+<li>x.compareTo(y)==-y.compareTo(x)。</li>
+<li>比较关系是可传递的。</li>
+<li>强烈建议(x.compareTo(y)==0)==(x.equals(y))。</li>
+</ol>
+<p><strong>compareTo与equals</strong></p>
+<ol>
+<li>依赖比较关系的类包括有序集合类PriorityQueue、TreeSet和TreeMap，以及工具类Collections和Arrays。</li>
+<li>与equals不同，在跨越不同类的时候，compareTo可以不做比较。</li>
+<li>除却例外，x.compareTo(y)==0和x.equals(y)是一致的。例外如，BigDecimal(“1.0”)和BigDecimal(“1.00”)，通过equals比较是不相等的，而通过compareTo比较是相等的。</li>
+<li>Comparable接口是参数化的，因此compareTo方法不必进行类型检查和类型转换。</li>
+<li>浮点的比较用Float.compare和Double.compare。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static int compare(double d1, double d2) &#123;</span><br><span class="line">        if (d1 &lt; d2) return -1; </span><br><span class="line">        if (d1 &gt; d2) return 1; </span><br><span class="line"></span><br><span class="line">        long thisBits    = Double.doubleToLongBits(d1);</span><br><span class="line">        long anotherBits = Double.doubleToLongBits(d2);</span><br><span class="line"></span><br><span class="line">        return thisBits == anotherBits ?  0 : (thisBits &lt; anotherBits ? -1 : 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Student implements Comparable&lt;Student&gt;&#123;</span><br><span class="line">    private String id=&quot;id&quot;;</span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(Student o) &#123;</span><br><span class="line">        int result=id.compareTo(o.id);</span><br><span class="line">        if (result!=0) return result;</span><br><span class="line">        </span><br><span class="line">        result=name.compareTo(o.name);</span><br><span class="line">        if (result!=0) return result;</span><br><span class="line"></span><br><span class="line">        return age-o.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="类和接口"><a href="#类和接口" class="headerlink" title="类和接口"></a>类和接口</h1>
       
     </div>
     
@@ -785,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">考虑用静态工厂方法代替构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到多个构造器参数时要考虑用构建器"><span class="nav-number">1.2.</span> <span class="nav-text">遇到多个构造器参数时要考虑用构建器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用私有构造器或者枚举类型强化Singleton属性"><span class="nav-number">1.3.</span> <span class="nav-text">用私有构造器或者枚举类型强化Singleton属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过私有构造器强化不可实例化的能力"><span class="nav-number">1.4.</span> <span class="nav-text">通过私有构造器强化不可实例化的能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免创建不必要的对象"><span class="nav-number">1.5.</span> <span class="nav-text">避免创建不必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除过期的对象引用"><span class="nav-number">1.6.</span> <span class="nav-text">消除过期的对象引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免使用终结方法"><span class="nav-number">1.7.</span> <span class="nav-text">避免使用终结方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于所有对象都通用的方法"><span class="nav-number">2.</span> <span class="nav-text">对于所有对象都通用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时请遵守通用约定"><span class="nav-number">2.1.</span> <span class="nav-text">覆盖equals时请遵守通用约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时总要覆盖hashCode"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖equals时总要覆盖hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#始终要覆盖toString"><span class="nav-number">2.3.</span> <span class="nav-text">始终要覆盖toString</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地覆盖clone"><span class="nav-number">2.4.</span> <span class="nav-text">谨慎地覆盖clone</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">考虑用静态工厂方法代替构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到多个构造器参数时要考虑用构建器"><span class="nav-number">1.2.</span> <span class="nav-text">遇到多个构造器参数时要考虑用构建器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用私有构造器或者枚举类型强化Singleton属性"><span class="nav-number">1.3.</span> <span class="nav-text">用私有构造器或者枚举类型强化Singleton属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过私有构造器强化不可实例化的能力"><span class="nav-number">1.4.</span> <span class="nav-text">通过私有构造器强化不可实例化的能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免创建不必要的对象"><span class="nav-number">1.5.</span> <span class="nav-text">避免创建不必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除过期的对象引用"><span class="nav-number">1.6.</span> <span class="nav-text">消除过期的对象引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免使用终结方法"><span class="nav-number">1.7.</span> <span class="nav-text">避免使用终结方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于所有对象都通用的方法"><span class="nav-number">2.</span> <span class="nav-text">对于所有对象都通用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时请遵守通用约定"><span class="nav-number">2.1.</span> <span class="nav-text">覆盖equals时请遵守通用约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时总要覆盖hashCode"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖equals时总要覆盖hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#始终要覆盖toString"><span class="nav-number">2.3.</span> <span class="nav-text">始终要覆盖toString</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地覆盖clone"><span class="nav-number">2.4.</span> <span class="nav-text">谨慎地覆盖clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑实现Comparable接口"><span class="nav-number">2.5.</span> <span class="nav-text">考虑实现Comparable接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类和接口"><span class="nav-number">3.</span> <span class="nav-text">类和接口</span></a></li></ol></div>
             
 
           </div>
@@ -822,7 +839,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">9k</span>
+    <span title="Site words total count">9.2k</span>
   
 </div>
 
