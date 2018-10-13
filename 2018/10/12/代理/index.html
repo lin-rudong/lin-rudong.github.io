@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="JDK代理 JDK代理必须面向接口，因为最后Proxy.newProxyInstance生成的代理继承于Proxy，所以不能通过继承来实现代理。 Proxy代理的方法必须放在源类的接口里面，因为Proxy实现源类所有的接口。  12345678910interface People&amp;#123;    String toString();&amp;#125;@Dataclass Student implem">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-12T11:35:17.410Z">
+<meta property="og:updated_time" content="2018-10-13T03:16:41.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="代理">
 <meta name="twitter:description" content="JDK代理 JDK代理必须面向接口，因为最后Proxy.newProxyInstance生成的代理继承于Proxy，所以不能通过继承来实现代理。 Proxy代理的方法必须放在源类的接口里面，因为Proxy实现源类所有的接口。  12345678910interface People&amp;#123;    String toString();&amp;#125;@Dataclass Student implem">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-12T19:35:17+08:00">
-                2018-10-12
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-13T11:16:41+08:00">
+                2018-10-13
               </time>
             
           </span>
@@ -451,7 +451,7 @@
 <li>动态指的是在运行时可以根据所代理的类的不同生成不同的Proxy代理类，简单地说，不管被代理的类怎么变，Proxy代理类都可以不变应万变。</li>
 <li>PeopleProxy通过私有字段InvocationHandler拦截器实现代理，它将通过反射机制拦截PeopleProxy的调用。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class PeopleProxy implements People&#123;</span><br><span class="line">    private InvocationHandler interceptor;</span><br><span class="line"></span><br><span class="line">    private static Method toStringMethod=People.getMethod(&quot;toString&quot;);</span><br><span class="line"></span><br><span class="line">    public String toString()&#123;</span><br><span class="line">        interceptor.invoke(this,toStringMethod,void);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class PeopleProxy implements People&#123;</span><br><span class="line">    private InvocationHandler interceptor;</span><br><span class="line"></span><br><span class="line">    private static Method toStringMethod=People.getMethod(&quot;toString&quot;);</span><br><span class="line"></span><br><span class="line">    public String toString()&#123;</span><br><span class="line">        interceptor.invoke(this,toStringMethod,null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="6">
 <li>origin是被代理的对象，即源类的实例，它作为拦截器的字段，而不直接包含在Proxy内。</li>
 <li>invoke的参数，proxy是Proxy代理类，如果将proxy作为method.invoke的参数代替origin将出现死循环。</li>
