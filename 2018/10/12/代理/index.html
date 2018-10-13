@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="JDK代理 JDK代理必须面向接口，因为最后Proxy.newProxyInstance生成的代理继承于Proxy，所以不能通过继承来实现代理。 Proxy代理的方法必须放在源类的接口里面，因为Proxy实现源类所有的接口。  12345678910interface People&amp;#123;    String toString();&amp;#125;@Dataclass Student implem">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-12T10:02:32.738Z">
+<meta property="og:updated_time" content="2018-10-12T11:35:17.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="代理">
 <meta name="twitter:description" content="JDK代理 JDK代理必须面向接口，因为最后Proxy.newProxyInstance生成的代理继承于Proxy，所以不能通过继承来实现代理。 Proxy代理的方法必须放在源类的接口里面，因为Proxy实现源类所有的接口。  12345678910interface People&amp;#123;    String toString();&amp;#125;@Dataclass Student implem">
@@ -333,7 +333,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-12T18:02:32+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-12T19:35:17+08:00">
                 2018-10-12
               </time>
             
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  407
+                  408
                 </span>
               
 
@@ -449,7 +449,7 @@
 <ol start="3">
 <li>Proxy属于动态代理，PeopleProxy是在运行时通过反射机制动态生成的代理类。</li>
 <li>动态指的是在运行时可以根据所代理的类的不同生成不同的Proxy代理类，简单地说，不管被代理的类怎么变，Proxy代理类都可以不变应万变。</li>
-<li>PeopleProxy通过私有字段InvocationHandler拦截器实现代理，它将通过放射机制拦截PeopleProxy的调用。</li>
+<li>PeopleProxy通过私有字段InvocationHandler拦截器实现代理，它将通过反射机制拦截PeopleProxy的调用。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class PeopleProxy implements People&#123;</span><br><span class="line">    private InvocationHandler interceptor;</span><br><span class="line"></span><br><span class="line">    private static Method toStringMethod=People.getMethod(&quot;toString&quot;);</span><br><span class="line"></span><br><span class="line">    public String toString()&#123;</span><br><span class="line">        interceptor.invoke(this,toStringMethod,void);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="6">
@@ -458,7 +458,7 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@AllArgsConstructor</span><br><span class="line">class Interceptor implements InvocationHandler &#123;</span><br><span class="line">    private Student origin;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">        System.out.println(&quot;before invocation...&quot;);</span><br><span class="line"></span><br><span class="line">        Object resultObject=method.invoke(origin,args);</span><br><span class="line"></span><br><span class="line">        return resultObject;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="8">
-<li>类的唯一是由类加载器加类全限名确定的，所以ProxynewProxyInstance的第一参数是代理类的加载器，运行如下。</li>
+<li>类的唯一是由类加载器加类全限名确定的，所以Proxy.newProxyInstance的第一参数是代理类的加载器，运行如下。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    Student student = new Student();</span><br><span class="line">    Interceptor interceptor = new Interceptor(student);</span><br><span class="line"></span><br><span class="line">    People people=(People)Proxy.newProxyInstance(Student.class.getClassLoader(),Student.class.getInterfaces(),interceptor);</span><br><span class="line"></span><br><span class="line">    System.out.println(people.toString());</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -497,6 +497,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/13/全排列/" rel="prev" title="全排列">
+                全排列 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -580,7 +584,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -591,7 +595,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -672,7 +676,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">9.6k</span>
+    <span title="Site words total count">9.7k</span>
   
 </div>
 
