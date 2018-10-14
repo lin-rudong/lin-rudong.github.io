@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="创建和销毁对象考虑用静态工厂方法代替构造器优点  有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。  静态工厂方法是服务提供者框架的基础，服务提供者框架包含3个组件：服务接口、提供者注册API和服">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-12T07:15:48.674Z">
+<meta property="og:updated_time" content="2018-10-14T03:31:31.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Java">
 <meta name="twitter:description" content="创建和销毁对象考虑用静态工厂方法代替构造器优点  有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。  静态工厂方法是服务提供者框架的基础，服务提供者框架包含3个组件：服务接口、提供者注册API和服">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-12T15:15:48+08:00">
-                2018-10-12
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-14T11:31:31+08:00">
+                2018-10-14
               </time>
             
           </span>
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  3.1k
+                  5.2k
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  12
+                  19
                 </span>
               
             </div>
@@ -627,7 +627,92 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static int compare(double d1, double d2) &#123;</span><br><span class="line">        if (d1 &lt; d2) return -1; </span><br><span class="line">        if (d1 &gt; d2) return 1; </span><br><span class="line"></span><br><span class="line">        long thisBits    = Double.doubleToLongBits(d1);</span><br><span class="line">        long anotherBits = Double.doubleToLongBits(d2);</span><br><span class="line"></span><br><span class="line">        return thisBits == anotherBits ?  0 : (thisBits &lt; anotherBits ? -1 : 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Student implements Comparable&lt;Student&gt;&#123;</span><br><span class="line">    private String id=&quot;id&quot;;</span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(Student o) &#123;</span><br><span class="line">        int result=id.compareTo(o.id);</span><br><span class="line">        if (result!=0) return result;</span><br><span class="line">        </span><br><span class="line">        result=name.compareTo(o.name);</span><br><span class="line">        if (result!=0) return result;</span><br><span class="line"></span><br><span class="line">        return age-o.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="类和接口"><a href="#类和接口" class="headerlink" title="类和接口"></a>类和接口</h1>
+<h1 id="类和接口"><a href="#类和接口" class="headerlink" title="类和接口"></a>类和接口</h1><h2 id="使类和成员的可访问性最小化"><a href="#使类和成员的可访问性最小化" class="headerlink" title="使类和成员的可访问性最小化"></a>使类和成员的可访问性最小化</h2><p><strong>封装</strong></p>
+<ol>
+<li>设计良好的模块会隐藏所有的实现细节，把API与实现清晰地隔离开来，这个概念称为信息隐藏或封装，是软件设计的基本原则之一。</li>
+<li>封装可以有效地解除组成系统的各模块之间的耦合关系，使得这些模块可以独立地开发、测试、优化、使用、理解和修改。</li>
+<li>顶层的类和接口只有2种可能的访问级别：包级私有的和公有的。默认是包级私有，作为包的实现的一部分，而公有则作为该包导出的API的一部分。</li>
+<li>成员（字段、方法、嵌套类和嵌套接口）有4种可能的访问级别，按照可访问性递增顺序如下。<ul>
+<li>私有的</li>
+<li>包级私有的</li>
+<li>受保护的（类导出的API）</li>
+<li>公有的（类导出的API）</li>
+</ul>
+</li>
+<li>子类重写的方法的访问级别不允许低于超类中访问级别，确保任何可使用超类的实例的地方也都可以使用子类的实例。</li>
+</ol>
+<p><strong>封装规则</strong></p>
+<ol>
+<li>尽可能地使每个类或者成员不被外界访问。</li>
+<li>如果包级私有的顶层类或接口只是在某一个类的内部被用到，就应该考虑使它成为唯一使用它的那个类的私有嵌套类。</li>
+<li>实例字段决不能是公有的。包含公有可变字段的类不是线程安全的。</li>
+<li>静态字段也不能是公有的，有一种例外情况，假设常量是类抽象的一部分，可以通过public static final来暴露这些常量。很重要的一点是，这些常量要么包含基本类型的值，要么包含指向不可变对象的引用。</li>
+<li>长度非0的数组总是可变的，所有，类具有公有的静态final数组字段，或者返回这种字段的访问方法，这几乎总是错误的，因为客户端能够修改数组中的内容。<ul>
+<li>可以将数组变成私有的，并增加一个公有的不可变列表视图。</li>
+<li>也可以将数组变成私有的，并添加一个公有方法访问数组的一个备份。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">private static final Student[] PRIVATE_STUDENTS=&#123;...&#125;;</span><br><span class="line">public static final List&lt;Student&gt; STUDENTS=Collections.unmodifiableList(Arrays.asList(PRIVATE_STUDENTS));</span><br></pre></td></tr></table></figure>
+<h2 id="在公有类中使用访问方法而非公有域"><a href="#在公有类中使用访问方法而非公有域" class="headerlink" title="在公有类中使用访问方法而非公有域"></a>在公有类中使用访问方法而非公有域</h2><ol>
+<li>公有类永远都不应该暴露可变的字段。</li>
+<li>如果类是包级私有的，或者是私有的嵌套类，因为只是实现的一部分而没有导出API，直接暴露它的字段并没有本质错误。</li>
+</ol>
+<h2 id="使可变性最小化"><a href="#使可变性最小化" class="headerlink" title="使可变性最小化"></a>使可变性最小化</h2><ol>
+<li>Java类库的不可变类：String、基本类型的包装类，BigInteger和BigDecimal。</li>
+</ol>
+<p><strong>不可变类的5条规则</strong></p>
+<ol>
+<li>不要提供任何会修改对象状态的方法。</li>
+<li>保证类不会被扩展。防止子类破坏类的不可变行为，一般做法是使这个类成为final。</li>
+<li>使所有的字段都是final的。</li>
+<li>使所有的字段都成功私有的。</li>
+<li>确保对于任何可变组件的互斥访问。如果类具有指向可变对象的字段，必须确保类的客户端无法获得这些对象的引用。</li>
+</ol>
+<p><strong>不可变</strong></p>
+<ol>
+<li>不可变类的如果需要进行运算，会创建并返回新的实例，这种模式是函数式的做法。与之相对应的是更常见的过程式的或者命令式的做法。</li>
+<li>不可变对象本质上是线程安全的，它们不要求同步。不可变对象可以被自由地共享，影应该鼓励客户端尽可能地重用现有的实例，最简单的办法就是，对于频繁用到的值，为它们提供public static final常量。静态工厂可以进一步把频繁被请求的实例缓存起来。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static final Complex ZERO=new Complex(0,0);</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>不仅可以共享不可变对象，也可以共享它们的内部信息。</li>
+<li>不可变类真正唯一的缺点是，对于每个不同的值都需要一个单独的对象。解决办法是提供一个公有的可变套配类，比如String的StringBuilder和基本上已经废弃的StringBuffer。</li>
+<li>让不可变的类变成final的另一种做法就是，让类的所有构造器都变成私有的或者包级私有的（在包内同样可以继承），并添加公有的静态工厂。</li>
+<li>除非有令人信服的理由要使字段变成是非final的，否则要使每个字段都是final的，限制它的可变性。不要再构造器或者静态工厂之外再提供公有的初始化方法，除非有令人信服的理由必须这么做。不应该提供重新初始化方法，重用和共享不可兼得。</li>
+</ol>
+<h2 id="复合优先于继承"><a href="#复合优先于继承" class="headerlink" title="复合优先于继承"></a>复合优先于继承</h2><ol>
+<li>在包的内部使用继承是非常安全的，因为子类和超类的实现都处在同一个程序员的控制之下。对于专门为了继承而设计并且具有很好的文档说明的类来说，也是非常安全的。然而，对普通的具体类进行跨越包边界的继承，则是非常危险的。</li>
+<li>继承打破了封装性，子类依赖于其超类中特定功能的实现细节，超类的实现可能会随着发行版本的不同而有所变化，子类可能会遭到破坏因而，子类必须跟着其超类的更新而演变，除非超类是专门为了扩展而设计的，并且具有很好的文档说明。</li>
+</ol>
+<p><strong>继承可能破坏依赖</strong></p>
+<ol>
+<li>超类的方法之间可能存在依赖，如果重写了其中的方法，可能破坏依赖关系。</li>
+<li>超类在后续的发行版本中可能获得新的方法，子类可能无意识地重写了这个方法，这也将破坏依赖关系。</li>
+</ol>
+<p><strong>复合</strong></p>
+<ol>
+<li>复合将现有类作为私有字段实现扩展。新类的实例方法都可以调用被包含的现有类实例的对应的方法，并返回它的结果，这称为转发，新类的方法称为转发方法。</li>
+<li>修饰模式是指每一个包装类实例都把另一个被包装类实例包装起来以增加特性。</li>
+<li>只有当子类真正是超类的子类型时，存在is-a关系时才适合用继承。如果在适合使用复合的地方使用了继承，则会不必要地暴露实现细节和限制在原始的实现上。继承还会把缺陷传播到子类。</li>
+</ol>
+<h2 id="要么为继承为设计，并提供文档说明，要么就禁止继承。"><a href="#要么为继承为设计，并提供文档说明，要么就禁止继承。" class="headerlink" title="要么为继承为设计，并提供文档说明，要么就禁止继承。"></a>要么为继承为设计，并提供文档说明，要么就禁止继承。</h2><ol>
+<li>类的文档必须精确地描述重写每个方法所带来的影响。</li>
+<li>对于为了继承而设计的类，唯一的测试方法就是编写子类。</li>
+<li>构造器决不能调用可被重写的方法。这样会导致子类中重写版本的方法将会在子类的构造器运行之前就先被调用。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class People&#123;</span><br><span class="line">    public People()&#123;</span><br><span class="line">        f();</span><br><span class="line">    &#125;</span><br><span class="line">    public void f()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student extends People&#123;</span><br><span class="line">    private String name=&quot;name&quot;;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void f()&#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Student student = new Student(); //打印 “null”</span><br><span class="line">        student.f(); //打印 “name&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>如果决定在一个为了继承而设计的类中实现Cloneable或Serializeble接口，应该意识到，clone和readObject方法在行为上非常类似于构造器，不能调用可重写的方法。</li>
+</ol>
+<h2 id="接口优于抽象类"><a href="#接口优于抽象类" class="headerlink" title="接口优于抽象类"></a>接口优于抽象类</h2><ol>
+<li>JDK8开始，接口增加了默认方法和静态方法。</li>
+<li>Java只允许单继承，而接口没有限制。</li>
+<li>现有的类可以很容易被更新，以实现新的接口。</li>
+<li>接口是定义mixin（混合类型）的理想选择。mixin类型表明提供了可供选择的行为，允许任选的功能可被混合到类型的主要功能中。比如Comparable允许类表明它的实例可以与其他的可互相比较的对象进行排序。</li>
+<li>接口允许我们构造非层次结构的类型框架。</li>
+</ol>
+
       
     </div>
     
@@ -802,7 +887,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">考虑用静态工厂方法代替构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到多个构造器参数时要考虑用构建器"><span class="nav-number">1.2.</span> <span class="nav-text">遇到多个构造器参数时要考虑用构建器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用私有构造器或者枚举类型强化Singleton属性"><span class="nav-number">1.3.</span> <span class="nav-text">用私有构造器或者枚举类型强化Singleton属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过私有构造器强化不可实例化的能力"><span class="nav-number">1.4.</span> <span class="nav-text">通过私有构造器强化不可实例化的能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免创建不必要的对象"><span class="nav-number">1.5.</span> <span class="nav-text">避免创建不必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除过期的对象引用"><span class="nav-number">1.6.</span> <span class="nav-text">消除过期的对象引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免使用终结方法"><span class="nav-number">1.7.</span> <span class="nav-text">避免使用终结方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于所有对象都通用的方法"><span class="nav-number">2.</span> <span class="nav-text">对于所有对象都通用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时请遵守通用约定"><span class="nav-number">2.1.</span> <span class="nav-text">覆盖equals时请遵守通用约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时总要覆盖hashCode"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖equals时总要覆盖hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#始终要覆盖toString"><span class="nav-number">2.3.</span> <span class="nav-text">始终要覆盖toString</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地覆盖clone"><span class="nav-number">2.4.</span> <span class="nav-text">谨慎地覆盖clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑实现Comparable接口"><span class="nav-number">2.5.</span> <span class="nav-text">考虑实现Comparable接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类和接口"><span class="nav-number">3.</span> <span class="nav-text">类和接口</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">考虑用静态工厂方法代替构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到多个构造器参数时要考虑用构建器"><span class="nav-number">1.2.</span> <span class="nav-text">遇到多个构造器参数时要考虑用构建器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用私有构造器或者枚举类型强化Singleton属性"><span class="nav-number">1.3.</span> <span class="nav-text">用私有构造器或者枚举类型强化Singleton属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过私有构造器强化不可实例化的能力"><span class="nav-number">1.4.</span> <span class="nav-text">通过私有构造器强化不可实例化的能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免创建不必要的对象"><span class="nav-number">1.5.</span> <span class="nav-text">避免创建不必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除过期的对象引用"><span class="nav-number">1.6.</span> <span class="nav-text">消除过期的对象引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免使用终结方法"><span class="nav-number">1.7.</span> <span class="nav-text">避免使用终结方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于所有对象都通用的方法"><span class="nav-number">2.</span> <span class="nav-text">对于所有对象都通用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时请遵守通用约定"><span class="nav-number">2.1.</span> <span class="nav-text">覆盖equals时请遵守通用约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时总要覆盖hashCode"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖equals时总要覆盖hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#始终要覆盖toString"><span class="nav-number">2.3.</span> <span class="nav-text">始终要覆盖toString</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地覆盖clone"><span class="nav-number">2.4.</span> <span class="nav-text">谨慎地覆盖clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑实现Comparable接口"><span class="nav-number">2.5.</span> <span class="nav-text">考虑实现Comparable接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类和接口"><span class="nav-number">3.</span> <span class="nav-text">类和接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使类和成员的可访问性最小化"><span class="nav-number">3.1.</span> <span class="nav-text">使类和成员的可访问性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在公有类中使用访问方法而非公有域"><span class="nav-number">3.2.</span> <span class="nav-text">在公有类中使用访问方法而非公有域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使可变性最小化"><span class="nav-number">3.3.</span> <span class="nav-text">使可变性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复合优先于继承"><span class="nav-number">3.4.</span> <span class="nav-text">复合优先于继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要么为继承为设计，并提供文档说明，要么就禁止继承。"><span class="nav-number">3.5.</span> <span class="nav-text">要么为继承为设计，并提供文档说明，要么就禁止继承。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优于抽象类"><span class="nav-number">3.6.</span> <span class="nav-text">接口优于抽象类</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -839,7 +924,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">10.2k</span>
+    <span title="Site words total count">12.3k</span>
   
 </div>
 
