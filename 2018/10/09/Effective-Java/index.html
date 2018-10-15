@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="创建和销毁对象考虑用静态工厂方法代替构造器优点  有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。  静态工厂方法是服务提供者框架的基础，服务提供者框架包含3个组件：服务接口、提供者注册API和服">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-14T03:31:31.696Z">
+<meta property="og:updated_time" content="2018-10-15T03:50:12.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Java">
 <meta name="twitter:description" content="创建和销毁对象考虑用静态工厂方法代替构造器优点  有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。  静态工厂方法是服务提供者框架的基础，服务提供者框架包含3个组件：服务接口、提供者注册API和服">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-14T11:31:31+08:00">
-                2018-10-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-15T11:50:12+08:00">
+                2018-10-15
               </time>
             
           </span>
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  5.2k
+                  6.2k
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  19
+                  23
                 </span>
               
             </div>
@@ -712,6 +712,35 @@
 <li>接口是定义mixin（混合类型）的理想选择。mixin类型表明提供了可供选择的行为，允许任选的功能可被混合到类型的主要功能中。比如Comparable允许类表明它的实例可以与其他的可互相比较的对象进行排序。</li>
 <li>接口允许我们构造非层次结构的类型框架。</li>
 </ol>
+<p><strong>骨架实现与简单实现</strong></p>
+<ol>
+<li>骨架实现类比较简单，在接口中确定哪些方法是最为基本的，其他的方法可以根据它们来实现。这些基本方法将称为骨架实现类的抽象方法，而其他的方法提供具体的实现。骨架实现类是为了继承的目的而设计的。</li>
+<li>简单实现，比如额AbstractMap和SimpleEntry，很像骨架实现，这是因为它实现了接口，并且是为了继承而设计的。但是区别在于它不是抽线的：它是最简单的可能的有效实现。你可以原封不动地使用，也可以看情况将它子类化。</li>
+</ol>
+<h2 id="接口只用于定义类型"><a href="#接口只用于定义类型" class="headerlink" title="接口只用于定义类型"></a>接口只用于定义类型</h2><ol>
+<li>常量接口没有任何方法，只包含静态的final字段。常量接口模式是对接口的不良使用。类在内部使用某些常量，属于实现细节。</li>
+<li>当类或接口的常量能看作枚举类型的成员，就应该用枚举类型。否则，应该使用不可实例化的工具类。</li>
+</ol>
+<h2 id="类层次优于标签类"><a href="#类层次优于标签类" class="headerlink" title="类层次优于标签类"></a>类层次优于标签类</h2><ol>
+<li>标签类，实例有多种风格。缺点，多种风格实现混在一起，破坏了可读性，也让实例承担着属于其他风格不相关的字段。标签类过于冗长、容易出错，并且效率低下。</li>
+</ol>
+<h2 id="用函数对象表示策略"><a href="#用函数对象表示策略" class="headerlink" title="用函数对象表示策略"></a>用函数对象表示策略</h2><ol>
+<li>函数对象可以作为参数，允许函数的调用者通过传入函数对象，来指定自己的行为。这称为策略模式。</li>
+<li>Java中常用函数接口来实现函数对象，</li>
+</ol>
+<h2 id="优先考虑静态成员类"><a href="#优先考虑静态成员类" class="headerlink" title="优先考虑静态成员类"></a>优先考虑静态成员类</h2><ol>
+<li>嵌套类存在的目的应该只是为它的外围类提供服务。嵌套类有4种：静态成员类、非静态成员类、匿名类和局部类。除了第1种外，其他3种都称为内部类。</li>
+<li>静态成员类是最简单的一种嵌套类，最好把它看作是普通的类，它可以访问外围类的所有成员，包括私有成员。静态成员类是外围类的一个静态成员，遵守同样的可访问性规则。</li>
+<li>非静态成员类的每个实例都隐含着与外围类的一个外围实例相关联。在非静态成员类的实例方法内部，可以调用外围实例上的方法，或者利用修饰过的this获得外围实例的引用。在没有外围实例的情况下，是不可以创建非静态成员类的实例的。当非静态成员类的实例被创建时，它与外围类实例之间的关联关系就被建立起来，这会增加非静态成员类实例的开销。</li>
+<li>如果声明成员类不要求访问外围实例，就要作为静态成员类。私有静态成员类的一种常见用法是用来代表外围类所代表的对象的组件。</li>
+<li>匿名类在使用的时候同时声明和实例化。当且仅当匿名类出现在非静态的环境种，它才有外围实例。匿名类只有在声明的时候才可以实例化，而且不可以拥有任何静态成员。<ul>
+<li>匿名类的一种常见用法是动态地创建函数对象。</li>
+<li>另一种常见用法是创建过程对象，比如Runnable、Thread或者TimerTask实例。</li>
+<li>第三种常见用法是在静态工厂方法的内部。</li>
+</ul>
+</li>
+<li>局部类是4种嵌套类中用得最少的类，和匿名类一样，只有当局部类是在非静态环境中定义的时候，才有外围实例，它们也不可以包含静态成员。</li>
+</ol>
 
       
     </div>
@@ -887,7 +916,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">考虑用静态工厂方法代替构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到多个构造器参数时要考虑用构建器"><span class="nav-number">1.2.</span> <span class="nav-text">遇到多个构造器参数时要考虑用构建器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用私有构造器或者枚举类型强化Singleton属性"><span class="nav-number">1.3.</span> <span class="nav-text">用私有构造器或者枚举类型强化Singleton属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过私有构造器强化不可实例化的能力"><span class="nav-number">1.4.</span> <span class="nav-text">通过私有构造器强化不可实例化的能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免创建不必要的对象"><span class="nav-number">1.5.</span> <span class="nav-text">避免创建不必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除过期的对象引用"><span class="nav-number">1.6.</span> <span class="nav-text">消除过期的对象引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免使用终结方法"><span class="nav-number">1.7.</span> <span class="nav-text">避免使用终结方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于所有对象都通用的方法"><span class="nav-number">2.</span> <span class="nav-text">对于所有对象都通用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时请遵守通用约定"><span class="nav-number">2.1.</span> <span class="nav-text">覆盖equals时请遵守通用约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时总要覆盖hashCode"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖equals时总要覆盖hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#始终要覆盖toString"><span class="nav-number">2.3.</span> <span class="nav-text">始终要覆盖toString</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地覆盖clone"><span class="nav-number">2.4.</span> <span class="nav-text">谨慎地覆盖clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑实现Comparable接口"><span class="nav-number">2.5.</span> <span class="nav-text">考虑实现Comparable接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类和接口"><span class="nav-number">3.</span> <span class="nav-text">类和接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使类和成员的可访问性最小化"><span class="nav-number">3.1.</span> <span class="nav-text">使类和成员的可访问性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在公有类中使用访问方法而非公有域"><span class="nav-number">3.2.</span> <span class="nav-text">在公有类中使用访问方法而非公有域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使可变性最小化"><span class="nav-number">3.3.</span> <span class="nav-text">使可变性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复合优先于继承"><span class="nav-number">3.4.</span> <span class="nav-text">复合优先于继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要么为继承为设计，并提供文档说明，要么就禁止继承。"><span class="nav-number">3.5.</span> <span class="nav-text">要么为继承为设计，并提供文档说明，要么就禁止继承。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优于抽象类"><span class="nav-number">3.6.</span> <span class="nav-text">接口优于抽象类</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">考虑用静态工厂方法代替构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到多个构造器参数时要考虑用构建器"><span class="nav-number">1.2.</span> <span class="nav-text">遇到多个构造器参数时要考虑用构建器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用私有构造器或者枚举类型强化Singleton属性"><span class="nav-number">1.3.</span> <span class="nav-text">用私有构造器或者枚举类型强化Singleton属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过私有构造器强化不可实例化的能力"><span class="nav-number">1.4.</span> <span class="nav-text">通过私有构造器强化不可实例化的能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免创建不必要的对象"><span class="nav-number">1.5.</span> <span class="nav-text">避免创建不必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除过期的对象引用"><span class="nav-number">1.6.</span> <span class="nav-text">消除过期的对象引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免使用终结方法"><span class="nav-number">1.7.</span> <span class="nav-text">避免使用终结方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于所有对象都通用的方法"><span class="nav-number">2.</span> <span class="nav-text">对于所有对象都通用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时请遵守通用约定"><span class="nav-number">2.1.</span> <span class="nav-text">覆盖equals时请遵守通用约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时总要覆盖hashCode"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖equals时总要覆盖hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#始终要覆盖toString"><span class="nav-number">2.3.</span> <span class="nav-text">始终要覆盖toString</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地覆盖clone"><span class="nav-number">2.4.</span> <span class="nav-text">谨慎地覆盖clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑实现Comparable接口"><span class="nav-number">2.5.</span> <span class="nav-text">考虑实现Comparable接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类和接口"><span class="nav-number">3.</span> <span class="nav-text">类和接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使类和成员的可访问性最小化"><span class="nav-number">3.1.</span> <span class="nav-text">使类和成员的可访问性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在公有类中使用访问方法而非公有域"><span class="nav-number">3.2.</span> <span class="nav-text">在公有类中使用访问方法而非公有域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使可变性最小化"><span class="nav-number">3.3.</span> <span class="nav-text">使可变性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复合优先于继承"><span class="nav-number">3.4.</span> <span class="nav-text">复合优先于继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要么为继承为设计，并提供文档说明，要么就禁止继承。"><span class="nav-number">3.5.</span> <span class="nav-text">要么为继承为设计，并提供文档说明，要么就禁止继承。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优于抽象类"><span class="nav-number">3.6.</span> <span class="nav-text">接口优于抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口只用于定义类型"><span class="nav-number">3.7.</span> <span class="nav-text">接口只用于定义类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类层次优于标签类"><span class="nav-number">3.8.</span> <span class="nav-text">类层次优于标签类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用函数对象表示策略"><span class="nav-number">3.9.</span> <span class="nav-text">用函数对象表示策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先考虑静态成员类"><span class="nav-number">3.10.</span> <span class="nav-text">优先考虑静态成员类</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -924,7 +953,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">12.3k</span>
+    <span title="Site words total count">13.2k</span>
   
 </div>
 
