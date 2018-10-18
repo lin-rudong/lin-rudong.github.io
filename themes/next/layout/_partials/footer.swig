@@ -1,6 +1,3 @@
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-
 <div class="copyright">{#
 #}{% set current = date(Date.now(), "YYYY") %}{#
 #}&copy; {% if theme.footer.since and theme.footer.since != current %}{{ theme.footer.since }} &mdash; {% endif %}{#
@@ -48,6 +45,9 @@
   #}{{ theme.footer.custom_text }}{#
 #}</div>
 {% endif %}
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
 
 <i class="fa fa-user-md"></i>
 <span id="busuanzi_container_site_pv">
