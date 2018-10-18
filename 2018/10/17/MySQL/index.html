@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="JDK代理 JDK代理必须面向接口，因为最后Proxy.newProxyInstance生成的代理继承于Proxy，所以不能通过继承来实现代理。 Proxy代理的方法必须放在源类的接口里面，因为Proxy实现源类所有的接口。  12345678910interface People&amp;#123;    String toString();&amp;#125;@Dataclass Student implem">
+<meta name="description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  or条件中的每个列必须都加上索引才能生效，否则失效。 组合索引必须使用第1个才会生效，否则失效。 LIKE查询不能是%开头，否则失效。 条件的列">
 <meta property="og:type" content="article">
-<meta property="og:title" content="代理">
-<meta property="og:url" content="https://lin-rudong.github.io/2018/10/12/代理/index.html">
+<meta property="og:title" content="MySQL">
+<meta property="og:url" content="https://lin-rudong.github.io/2018/10/17/MySQL/index.html">
 <meta property="og:site_name" content="林如东的博客">
-<meta property="og:description" content="JDK代理 JDK代理必须面向接口，因为最后Proxy.newProxyInstance生成的代理继承于Proxy，所以不能通过继承来实现代理。 Proxy代理的方法必须放在源类的接口里面，因为Proxy实现源类所有的接口。  12345678910interface People&amp;#123;    String toString();&amp;#125;@Dataclass Student implem">
+<meta property="og:description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  or条件中的每个列必须都加上索引才能生效，否则失效。 组合索引必须使用第1个才会生效，否则失效。 LIKE查询不能是%开头，否则失效。 条件的列">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-13T03:16:41.202Z">
+<meta property="og:updated_time" content="2018-10-17T03:46:58.023Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="代理">
-<meta name="twitter:description" content="JDK代理 JDK代理必须面向接口，因为最后Proxy.newProxyInstance生成的代理继承于Proxy，所以不能通过继承来实现代理。 Proxy代理的方法必须放在源类的接口里面，因为Proxy实现源类所有的接口。  12345678910interface People&amp;#123;    String toString();&amp;#125;@Dataclass Student implem">
+<meta name="twitter:title" content="MySQL">
+<meta name="twitter:description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  or条件中的每个列必须都加上索引才能生效，否则失效。 组合索引必须使用第1个才会生效，否则失效。 LIKE查询不能是%开头，否则失效。 条件的列">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://lin-rudong.github.io/2018/10/12/代理/"/>
+  <link rel="canonical" href="https://lin-rudong.github.io/2018/10/17/MySQL/"/>
 
 
 
 
 
-  <title>代理 | 林如东的博客</title>
+  <title>MySQL | 林如东的博客</title>
   
 
 
@@ -288,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/10/12/代理/">
+    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/10/17/MySQL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="林如东">
@@ -305,7 +305,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">代理</h2>
+          <h2 class="post-title" itemprop="name headline">MySQL</h2>
         
 
         <div class="post-meta">
@@ -317,8 +317,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T17:11:01+08:00">
-                2018-10-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-17T10:37:12+08:00">
+                2018-10-17
               </time>
             
 
@@ -333,34 +333,12 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-13T11:16:41+08:00">
-                2018-10-13
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-17T11:46:58+08:00">
+                2018-10-17
               </time>
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -370,8 +348,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/12/代理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/12/代理/" itemprop="commentCount"></span>
+                <a href="/2018/10/17/MySQL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/17/MySQL/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -379,7 +357,7 @@
 
           
           
-             <span id="/2018/10/12/代理/" class="leancloud_visitors" data-flag-title="代理">
+             <span id="/2018/10/17/MySQL/" class="leancloud_visitors" data-flag-title="MySQL">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -404,7 +382,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  408
+                  336
                 </span>
               
 
@@ -441,29 +419,44 @@
       
 
       
-        <h1 id="JDK代理"><a href="#JDK代理" class="headerlink" title="JDK代理"></a>JDK代理</h1><ol>
-<li>JDK代理必须面向接口，因为最后Proxy.newProxyInstance生成的代理继承于Proxy，所以不能通过继承来实现代理。</li>
-<li>Proxy代理的方法必须放在源类的接口里面，因为Proxy实现源类所有的接口。</li>
+        <h1 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h1><p><strong>LIKE或NOT LIKE</strong></p>
+<ol>
+<li>%：0个或多个字符。</li>
+<li>_：1个字符。</li>
+<li>[]：括号内字符中的1个字符。</li>
+<li>[^]：不在括号内字符中的1个字符。</li>
+<li>\：转义。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">interface People&#123;</span><br><span class="line">    String toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Data</span><br><span class="line">class Student implements People&#123;</span><br><span class="line">    private String id;</span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>Proxy属于动态代理，PeopleProxy是在运行时通过反射机制动态生成的代理类。</li>
-<li>动态指的是在运行时可以根据所代理的类的不同生成不同的Proxy代理类，简单地说，不管被代理的类怎么变，Proxy代理类都可以不变应万变。</li>
-<li>PeopleProxy通过私有字段InvocationHandler拦截器实现代理，它将通过反射机制拦截PeopleProxy的调用。</li>
+<p><strong>REGEXP或NOT REGEXP</strong></p>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ol>
+<li>普通索引</li>
+<li>唯一索引</li>
+<li>主键索引</li>
+<li>组合索引</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class PeopleProxy implements People&#123;</span><br><span class="line">    private InvocationHandler interceptor;</span><br><span class="line"></span><br><span class="line">    private static Method toStringMethod=People.getMethod(&quot;toString&quot;);</span><br><span class="line"></span><br><span class="line">    public String toString()&#123;</span><br><span class="line">        interceptor.invoke(this,toStringMethod,null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li>origin是被代理的对象，即源类的实例，它作为拦截器的字段，而不直接包含在Proxy内。</li>
-<li>invoke的参数，proxy是Proxy代理类，如果将proxy作为method.invoke的参数代替origin将出现死循环。</li>
+<p><strong>索引限制</strong></p>
+<ol>
+<li>or条件中的每个列必须都加上索引才能生效，否则失效。</li>
+<li>组合索引必须使用第1个才会生效，否则失效。</li>
+<li>LIKE查询不能是%开头，否则失效。</li>
+<li>条件的列不能进行运算，否则失效。</li>
+<li>not in和!=会导致失效。</li>
+<li><p>is null和is not null会导致失效。</p>
+</li>
+<li><p>如果创建了索引(a,b,c)，实际等同于创建了索引(a)、索引(a,b)和索引(a,b,c)。</p>
+</li>
+<li>索引不会包含有NULL值得列，组合索引只有要一列含有NULL值就无效。</li>
+<li>对字符串索引时限制长度。</li>
+<li>VARCHAR是变长的，可以节约空间，但更新数据时可能产生碎片。</li>
+<li><p>ENUM类型代替字符串类型，数据实际存储为整型。</p>
+</li>
+<li><p>避免全表扫描，在where和order by涉及的列上建立索引。</p>
+</li>
+<li>避免where对null判断，设置默认值不为null。</li>
+<li>避免where使用or连接条件，使用union代替。</li>
+<li>in和not in会导致全表扫描，用between等代替。</li>
+<li>避免使用通配符。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@AllArgsConstructor</span><br><span class="line">class Interceptor implements InvocationHandler &#123;</span><br><span class="line">    private Student origin;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">        System.out.println(&quot;before invocation...&quot;);</span><br><span class="line"></span><br><span class="line">        Object resultObject=method.invoke(origin,args);</span><br><span class="line"></span><br><span class="line">        return resultObject;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="8">
-<li>类的唯一是由类加载器加类全限名确定的，所以Proxy.newProxyInstance的第一参数是代理类的加载器，运行如下。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    Student student = new Student();</span><br><span class="line">    Interceptor interceptor = new Interceptor(student);</span><br><span class="line"></span><br><span class="line">    People people=(People)Proxy.newProxyInstance(Student.class.getClassLoader(),Student.class.getInterfaces(),interceptor);</span><br><span class="line"></span><br><span class="line">    System.out.println(people.toString());</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>before invocation…<br>Student(id=null, name=null, age=0)</p>
-</blockquote>
 
       
     </div>
@@ -488,8 +481,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/10/设计模式/" rel="next" title="设计模式">
-                <i class="fa fa-chevron-left"></i> 设计模式
+              <a href="/2018/10/13/全排列/" rel="next" title="全排列">
+                <i class="fa fa-chevron-left"></i> 全排列
               </a>
             
           </div>
@@ -497,10 +490,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/13/全排列/" rel="prev" title="全排列">
-                全排列 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -639,7 +628,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK代理"><span class="nav-number">1.</span> <span class="nav-text">JDK代理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模糊查询"><span class="nav-number">1.</span> <span class="nav-text">模糊查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引"><span class="nav-number">2.</span> <span class="nav-text">索引</span></a></li></ol></div>
             
 
           </div>
