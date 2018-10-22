@@ -7,7 +7,7 @@
       <link href="/2018/10/20/Java8%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9FAPI/"/>
       <url>/2018/10/20/Java8%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9FAPI/</url>
       
-        <content type="html"><![CDATA[<p>Instant：瞬时。获取当前的时间戳，相当于以前的Date类。<br>LocalTime：本地时间。<br>LocalDate：本地日期。<br>LocalDateTime：本地日期时间，不包含时区。<br>ZonedDateTime：最完整的日期时间。</p><p>MonthDay<br>Clock：获取当前的时间戳Clock.systemUTC()。<br>Duration<br>Period</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<h1 id="Java8时间和日期API"><a href="#Java8时间和日期API" class="headerlink" title="Java8时间和日期API"></a>Java8时间和日期API</h1><p>Instant：瞬时。获取当前的时间戳，相当于以前的Date类。<br>LocalTime：本地时间。<br>LocalDate：本地日期。<br>LocalDateTime：本地日期时间，不包含时区。<br>ZonedDateTime：最完整的日期时间。</p><p>MonthDay<br>Clock：获取当前的时间戳Clock.systemUTC()。<br>Duration<br>Period</p>]]></content>
       
       
       <categories>
@@ -329,18 +329,18 @@
     </entry>
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
     </entry>
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
