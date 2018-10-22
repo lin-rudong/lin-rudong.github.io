@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="创建和销毁对象考虑用静态工厂方法代替构造器优点  有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。  静态工厂方法是服务提供者框架的基础，服务提供者框架包含3个组件：服务接口、提供者注册API和服">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-20T03:34:09.363Z">
+<meta property="og:updated_time" content="2018-10-22T03:32:31.070Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Java">
 <meta name="twitter:description" content="创建和销毁对象考虑用静态工厂方法代替构造器优点  有名称,能确切地描述正被返回的对象。 不必在每次调用的时候都创建一个新对象,可以控制实例实现Singleton或者使得不可变类能使用==操作符代替equals方法，从而提升性能。 可以返回原返回类型的任何子类型对象,可以隐藏底层的实现使API变得简洁。  静态工厂方法是服务提供者框架的基础，服务提供者框架包含3个组件：服务接口、提供者注册API和服">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-20T11:34:09+08:00">
-                2018-10-20
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-22T11:32:31+08:00">
+                2018-10-22
               </time>
             
           </span>
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  9.7k
+                  11.5k
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  35
+                  41
                 </span>
               
             </div>
@@ -885,7 +885,87 @@
 <li>Javadoc具有继承方法注释的能力，接口的文档注释优先于超类的。</li>
 <li>在文档注释内部出现任何HTML标签都是允许的，但是HTML元字符必须要经过转义。</li>
 </ol>
-<h1 id="通用程序设计"><a href="#通用程序设计" class="headerlink" title="通用程序设计"></a>通用程序设计</h1><h2 id="将局部变量的作用域最小化"><a href="#将局部变量的作用域最小化" class="headerlink" title="将局部变量的作用域最小化"></a>将局部变量的作用域最小化</h2>
+<h1 id="通用程序设计"><a href="#通用程序设计" class="headerlink" title="通用程序设计"></a>通用程序设计</h1><h2 id="将局部变量的作用域最小化"><a href="#将局部变量的作用域最小化" class="headerlink" title="将局部变量的作用域最小化"></a>将局部变量的作用域最小化</h2><ol>
+<li>要使局部变量的作用域最小化，最有力的办法就是在第一次使用它的地方声明。</li>
+<li>几乎每个局部变量的声明都应该包含一个初始化表达式。如果还没有足够的信息对一个变量进行有意义的初始化，就应该推迟这个声明。try例外。</li>
+<li>循环中提供了特殊的机会来将变量的作用域最小化。如果循环终止之后不再需要循环变量的内容，for循环就优先于while循环。</li>
+<li>最后一种将局部变量的作用域最小化的方法是使方法小而集中。</li>
+</ol>
+<h2 id="for-each循环优先于传统的for循环"><a href="#for-each循环优先于传统的for循环" class="headerlink" title="for-each循环优先于传统的for循环"></a>for-each循环优先于传统的for循环</h2><h2 id="了解和使用类库"><a href="#了解和使用类库" class="headerlink" title="了解和使用类库"></a>了解和使用类库</h2><ol>
+<li>必须熟悉java.lang、java.util，一定程度上java.io也需要。java.util包种的集合框架和并发工具更是重要。</li>
+<li>不要重复造轮子。</li>
+</ol>
+<h2 id="如果需要精确的答案，请避免使用float和double。"><a href="#如果需要精确的答案，请避免使用float和double。" class="headerlink" title="如果需要精确的答案，请避免使用float和double。"></a>如果需要精确的答案，请避免使用float和double。</h2><ol>
+<li>float和double不适合货币计算，应该用BigDecimal，也可以用int和long用来表示以分做单位的货币。</li>
+</ol>
+<h2 id="基本类型优先于装箱基本类型"><a href="#基本类型优先于装箱基本类型" class="headerlink" title="基本类型优先于装箱基本类型"></a>基本类型优先于装箱基本类型</h2><ol>
+<li>装箱基本类型默认值为null，如果null拆箱会抛出NullPointerException。</li>
+<li>==运算符对2个装箱基本类型不会自动拆箱。</li>
+</ol>
+<h2 id="如果其他类型更适合，则尽量避免使用字符串。"><a href="#如果其他类型更适合，则尽量避免使用字符串。" class="headerlink" title="如果其他类型更适合，则尽量避免使用字符串。"></a>如果其他类型更适合，则尽量避免使用字符串。</h2><ol>
+<li>字符串不适合代替其他的值类型。</li>
+<li>字符串不适合代替枚举类型，枚举类型比字符串更加适合用来表示枚举类型的常量。</li>
+<li>字符串不适合代替聚集类型。如果有多个组件，用类更合适。</li>
+</ol>
+<h2 id="当心字符串连接的性能"><a href="#当心字符串连接的性能" class="headerlink" title="当心字符串连接的性能"></a>当心字符串连接的性能</h2><ol>
+<li>用StringBuilder或者字符数组可以提高性能。</li>
+</ol>
+<h2 id="通过接口引用对象"><a href="#通过接口引用对象" class="headerlink" title="通过接口引用对象"></a>通过接口引用对象</h2><h2 id="接口优先于反射机制"><a href="#接口优先于反射机制" class="headerlink" title="接口优先于反射机制"></a>接口优先于反射机制</h2><ol>
+<li>java.lang.reflect反射机制提供了通过程序来访问已加载的类的信息的能力。给定一个Class实例，可以获得Constructor、Method和Field实例，通过它们可以访问底层对等体。</li>
+<li>反射机制允许一个类使用另一个在编译时不存在的类。<ul>
+<li>丧失了编译时类型检查的好处，在运行时可能会失败。</li>
+<li>执行反射访问所需要的代码非常笨拙和冗长。</li>
+<li>性能损失。</li>
+</ul>
+</li>
+<li>普通应用程序在运行时不应该以反射方式访问对象。</li>
+<li>对于有些程序，它们必须用到在编译时无法获取的类，但是在编译时存在适当的接口或者超类，就可以以反射的方式创建实例，然后通过它们的接口或者超类，以正常的方式访问这些实例。如果构造器不带参数，甚至不需要使用java.lang.reflect包，Class.newInstance方法就提供了所需的功能。</li>
+</ol>
+<h2 id="谨慎地使用本地方法"><a href="#谨慎地使用本地方法" class="headerlink" title="谨慎地使用本地方法"></a>谨慎地使用本地方法</h2><ol>
+<li>本地方法是指本地程序设计语言，比如C或C++。<ul>
+<li>提供访问特定于平台的机制，比如访问注册表和文件锁。</li>
+<li>提供访问遗留代码库的能力，从而可以访问遗留数据。</li>
+<li>可以提高系统性能。</li>
+</ul>
+</li>
+<li>使用本地方法来提高性能的做法不值得提倡。因为JVM变得越来越快。而且很多本来本地方法才有的特性，Java也在不断完善。</li>
+</ol>
+<h2 id="谨慎地进行优化"><a href="#谨慎地进行优化" class="headerlink" title="谨慎地进行优化"></a>谨慎地进行优化</h2><ol>
+<li>很多计算上的过失都被错误地归咎于效率。</li>
+<li>不要去计较效率上的一些小小的得失。</li>
+<li>在没有绝对清晰的优化方案之前，不要进行优化。</li>
+<li>不要因为性能而牺牲合理的结构，要努力编写好的程序而不是快的程序，好的结构可以优化程序。</li>
+<li>努力避免那些限制性能的设计决策。当一个系统设计完成之后，其中最难以更改的组件是那些指定了模块之间交互关系以及模块和外界交互关系的组件。主要是API、线路层协议以及永久数据格式。</li>
+</ol>
+<h2 id="遵守普遍接受的命名惯例"><a href="#遵守普遍接受的命名惯例" class="headerlink" title="遵守普遍接受的命名惯例"></a>遵守普遍接受的命名惯例</h2><ol>
+<li>包的名称，可以包括小写字母和数字，很少使用数字。包的组成部分应该比较简短，通常不超过8个字符，鼓励使用有意义的缩写形式。虽然Java语言并没有支持包层次，但是包在设计的时候还是要按照层次结构划分。</li>
+<li>类、接口、枚举和注解的名称，用驼峰形式，应该尽量避免用缩写。</li>
+<li>方法和字段的名称，用小驼峰形式，也应该尽量避免用缩写。</li>
+<li>常量的名称，用大写字母和下划线。</li>
+<li>局部变量名称，和字段相似，只不过它允许缩写。</li>
+<li>类型参数，T表示任意的类型，E表示集合的元素类型，K和V表示映射的键和值类型，X表示异常。任意类型的序列可以是T、U、V或者T1、T2、T3。</li>
+<li>转换类型toType，返回视图asType，返回跟对象同值得基本类型的方法typeValue。</li>
+</ol>
+<h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><h2 id="只针对异常的情况才使用异常"><a href="#只针对异常的情况才使用异常" class="headerlink" title="只针对异常的情况才使用异常"></a>只针对异常的情况才使用异常</h2><ol>
+<li>异常应该只用于异常的情况下，它们永远不应该用于正常的控制流。</li>
+</ol>
+<h2 id="对可恢复的情况使用受检异常，对编程错误使用运行时异常。"><a href="#对可恢复的情况使用受检异常，对编程错误使用运行时异常。" class="headerlink" title="对可恢复的情况使用受检异常，对编程错误使用运行时异常。"></a>对可恢复的情况使用受检异常，对编程错误使用运行时异常。</h2><ol>
+<li>3种抛出结构：受检异常，运行时异常和错误。受检异常必须捕获处理。</li>
+<li>运行时异常和错误，属于未受检异常，一般是不可恢复的情况，继续执行下去也是有害无益，所以不需要也不应该捕获。</li>
+<li>运行时异常用来表明编程错误。自定义的未受检异常都应该继承RuntimeException。</li>
+</ol>
+<h2 id="避免不必要地使用受检的异常"><a href="#避免不必要地使用受检的异常" class="headerlink" title="避免不必要地使用受检的异常"></a>避免不必要地使用受检的异常</h2><h2 id="优先使用标准的异常"><a href="#优先使用标准的异常" class="headerlink" title="优先使用标准的异常"></a>优先使用标准的异常</h2><ol>
+<li>最经常被重用的异常是IllegalArgumentException。另一个经常被重用的异常是IllegalStateException，因为接收对象的状态而使调用非法，比如对象被正确初始化之前就被使用。</li>
+<li>所有的方法调用错误都可以归结于非法参数和非法状态，但还有一些更具体的异常，比如NullPointerException和IndexOutOfBoundsException。</li>
+<li>ConcurrentModificationException，如果对象被设计成专门用于单线程或者于外部同步机制配合使用，一旦发现它正在或已经被并发地修改，抛出这个异常。</li>
+<li>UnsupportedOperationException，如果对象不支持所请求的操作，就会抛出这个异常。</li>
+<li>ArithmeticException和NumberFormatException。</li>
+</ol>
+<h2 id="抛出与抽象相对应的异常"><a href="#抛出与抽象相对应的异常" class="headerlink" title="抛出与抽象相对应的异常"></a>抛出与抽象相对应的异常</h2><ol>
+<li>异常转译，高层的实现应该捕获底层的异常，同时抛出可以按照高层抽象进行解释的异常。</li>
+<li>异常链，底层的异常作为原因被传到高层的异常，高层的异常提高访问方法来获得底层的异常。</li>
+</ol>
+<h2 id="每个方法抛出的异常都要有文档"><a href="#每个方法抛出的异常都要有文档" class="headerlink" title="每个方法抛出的异常都要有文档"></a>每个方法抛出的异常都要有文档</h2><h2 id="在细节消息中包含能捕获失败的信息"><a href="#在细节消息中包含能捕获失败的信息" class="headerlink" title="在细节消息中包含能捕获失败的信息"></a>在细节消息中包含能捕获失败的信息</h2>
       
     </div>
     
@@ -1005,7 +1085,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1060,7 +1140,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">考虑用静态工厂方法代替构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到多个构造器参数时要考虑用构建器"><span class="nav-number">1.2.</span> <span class="nav-text">遇到多个构造器参数时要考虑用构建器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用私有构造器或者枚举类型强化Singleton属性"><span class="nav-number">1.3.</span> <span class="nav-text">用私有构造器或者枚举类型强化Singleton属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过私有构造器强化不可实例化的能力"><span class="nav-number">1.4.</span> <span class="nav-text">通过私有构造器强化不可实例化的能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免创建不必要的对象"><span class="nav-number">1.5.</span> <span class="nav-text">避免创建不必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除过期的对象引用"><span class="nav-number">1.6.</span> <span class="nav-text">消除过期的对象引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免使用终结方法"><span class="nav-number">1.7.</span> <span class="nav-text">避免使用终结方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于所有对象都通用的方法"><span class="nav-number">2.</span> <span class="nav-text">对于所有对象都通用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时请遵守通用约定"><span class="nav-number">2.1.</span> <span class="nav-text">覆盖equals时请遵守通用约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时总要覆盖hashCode"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖equals时总要覆盖hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#始终要覆盖toString"><span class="nav-number">2.3.</span> <span class="nav-text">始终要覆盖toString</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地覆盖clone"><span class="nav-number">2.4.</span> <span class="nav-text">谨慎地覆盖clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑实现Comparable接口"><span class="nav-number">2.5.</span> <span class="nav-text">考虑实现Comparable接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类和接口"><span class="nav-number">3.</span> <span class="nav-text">类和接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使类和成员的可访问性最小化"><span class="nav-number">3.1.</span> <span class="nav-text">使类和成员的可访问性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在公有类中使用访问方法而非公有域"><span class="nav-number">3.2.</span> <span class="nav-text">在公有类中使用访问方法而非公有域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使可变性最小化"><span class="nav-number">3.3.</span> <span class="nav-text">使可变性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复合优先于继承"><span class="nav-number">3.4.</span> <span class="nav-text">复合优先于继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要么为继承为设计，并提供文档说明，要么就禁止继承。"><span class="nav-number">3.5.</span> <span class="nav-text">要么为继承为设计，并提供文档说明，要么就禁止继承。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优于抽象类"><span class="nav-number">3.6.</span> <span class="nav-text">接口优于抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口只用于定义类型"><span class="nav-number">3.7.</span> <span class="nav-text">接口只用于定义类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类层次优于标签类"><span class="nav-number">3.8.</span> <span class="nav-text">类层次优于标签类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用函数对象表示策略"><span class="nav-number">3.9.</span> <span class="nav-text">用函数对象表示策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先考虑静态成员类"><span class="nav-number">3.10.</span> <span class="nav-text">优先考虑静态成员类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型"><span class="nav-number">4.</span> <span class="nav-text">泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#请不要在新代码中使用原生态类型"><span class="nav-number">4.1.</span> <span class="nav-text">请不要在新代码中使用原生态类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除非受检警告"><span class="nav-number">4.2.</span> <span class="nav-text">消除非受检警告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表优先于数组"><span class="nav-number">4.3.</span> <span class="nav-text">列表优先于数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先考虑泛型"><span class="nav-number">4.4.</span> <span class="nav-text">优先考虑泛型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先考虑泛型方法"><span class="nav-number">4.5.</span> <span class="nav-text">优先考虑泛型方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用有限制通配符来提升API的灵活性"><span class="nav-number">4.6.</span> <span class="nav-text">利用有限制通配符来提升API的灵活性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先考虑类型安全的异构容器"><span class="nav-number">4.7.</span> <span class="nav-text">优先考虑类型安全的异构容器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#枚举和注解"><span class="nav-number">5.</span> <span class="nav-text">枚举和注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用enum代替int常量"><span class="nav-number">5.1.</span> <span class="nav-text">用enum代替int常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用实例字段代替序数"><span class="nav-number">5.2.</span> <span class="nav-text">用实例字段代替序数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用EnumSet代替位字段"><span class="nav-number">5.3.</span> <span class="nav-text">用EnumSet代替位字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用EnumMap代替序数索引"><span class="nav-number">5.4.</span> <span class="nav-text">用EnumMap代替序数索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用接口模拟可伸缩的枚举"><span class="nav-number">5.5.</span> <span class="nav-text">用接口模拟可伸缩的枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注解优先于命名模式"><span class="nav-number">5.6.</span> <span class="nav-text">注解优先于命名模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坚持使用Override注解"><span class="nav-number">5.7.</span> <span class="nav-text">坚持使用Override注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用标记接口定义类型"><span class="nav-number">5.8.</span> <span class="nav-text">用标记接口定义类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">6.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#检查参数的有效性"><span class="nav-number">6.1.</span> <span class="nav-text">检查参数的有效性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#必要时进行保护性拷贝"><span class="nav-number">6.2.</span> <span class="nav-text">必要时进行保护性拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎设计方法签名"><span class="nav-number">6.3.</span> <span class="nav-text">谨慎设计方法签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#慎用重载"><span class="nav-number">6.4.</span> <span class="nav-text">慎用重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#慎用可变参数"><span class="nav-number">6.5.</span> <span class="nav-text">慎用可变参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回0长度的数组或者集合，而不是null。"><span class="nav-number">6.6.</span> <span class="nav-text">返回0长度的数组或者集合，而不是null。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为所有导出的API元素编写文档注释"><span class="nav-number">6.7.</span> <span class="nav-text">为所有导出的API元素编写文档注释</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用程序设计"><span class="nav-number">7.</span> <span class="nav-text">通用程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#将局部变量的作用域最小化"><span class="nav-number">7.1.</span> <span class="nav-text">将局部变量的作用域最小化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用静态工厂方法代替构造器"><span class="nav-number">1.1.</span> <span class="nav-text">考虑用静态工厂方法代替构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到多个构造器参数时要考虑用构建器"><span class="nav-number">1.2.</span> <span class="nav-text">遇到多个构造器参数时要考虑用构建器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用私有构造器或者枚举类型强化Singleton属性"><span class="nav-number">1.3.</span> <span class="nav-text">用私有构造器或者枚举类型强化Singleton属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过私有构造器强化不可实例化的能力"><span class="nav-number">1.4.</span> <span class="nav-text">通过私有构造器强化不可实例化的能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免创建不必要的对象"><span class="nav-number">1.5.</span> <span class="nav-text">避免创建不必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除过期的对象引用"><span class="nav-number">1.6.</span> <span class="nav-text">消除过期的对象引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免使用终结方法"><span class="nav-number">1.7.</span> <span class="nav-text">避免使用终结方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对于所有对象都通用的方法"><span class="nav-number">2.</span> <span class="nav-text">对于所有对象都通用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时请遵守通用约定"><span class="nav-number">2.1.</span> <span class="nav-text">覆盖equals时请遵守通用约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals时总要覆盖hashCode"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖equals时总要覆盖hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#始终要覆盖toString"><span class="nav-number">2.3.</span> <span class="nav-text">始终要覆盖toString</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地覆盖clone"><span class="nav-number">2.4.</span> <span class="nav-text">谨慎地覆盖clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑实现Comparable接口"><span class="nav-number">2.5.</span> <span class="nav-text">考虑实现Comparable接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类和接口"><span class="nav-number">3.</span> <span class="nav-text">类和接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使类和成员的可访问性最小化"><span class="nav-number">3.1.</span> <span class="nav-text">使类和成员的可访问性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在公有类中使用访问方法而非公有域"><span class="nav-number">3.2.</span> <span class="nav-text">在公有类中使用访问方法而非公有域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使可变性最小化"><span class="nav-number">3.3.</span> <span class="nav-text">使可变性最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复合优先于继承"><span class="nav-number">3.4.</span> <span class="nav-text">复合优先于继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要么为继承为设计，并提供文档说明，要么就禁止继承。"><span class="nav-number">3.5.</span> <span class="nav-text">要么为继承为设计，并提供文档说明，要么就禁止继承。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优于抽象类"><span class="nav-number">3.6.</span> <span class="nav-text">接口优于抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口只用于定义类型"><span class="nav-number">3.7.</span> <span class="nav-text">接口只用于定义类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类层次优于标签类"><span class="nav-number">3.8.</span> <span class="nav-text">类层次优于标签类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用函数对象表示策略"><span class="nav-number">3.9.</span> <span class="nav-text">用函数对象表示策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先考虑静态成员类"><span class="nav-number">3.10.</span> <span class="nav-text">优先考虑静态成员类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型"><span class="nav-number">4.</span> <span class="nav-text">泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#请不要在新代码中使用原生态类型"><span class="nav-number">4.1.</span> <span class="nav-text">请不要在新代码中使用原生态类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除非受检警告"><span class="nav-number">4.2.</span> <span class="nav-text">消除非受检警告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表优先于数组"><span class="nav-number">4.3.</span> <span class="nav-text">列表优先于数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先考虑泛型"><span class="nav-number">4.4.</span> <span class="nav-text">优先考虑泛型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先考虑泛型方法"><span class="nav-number">4.5.</span> <span class="nav-text">优先考虑泛型方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用有限制通配符来提升API的灵活性"><span class="nav-number">4.6.</span> <span class="nav-text">利用有限制通配符来提升API的灵活性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先考虑类型安全的异构容器"><span class="nav-number">4.7.</span> <span class="nav-text">优先考虑类型安全的异构容器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#枚举和注解"><span class="nav-number">5.</span> <span class="nav-text">枚举和注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用enum代替int常量"><span class="nav-number">5.1.</span> <span class="nav-text">用enum代替int常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用实例字段代替序数"><span class="nav-number">5.2.</span> <span class="nav-text">用实例字段代替序数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用EnumSet代替位字段"><span class="nav-number">5.3.</span> <span class="nav-text">用EnumSet代替位字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用EnumMap代替序数索引"><span class="nav-number">5.4.</span> <span class="nav-text">用EnumMap代替序数索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用接口模拟可伸缩的枚举"><span class="nav-number">5.5.</span> <span class="nav-text">用接口模拟可伸缩的枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注解优先于命名模式"><span class="nav-number">5.6.</span> <span class="nav-text">注解优先于命名模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坚持使用Override注解"><span class="nav-number">5.7.</span> <span class="nav-text">坚持使用Override注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用标记接口定义类型"><span class="nav-number">5.8.</span> <span class="nav-text">用标记接口定义类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">6.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#检查参数的有效性"><span class="nav-number">6.1.</span> <span class="nav-text">检查参数的有效性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#必要时进行保护性拷贝"><span class="nav-number">6.2.</span> <span class="nav-text">必要时进行保护性拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎设计方法签名"><span class="nav-number">6.3.</span> <span class="nav-text">谨慎设计方法签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#慎用重载"><span class="nav-number">6.4.</span> <span class="nav-text">慎用重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#慎用可变参数"><span class="nav-number">6.5.</span> <span class="nav-text">慎用可变参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回0长度的数组或者集合，而不是null。"><span class="nav-number">6.6.</span> <span class="nav-text">返回0长度的数组或者集合，而不是null。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为所有导出的API元素编写文档注释"><span class="nav-number">6.7.</span> <span class="nav-text">为所有导出的API元素编写文档注释</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用程序设计"><span class="nav-number">7.</span> <span class="nav-text">通用程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#将局部变量的作用域最小化"><span class="nav-number">7.1.</span> <span class="nav-text">将局部变量的作用域最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-each循环优先于传统的for循环"><span class="nav-number">7.2.</span> <span class="nav-text">for-each循环优先于传统的for循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#了解和使用类库"><span class="nav-number">7.3.</span> <span class="nav-text">了解和使用类库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果需要精确的答案，请避免使用float和double。"><span class="nav-number">7.4.</span> <span class="nav-text">如果需要精确的答案，请避免使用float和double。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本类型优先于装箱基本类型"><span class="nav-number">7.5.</span> <span class="nav-text">基本类型优先于装箱基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果其他类型更适合，则尽量避免使用字符串。"><span class="nav-number">7.6.</span> <span class="nav-text">如果其他类型更适合，则尽量避免使用字符串。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#当心字符串连接的性能"><span class="nav-number">7.7.</span> <span class="nav-text">当心字符串连接的性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过接口引用对象"><span class="nav-number">7.8.</span> <span class="nav-text">通过接口引用对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优先于反射机制"><span class="nav-number">7.9.</span> <span class="nav-text">接口优先于反射机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地使用本地方法"><span class="nav-number">7.10.</span> <span class="nav-text">谨慎地使用本地方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谨慎地进行优化"><span class="nav-number">7.11.</span> <span class="nav-text">谨慎地进行优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遵守普遍接受的命名惯例"><span class="nav-number">7.12.</span> <span class="nav-text">遵守普遍接受的命名惯例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常"><span class="nav-number">8.</span> <span class="nav-text">异常</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#只针对异常的情况才使用异常"><span class="nav-number">8.1.</span> <span class="nav-text">只针对异常的情况才使用异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对可恢复的情况使用受检异常，对编程错误使用运行时异常。"><span class="nav-number">8.2.</span> <span class="nav-text">对可恢复的情况使用受检异常，对编程错误使用运行时异常。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免不必要地使用受检的异常"><span class="nav-number">8.3.</span> <span class="nav-text">避免不必要地使用受检的异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先使用标准的异常"><span class="nav-number">8.4.</span> <span class="nav-text">优先使用标准的异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抛出与抽象相对应的异常"><span class="nav-number">8.5.</span> <span class="nav-text">抛出与抽象相对应的异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#每个方法抛出的异常都要有文档"><span class="nav-number">8.6.</span> <span class="nav-text">每个方法抛出的异常都要有文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在细节消息中包含能捕获失败的信息"><span class="nav-number">8.7.</span> <span class="nav-text">在细节消息中包含能捕获失败的信息</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1094,7 +1174,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">18.8k</span>
+    <span title="Site words total count">20.6k</span>
   
 </div>
 

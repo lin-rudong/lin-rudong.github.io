@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="#类加载 类加载过程 加载。类加载器加载。 验证（链接）。检查字节码。 准备（链接）。类变量分配内存并默认初始化。 解析（链接）。解析符号链接，链接到方法区的引用上去。 初始化。超类初始化、类初始化。  类加载器 引导类加载器。C++语言实现，加载JVM自身需要的类。没有父类加载器。 扩展类加载器。加载扩展库。父类加载器为null，表示引导类加载器。 系统类加载器（AppClassLoader）。">
+<meta name="description" content="Instant：瞬时。获取当前的时间戳，相当于以前的Date类。LocalTime：本地时间。LocalDate：本地日期。LocalDateTime：本地日期时间，不包含时区。ZonedDateTime：最完整的日期时间。 MonthDayClock：获取当前的时间戳Clock.systemUTC()。DurationPeriod 12">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java">
-<meta property="og:url" content="https://lin-rudong.github.io/2018/10/18/Java面试/index.html">
+<meta property="og:title" content="Java8时间和日期API">
+<meta property="og:url" content="https://lin-rudong.github.io/2018/10/20/Java8时间和日期API/index.html">
 <meta property="og:site_name" content="林如东的博客">
-<meta property="og:description" content="#类加载 类加载过程 加载。类加载器加载。 验证（链接）。检查字节码。 准备（链接）。类变量分配内存并默认初始化。 解析（链接）。解析符号链接，链接到方法区的引用上去。 初始化。超类初始化、类初始化。  类加载器 引导类加载器。C++语言实现，加载JVM自身需要的类。没有父类加载器。 扩展类加载器。加载扩展库。父类加载器为null，表示引导类加载器。 系统类加载器（AppClassLoader）。">
+<meta property="og:description" content="Instant：瞬时。获取当前的时间戳，相当于以前的Date类。LocalTime：本地时间。LocalDate：本地日期。LocalDateTime：本地日期时间，不包含时区。ZonedDateTime：最完整的日期时间。 MonthDayClock：获取当前的时间戳Clock.systemUTC()。DurationPeriod 12">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-18T13:57:33.177Z">
+<meta property="og:updated_time" content="2018-10-20T08:15:33.188Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java">
-<meta name="twitter:description" content="#类加载 类加载过程 加载。类加载器加载。 验证（链接）。检查字节码。 准备（链接）。类变量分配内存并默认初始化。 解析（链接）。解析符号链接，链接到方法区的引用上去。 初始化。超类初始化、类初始化。  类加载器 引导类加载器。C++语言实现，加载JVM自身需要的类。没有父类加载器。 扩展类加载器。加载扩展库。父类加载器为null，表示引导类加载器。 系统类加载器（AppClassLoader）。">
+<meta name="twitter:title" content="Java8时间和日期API">
+<meta name="twitter:description" content="Instant：瞬时。获取当前的时间戳，相当于以前的Date类。LocalTime：本地时间。LocalDate：本地日期。LocalDateTime：本地日期时间，不包含时区。ZonedDateTime：最完整的日期时间。 MonthDayClock：获取当前的时间戳Clock.systemUTC()。DurationPeriod 12">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://lin-rudong.github.io/2018/10/18/Java面试/"/>
+  <link rel="canonical" href="https://lin-rudong.github.io/2018/10/20/Java8时间和日期API/"/>
 
 
 
 
 
-  <title>Java | 林如东的博客</title>
+  <title>Java8时间和日期API | 林如东的博客</title>
   
 
 
@@ -288,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/10/18/Java面试/">
+    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/10/20/Java8时间和日期API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="林如东">
@@ -305,7 +305,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Java</h2>
+          <h2 class="post-title" itemprop="name headline">Java8时间和日期API</h2>
         
 
         <div class="post-meta">
@@ -317,8 +317,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-18T19:29:56+08:00">
-                2018-10-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-20T15:55:08+08:00">
+                2018-10-20
               </time>
             
 
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-18T21:57:33+08:00">
-                2018-10-18
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-20T16:15:33+08:00">
+                2018-10-20
               </time>
             
           </span>
@@ -370,8 +370,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/18/Java面试/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/18/Java面试/" itemprop="commentCount"></span>
+                <a href="/2018/10/20/Java8时间和日期API/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/20/Java8时间和日期API/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -379,7 +379,7 @@
 
           
           
-             <span id="/2018/10/18/Java面试/" class="leancloud_visitors" data-flag-title="Java">
+             <span id="/2018/10/20/Java8时间和日期API/" class="leancloud_visitors" data-flag-title="Java8时间和日期API">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.5k
+                  63
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  1
                 </span>
               
             </div>
@@ -441,111 +441,9 @@
       
 
       
-        <p>#类加载</p>
-<h2 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h2><ol>
-<li>加载。类加载器加载。</li>
-<li>验证（链接）。检查字节码。</li>
-<li>准备（链接）。类变量分配内存并默认初始化。</li>
-<li>解析（链接）。解析符号链接，链接到方法区的引用上去。</li>
-<li>初始化。超类初始化、类初始化。</li>
-</ol>
-<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><ol>
-<li>引导类加载器。C++语言实现，加载JVM自身需要的类。没有父类加载器。</li>
-<li>扩展类加载器。加载扩展库。父类加载器为null，表示引导类加载器。</li>
-<li>系统类加载器（AppClassLoader）。程序中默认的类加载器。父类加载器为ExtClassLoader。</li>
-</ol>
-<h2 id="双亲委派模式"><a href="#双亲委派模式" class="headerlink" title="双亲委派模式"></a>双亲委派模式</h2><ol>
-<li>除了引导类加载器外的类加载器都要有自己的父类加载器。通过复合而非继承实现父子关系。</li>
-<li>当类加载器收到类加载请求，会先把请求委托给父加载器去执行，依次递归。如果父类加载器无法完成加载任务，子加载器才会尝试去加载。</li>
-</ol>
-<h2 id="双亲委派模式优势"><a href="#双亲委派模式优势" class="headerlink" title="双亲委派模式优势"></a>双亲委派模式优势</h2><ol>
-<li>Java类随着它的类加载器一起具备了一种带有优先级的层次关系，通过这种层次关系可以避免类的重复加载。</li>
-<li>安全方面，保证了Java的核心类不会被随意替换。另外java.lang包的类系统类加载器没有权限加载，所以不能自定义该包的类。</li>
-</ol>
-<h2 id="Class对象唯一的条件"><a href="#Class对象唯一的条件" class="headerlink" title="Class对象唯一的条件"></a>Class对象唯一的条件</h2><ol>
-<li>类全限名相同。</li>
-<li>加载类的类加载器实例对象相同。</li>
-</ol>
-<h2 id="显示加载"><a href="#显示加载" class="headerlink" title="显示加载"></a>显示加载</h2><ol>
-<li>Class.forName()。</li>
-<li>this.getClass().getClassLoader().loadClass()。</li>
-</ol>
-<h2 id="自定义类加载器的优势"><a href="#自定义类加载器的优势" class="headerlink" title="自定义类加载器的优势"></a>自定义类加载器的优势</h2><ol>
-<li>可以加载特定路径下的类。</li>
-<li>在加载前添加额外操作。比如class文件通过网络加密传输时，需要解密后才能加载。</li>
-<li>实现热部署功能。</li>
-</ol>
-<h2 id="双亲委派模型的破坏者"><a href="#双亲委派模型的破坏者" class="headerlink" title="双亲委派模型的破坏者"></a>双亲委派模型的破坏者</h2><ol>
-<li>服务提供者接口SPI由Java核心库提供，是由引导类加载器加载的，当提供第三方实现的时候，SPI的类加载器即引导类加载器在双亲委派中无法委派系统类加载器。</li>
-<li>引导类加载器可以委派线程上下文类加载器ContextClassLoader加载。</li>
-</ol>
-<h1 id="JVM框架"><a href="#JVM框架" class="headerlink" title="JVM框架"></a>JVM框架</h1><h2 id="JVM三个子系统"><a href="#JVM三个子系统" class="headerlink" title="JVM三个子系统"></a>JVM三个子系统</h2><ol>
-<li>类加载系统</li>
-<li>运行时数据区</li>
-<li>执行引擎</li>
-</ol>
-<h2 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h2><ol>
-<li>PC寄存器。</li>
-<li>栈。</li>
-<li>本地方法栈。</li>
-<li>堆。</li>
-<li>方法区。</li>
-</ol>
-<h2 id="执行引擎"><a href="#执行引擎" class="headerlink" title="执行引擎"></a>执行引擎</h2><ol>
-<li>解释器。</li>
-<li>JIT编译器。</li>
-<li>垃圾收集器。</li>
-</ol>
-<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><ol>
-<li>多个线程循环等待被占用的资源导致的无限期僵持现象。</li>
-</ol>
-<h2 id="死锁的4个必要条件"><a href="#死锁的4个必要条件" class="headerlink" title="死锁的4个必要条件"></a>死锁的4个必要条件</h2><ol>
-<li>互斥条件。资源只能独占不能共享。</li>
-<li>不可抢占条件。资源未使用完毕，其他申请者不能强行夺取。</li>
-<li>占有且申请条件。进程至少已经占有一个资源，并且又申请新的资源。</li>
-<li>循环等待条件。存在一个进程等待序列。</li>
-</ol>
-<h2 id="死锁预防（静态策略）"><a href="#死锁预防（静态策略）" class="headerlink" title="死锁预防（静态策略）"></a>死锁预防（静态策略）</h2><ol>
-<li>打破互斥条件。独占属性由资源自身决定，无实用价值。</li>
-<li>打破不可抢占条件。实现困难，会降低系统性能。</li>
-<li>打破占有且申请条件。实行资源预先分配策略，即进程在运行前一次性向系统申请所需要的全部资源，如果不满足则不分配任何资源。<ul>
-<li>进程执行时是动态的，一般执行之前很难知道它所需要的全部资源。</li>
-<li>资源利用率低。</li>
-<li>降低了进程的并发性。</li>
-</ul>
-</li>
-<li>打破循环等待条件。实行资源有序分配策略，使进程申请占用资源时不会形成环路。比前面的预先分配的资源利用率要高。<ul>
-<li>对系统的所有资源合理编号也是件困难事。</li>
-<li>为了遵循按编号申请的次序，暂不使用的资源也需要提前申请，增加了进程对资源的占用时间。</li>
-</ul>
-</li>
-</ol>
-<h2 id="死锁避免（动态策略）"><a href="#死锁避免（动态策略）" class="headerlink" title="死锁避免（动态策略）"></a>死锁避免（动态策略）</h2><ol>
-<li>银行家算法。从当前状态出发，逐个检查能完成工作的客户，假定完成工作后归还全部贷款，再继续检查下一个客户，知道所有客户完成即找到一个安全序列。<ul>
-<li>寻找安全序列增加了系统开销。</li>
-<li>算法只能保证所有客户的需求，不能保证实时客户的快速响应。</li>
-<li>算法要求客户数保持固定不变。</li>
-</ul>
-</li>
-</ol>
-<h2 id="死锁检测与恢复"><a href="#死锁检测与恢复" class="headerlink" title="死锁检测与恢复"></a>死锁检测与恢复</h2><ol>
-<li>死锁预防避免比较困难，开销比较大。一般采用检查和恢复措施。</li>
-<li>死锁检测通过资源和进程的分配表以及等待表，判断是否由环路。</li>
-<li>死锁恢复一般的办法是撤销环路中代价最小的进程。</li>
-</ol>
-<h1 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h1><ol>
-<li>栈存基本类型和引用类型变量，堆存对象。</li>
-<li>栈的栈帧随方法的调用而产生，随方法的结束而回收，堆由GC回收管理。</li>
-<li>栈是线程私有的，堆是共享的。</li>
-</ol>
-<h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><ol>
-<li>性能上，占用的系统资源更少，能支持更多的并发连接，特别是静态小文件。</li>
-<li>功能上，不仅是一个网页服务器，还可以作为反向代理负载均衡及缓存服务器使用。负载均衡，通过负载均衡算法将报文请求均衡分配给多个提供相同服务的后台服务器。普通代理是内网用户通过设备访问外网，而反向代理是外网用户通过设备访问内网。</li>
-<li>配置上，简单、方便、灵活。</li>
-</ol>
-<h1 id="外排序"><a href="#外排序" class="headerlink" title="外排序"></a>外排序</h1><ol>
-<li>当大于内存的数据需要排序时，将数据分成多个文件，对每个文件用内排序排序，然后从排好序的每个文件中取出前面的部分进行归并排序，结果存入新的文件，依次循环。</li>
-</ol>
+        <p>Instant：瞬时。获取当前的时间戳，相当于以前的Date类。<br>LocalTime：本地时间。<br>LocalDate：本地日期。<br>LocalDateTime：本地日期时间，不包含时区。<br>ZonedDateTime：最完整的日期时间。</p>
+<p>MonthDay<br>Clock：获取当前的时间戳Clock.systemUTC()。<br>Duration<br>Period</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -570,8 +468,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/17/MySQL/" rel="next" title="MySQL">
-                <i class="fa fa-chevron-left"></i> MySQL
+              <a href="/2018/10/19/JSP/" rel="next" title="JSP">
+                <i class="fa fa-chevron-left"></i> JSP
               </a>
             
           </div>
@@ -579,10 +477,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/19/C++/" rel="prev" title="C/C++">
-                C/C++ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -637,17 +531,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -711,22 +596,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载过程"><span class="nav-number">1.</span> <span class="nav-text">类加载过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载器"><span class="nav-number">2.</span> <span class="nav-text">类加载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模式"><span class="nav-number">3.</span> <span class="nav-text">双亲委派模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模式优势"><span class="nav-number">4.</span> <span class="nav-text">双亲委派模式优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class对象唯一的条件"><span class="nav-number">5.</span> <span class="nav-text">Class对象唯一的条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示加载"><span class="nav-number">6.</span> <span class="nav-text">显示加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义类加载器的优势"><span class="nav-number">7.</span> <span class="nav-text">自定义类加载器的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模型的破坏者"><span class="nav-number">8.</span> <span class="nav-text">双亲委派模型的破坏者</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM框架"><span class="nav-number"></span> <span class="nav-text">JVM框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM三个子系统"><span class="nav-number">1.</span> <span class="nav-text">JVM三个子系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时数据区"><span class="nav-number">2.</span> <span class="nav-text">运行时数据区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行引擎"><span class="nav-number">3.</span> <span class="nav-text">执行引擎</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#死锁"><span class="nav-number"></span> <span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁的4个必要条件"><span class="nav-number">1.</span> <span class="nav-text">死锁的4个必要条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁预防（静态策略）"><span class="nav-number">2.</span> <span class="nav-text">死锁预防（静态策略）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁避免（动态策略）"><span class="nav-number">3.</span> <span class="nav-text">死锁避免（动态策略）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁检测与恢复"><span class="nav-number">4.</span> <span class="nav-text">死锁检测与恢复</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#堆栈"><span class="nav-number"></span> <span class="nav-text">堆栈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx"><span class="nav-number"></span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外排序"><span class="nav-number"></span> <span class="nav-text">外排序</span></a></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
