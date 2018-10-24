@@ -785,4 +785,228 @@ Integer[] array=list.toArray(new Integer[0]);
 
 ## 在细节消息中包含能捕获失败的信息
 
+## 努力使失败保持原子性
+1. 失败原子性，失败的方法调用应该使对象保持在被调用之前的状态。
 
+## 不要忽略异常
+
+# 并发
+
+## 同步访问共享的可变数据
+1. 同步不仅可以阻止一个线程看到对象处于不一致的状态之中，它还可以保证进入同步方法或者同步代码块的每个线程，都看到由同一个锁保护的之前所有的修改效果。
+1. 语言规范保证读写变量是原子的，除非这个变量的类型为long或double，但是不保证一个线程写入的值对于另一个线程将是可见的。
+
+```
+//没有同步，done没有线程可见性。
+while(!done)
+    i++;
+
+//JVM优化。
+if(!done)
+    while(true)
+        i++;
+```
+
+3. 当多个线程共享可变数据的时候，每个读或者写数据的线程都必须执行同步，保证原子性和可见性。
+1. 活性失败，程序无法前进。安全性失败，程序会计算出错误的结果。
+
+## 避免过度同步
+1. 同步区域内部，不要调用设计成要被覆盖的方法，或者是由客户端以函数对象的形式提供的方法。这些方法是外来的，调用它可能会导致死锁，异常或者数据损坏。比如，foreach遍历集合的时候，不可以同时修改集合，否则会发生ConcurrentModificationException。
+1. Java的锁是可重入锁，可能会将活性失败变成安全性失败。
+1. CopyOnWriteArrayList可以在foreach遍历集合的同时修改。通过重新拷贝整个底层数组来实现所有的写操作，由于内部数组永远不改动，因此迭代不需要锁定。
+1. 开放调用，在同步区域之外调用外来方法。这样可以避免死锁，也可以减少同步时间提高并发性。
+1. 通常，你应该在同步区域内做尽可能少的工作。
+
+## executor和task优先于线程
+1. 小程序或者轻载服务器使用Executors.newCachedThreadPool，大负载服务器最好使用Executors.newFixedThreadPool，如果想最大限度地控制线程池使用ThreadPoolExecutor。
+1. ScheduledThreadPoolExecutor用来代替Timer。
+
+## 并发工具优先于wait和notify
+1. java.util.concurrent中的高级工具分成3类：执行器，并发集合和同步器。
+1. 优先使用ConcurrentHashMap，而不是使用Collections.synchronizedMap或者Hashtable。只要用并发Map替换老式的同步Map，就可以提升并发应用程序的性能。
+1. 大多数ExecurotService实现包括ThreadPoolExecutor都使用BlockingQueue的生产者-消费者队列。
+1. 同步器的作用是使线程能够等待另一个线程，允许它们协调动作。最常用的同步器是CountDownLatch和Semaphone，较不常用的是CyclicBarrier和Exchanger。
+1. 不应该是使用wait和notify，如若不可避免，也应该在条件循环中调用wait方法，nofity和notifyAll可以唤醒等待线程，保守的建议是你总是应该使用notifyAll。
+
+```
+while(!condition)
+    wait(); //释放锁，加入等待队列。继续执行需要唤醒和锁，而且还需要再判断条件，因为很可能被nofifyAll过度唤醒。
+
+```
+
+## 线程安全性的文档化
+1. 线程安全性的级别：
+    * 不可变的immutable，实例是不变的，不需要外部的同步，例如String、Long和BigInteger。
+    * 无条件的线程安全unconditionally thread-safe，实例是可变的，但是类有着足够的内部通古比，不需要外部的同步，比如Random、ConcurrentHashMap。
+    * 有条件的线程安全conditionally thread-safe，与无条件的区别是有些方法为进行安全的并发使用而需要外部同步，例如Collections.synchronized包装的集合，它们的迭代器要求外部同步。
+    * 非线程安全not thread-safe，例如ArrayList和HashMap。
+    * 线程对立thread-hostile，即使有外部同步，也不能并发使用，线程对立的根源通常在于，没有同步地修改静态数据。
+1. 公有可访问锁对象允许客户端同步地执行一个方法调用序列，但可能导致拒绝服务攻击。
+
+## 慎用延迟初始化
+1. 大多数的字段应该正常地进行初始化，除非了为了达到性能目标，或者为了破坏有害地初始化循环。
+1. 如果出于性能的考虑而需要对静态字段使用延迟初始化，就使用lazy initialization holder class模式，可以保证类要到被用到的时候才会被初始化。
+
+```
+private static class FieldHolder{
+    static final FieldType field=new FieldType();
+}
+
+//不需要同步
+static FieldType getField(){
+    return FieldHolder.field;
+}
+```
+
+3. 如果出于性能的考虑而需要对实例字段使用延迟初始化，就使用双重检查模式。静态字段也可以用这个模式，但不如上面介绍的模式好。如果可以接受重复初始化的实例字段，也可以考虑使用单重检查模式，而不需要同步。
+
+```
+private volatile FieldType field;
+
+FiledType getField(){
+    if(field==null){ //同步性能提升
+        synchronized(this){ //同步
+            if(field==null){ //延迟初始化
+                field=new FieldType();
+            }
+        }
+    }
+    return field;
+}
+```
+
+## 不要依赖于线程调度器
+1. 线程优先级是Java平台上最不可移植的特征了。
+1. 对于大多数程序员来说，Thread.yield的唯一用途是在测试期间人为地增加程序的并发性。
+
+# 避免使用线程组
+1. 线程组并没有提供太多有用的功能，而且它们提供的许多功能还都是有缺陷的。
+
+# 序列化
+
+## 谨慎地实现Serializable接口
+
+**实现Serializable的代价**
+1. 实现Serializable接口而付出地最大代价是，一旦一个类被发布，就大大降低了“改变这个类的实现”的灵活性。
+1. 实现Serializable的第二个代价是，它增加了出现Bug和安全漏洞的可能性。反序列化机制是一个隐藏的构造器，具备与其他构造器相同的特点。
+1. 实现Serializable的第三个代价是，随着类发行新的版本，相关的测试负担也增加了。
+
+**注意**
+1. 为了继承而设计的类应该尽可能少地去实现Serializable接口，用户的接口应该尽可能少地继承Serializable接口。在为了继承而设计的类中，真正实现了Serializable接口的有Throwable、Component和HttpServlet类，这样RMI的异常才可以从服务器端传到客户端，GUI才可以被发送、保存和恢复，会话状态可以被缓存。
+1. 内部类不应该实现Serializable，它们使用编译器产生的合成字段来保存只想外围实例的引用，以及保存来自外围作用域的局部变量的值。这些字段如何对应到类定义中没有明确的规定，因此，内部类的默认序列化形式是定义不清楚的。然而，静态成员类可以实现Serializable接口。
+
+## 考虑使用自定义的序列化形式
+1. 接受默认的序列化形式是一个非常重要的决定，你需要从正确性、性能和灵活性多个角度对这种编码形式进行考察。
+1. 即使你确定了默认的序列化形式是合适的，通常还必须提供一个readObject方法以保证约束关系和安全性。
+
+**对象的物理表示法与它的逻辑数据内容有区别时**
+1. 它将这个类的导出API永远地束缚在该类的内部表示法上。私有的StringList.Entry类变成了公有API的一部分，使得类永远也摆脱不掉维护链表项所需要的所有代码，即使它不再使用链表作为内部数据结构。
+1. 它会消耗过多的空间。序列化形式保存了实现细节的链接关系。
+1. 它会消耗过多的时间。序列化逻辑不了解对象图的拓扑关系，必须经过一个昂贵的突变里过程。
+1. 它会引起栈溢出。默认的序列化过程要对对象图执行一次递归遍历。
+
+```
+public class StringList implements Serializable{
+    private int size;
+    private Entry head;
+
+    private static class Entry implements Serializable{
+        String data;
+        Entry next;
+        Entry previous;
+    }
+}
+```
+
+**默认的序列化不能描述对象的逻辑状态时自定义序列化**
+1. transient修饰符表明这个实例字段将从一个类的默认序列化形式中省略掉。在反序列化的时候，这些字段将被初始化为默认值。
+1. 私有的writeObjet和readObject通过反射机制可以自定义序列化形式。defaultWriteObject和defaultReadObject可以方便以后的发行版本中增加非transient的实例字段。
+1. 序列化形式需要文档注释，哪怕是私有的也将作为API的一部分。
+
+```
+public class StringList implements Serializable{
+    private transient int size;
+    private transient Entry head;
+
+    //不再需要实现序列化接口，因为不用默认的序列化形式。
+    private static class Entry{
+        String data;
+        Entry next;
+        Entry previous;
+    }
+
+    private void writeObject(ObjectOutputStream s){
+        s.defaultWriteObject(); 
+        s.wirteInt(size);
+        for(Entry e=head,;e!=null;e=e.next){
+            s.writeObject(e.data);
+        }
+    }
+
+    private void readObject(ObjectInputStram s){
+        s.defaultReadObject();
+        size=s.readInt();
+        for(int i=0;i<size;i++){
+            entry.add((String)s.readObject());
+        }
+    }
+}
+```
+
+4. 不管你选择了哪种序列化形式，都要为你自己编写的每个可序列化的类声明一个显示的序列版本UID。
+
+## 保护性地编写readObject
+1. readObject相当于另一个公有的构造器。构造器必须检查参数的有效性，必要的时候对参数进行保护性拷贝。
+1. 当一个对象被反序列化的时候，对于客户端不应该拥有的对象引用，如果哪个字段包含了这样的对象引用，就必须要做保护性拷贝。
+1. readObject方法不可以调用可被覆盖的方法，不然被覆盖的方法将在子类的状态被反序列化之前先运行，程序很可能会失败。
+
+**健壮的readObject**
+1. 对于对象引用域必须保持为私有的类，要保护性地拷贝这些域中的每个对象。不可变类的可变组件就属于这一类别。
+1. 对于任何约束条件，如果检查失败，则抛出一个InvalidObjectException异常。这些检查动作应该跟在所有的保护性拷贝之后。
+1. 如果整个对象图在被反序列化之后必须进行验证，就应该使用ObjectInputValidation接口。
+1. 无论是直接方式还是间接方式，都不要调用类中任何可被覆盖的方法。
+
+## 对于实例控制，枚举类型优先于readResolve。
+1. readObject不管是显示还是默认的，都会返回一个新建的实例，这个实例不同于该类初始化时创建的实例。
+1. readResolve特性允许你用另一个实例代替readObject创建的实例。对于一个正在被反序列化的对象，如果它的类定义了一个readResolve方法，并且具备正确的声明，那么在反序列化之后，新建对象上的readResolve方法就会被调用。然后，该方法返回的对象引用将被返回，取代新建的对象，新建对象的引用不需要再被保留。
+1. 如果依赖readResolve进行实例控制，那么所有实例字段要么是基本类型，要么是transient。因为该方法忽略了被反序列化的对象，所以序列化形式并不需要包含任何是的数据。如果Singleton包含一个非transient对象引用字段，这个字段的内容就可以在Singleton的readResolve方法运行之前被反序列化，当对象引用字段的内容被反序列化时，它将允许一个精心制作的流盗用指向最初被反序列化的Singleton的引用。
+
+```
+private Object readResovle(){
+    return INSTANCE;
+}
+```
+
+4. 如果readResolve是私有的，则不能继承，如果是保护的或者公有的，如果子类没有覆盖，那么反序列化后将会产生一个超类，导致ClassCastException。
+
+## 考虑用序列化代理代替序列化实例
+1. 为可序列化的类设计一个私有的静态嵌套类，精确地表示外围类的实例的逻辑状态，这个嵌套类被称作序列化代理，它应该有一个单独的构造器，参数类型是外围类。
+1. 外围类添加writeReplace方法，在序列化之前，产生代理类实例代替外围类的实例。这样将永远不会产生外围类的序列化实例，为了防止伪造攻击，可以禁用readObject。
+
+```
+private static class SerializationProxy implements Serializable{
+    private final Date start;
+    private final Date end;
+
+    SerializationProxy(Period p){
+        this.start=p.start;
+        this.end=p.end;
+    }
+
+    private Object readResolve(){
+        return new Period(start,end);
+    }
+
+    private static final long serialVersionUID=1;
+}
+
+private Object writeReplace(){
+    return new  SerializationProxy(this);
+}
+
+private void readObject(ObjectInputStream stream) ObjectInputStream stream{
+    throw new InvalidObjectException();
+}
+```
+
+3. 序列化代理方法的缺点是增加了开销，但是可以阻止为字节流的攻击以及内部字段的盗用攻击。这种方法允许Period的字段为final的。
