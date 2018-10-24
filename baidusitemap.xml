@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://lin-rudong.github.io/2018/10/08/%E9%AB%98%E6%80%A7%E8%83%BDMySQL/</loc>
+    <lastmod>2018-10-24T06:13:51.439Z</lastmod>
+  </url>  <url>
     <loc>https://lin-rudong.github.io/2018/10/09/Effective-Java/</loc>
     <lastmod>2018-10-24T03:53:39.260Z</lastmod>
   </url>  <url>
@@ -36,9 +39,6 @@
   </url>  <url>
     <loc>https://lin-rudong.github.io/2018/10/08/%E9%9B%86%E5%90%88/</loc>
     <lastmod>2018-10-08T12:21:09.938Z</lastmod>
-  </url>  <url>
-    <loc>https://lin-rudong.github.io/2018/10/08/%E9%AB%98%E6%80%A7%E8%83%BDMySQL/</loc>
-    <lastmod>2018-10-08T12:21:09.929Z</lastmod>
   </url>  <url>
     <loc>https://lin-rudong.github.io/2018/10/08/Spring%E5%AE%9E%E6%88%98/</loc>
     <lastmod>2018-10-08T12:21:09.920Z</lastmod>
