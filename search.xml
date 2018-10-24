@@ -3,6 +3,23 @@
   
     
     <entry>
+      <title>编程题总结</title>
+      <link href="/2018/10/24/%E7%AC%94%E8%AF%95/%E7%BC%96%E7%A8%8B%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+      <url>/2018/10/24/%E7%AC%94%E8%AF%95/%E7%BC%96%E7%A8%8B%E9%A2%98%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h1><ol><li>分析样例后，忘记将样例数字转换成输入变量。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔试 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
       <title>算法</title>
       <link href="/2018/10/23/%E7%AE%97%E6%B3%95/"/>
       <url>/2018/10/23/%E7%AE%97%E6%B3%95/</url>
@@ -20,7 +37,7 @@
     </entry>
     
     <entry>
-      <title>C++</title>
+      <title>C/C++</title>
       <link href="/2018/10/22/C/"/>
       <url>/2018/10/22/C/</url>
       
@@ -29,7 +46,7 @@
       
       <categories>
           
-          <category> C++ </category>
+          <category> C/C++ </category>
           
       </categories>
       
@@ -301,19 +318,19 @@
     
     <entry>
       <title></title>
-      <link href="/googlea5bf63acdc3dbd82.html"/>
-      <url>/googlea5bf63acdc3dbd82.html</url>
+      <link href="/baidu_verify_ysuwxPEgQM.html"/>
+      <url>/baidu_verify_ysuwxPEgQM.html</url>
       
-        <content type="html"><![CDATA[google-site-verification: googlea5bf63acdc3dbd82.html]]></content>
+        <content type="html"><![CDATA[ysuwxPEgQM]]></content>
       
     </entry>
     
     <entry>
       <title></title>
-      <link href="/baidu_verify_ysuwxPEgQM.html"/>
-      <url>/baidu_verify_ysuwxPEgQM.html</url>
+      <link href="/googlea5bf63acdc3dbd82.html"/>
+      <url>/googlea5bf63acdc3dbd82.html</url>
       
-        <content type="html"><![CDATA[ysuwxPEgQM]]></content>
+        <content type="html"><![CDATA[google-site-verification: googlea5bf63acdc3dbd82.html]]></content>
       
     </entry>
     
