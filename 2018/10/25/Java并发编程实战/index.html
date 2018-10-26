@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="简介并发的原因 资源利用率。在某些情况下，程序必须等待某个外部操作执行完成，例如IO，而在等待时程序无法执行其他任何工作。如果在等待的同时可以运行另一个程序，可以提高资源的利用率。 公平性。不同的用户和程序对于计算机上的资源用着同等的使用权，可以通过时间分片实现。 便利性。在执行多个任务时，应该编写多个程序，每个程序执行一个任务并在必须时互相通信，这比编写一个程序来执行所有任务更容易实现。  线程">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-25T02:39:28.071Z">
+<meta property="og:updated_time" content="2018-10-26T03:37:49.621Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发编程实战">
 <meta name="twitter:description" content="简介并发的原因 资源利用率。在某些情况下，程序必须等待某个外部操作执行完成，例如IO，而在等待时程序无法执行其他任何工作。如果在等待的同时可以运行另一个程序，可以提高资源的利用率。 公平性。不同的用户和程序对于计算机上的资源用着同等的使用权，可以通过时间分片实现。 便利性。在执行多个任务时，应该编写多个程序，每个程序执行一个任务并在必须时互相通信，这比编写一个程序来执行所有任务更容易实现。  线程">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-25T10:39:28+08:00">
-                2018-10-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-26T11:37:49+08:00">
+                2018-10-26
               </time>
             
           </span>
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  657
+                  2.1k
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  2
+                  7
                 </span>
               
             </div>
@@ -476,7 +476,79 @@
 <li>Java的内置锁相当于互斥锁。由于每次只能有一个线程执行同步代码块，所以会以原子方式执行，即一组语句作为一个不可分割的单元被执行。</li>
 <li>Java的内置锁是可以重入的，重入意味着获取锁的操作粒度是线程而不是调用。子类的覆盖方法也会获得父类锁，重入可以避免这种死锁发生。</li>
 </ol>
-<h3 id="用锁来保护状态"><a href="#用锁来保护状态" class="headerlink" title="用锁来保护状态"></a>用锁来保护状态</h3>
+<h3 id="用锁来保护状态"><a href="#用锁来保护状态" class="headerlink" title="用锁来保护状态"></a>用锁来保护状态</h3><ol>
+<li>如果用同步来协调对某个变量的访问，那么在访问这个变量地所有位置上都需要使用同步。</li>
+<li>只有被多个线程同时访问的可变数据才需要通过锁来保护。</li>
+</ol>
+<h3 id="活跃性与性能"><a href="#活跃性与性能" class="headerlink" title="活跃性与性能"></a>活跃性与性能</h3><ol>
+<li>当执行时间较长的计算或者可能无法快速完成的操作时，一定不要持有锁。</li>
+</ol>
+<h2 id="对象的共享"><a href="#对象的共享" class="headerlink" title="对象的共享"></a>对象的共享</h2><h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><ol>
+<li>通常，我们无法确保执行读操作的线程能适时地看到其他线程写入的值。</li>
+<li>编译器可能会对操作的执行顺序进行重排序优化，这种重排序只能保证在单线程中有正确的结果。</li>
+<li>非volatile类型的64位数值变量double和long的读写操作会分解成2个32位操作，不是原子操作，这可能读取到某个值的高32位和另一个值的低32位。</li>
+<li>加锁的含义不仅仅局限于互斥行为，还包括内存可见性。</li>
+<li>volatile变量操作不会和其他内存操作一起重排序，volatile变量会同步到主内存，所以读取volatile变量时总会返回最新写入的值。</li>
+</ol>
+<p><strong>使用volatile变量必须满足以下所有条件</strong></p>
+<ol>
+<li>访问变量时不需要加锁。</li>
+<li>对变量的写入操作不依赖变量的当前值，或者你能确保只有单个线程更新变量的值。</li>
+<li>该变量不会与其他状态变量一起纳入不变性条件中。</li>
+</ol>
+<h3 id="发布与逸出"><a href="#发布与逸出" class="headerlink" title="发布与逸出"></a>发布与逸出</h3><ol>
+<li>发布一个对象是指对象能够在当前作用域之外的代码中使用。多线程发布会破坏封装性，使得程序难以维持不变性条件，比如，对象构造完成之前就发布该对象。逸出是指当某个不应该发布的对象被发布。</li>
+<li>使用工厂方法来防止this引用在构造过程中逸出。</li>
+</ol>
+<h3 id="线程封闭"><a href="#线程封闭" class="headerlink" title="线程封闭"></a>线程封闭</h3><ol>
+<li>线程封闭是指仅在单线程内访问数据，不共享数据就不需要同步。</li>
+<li>Swing的对象都不是线程安全的，应保证只有事件线程才能访问对象，使用单线程子系统的另一个原因是为了避免死锁。</li>
+</ol>
+<p><strong>线程封闭的3种方式</strong></p>
+<ol>
+<li>Ad-hoc线程封闭是指维护线程封闭性的职责完全由程序实现来承担，Ad-hoc线程封闭是非常脆弱的，因为没有任何一种语言特性能将对象封闭到目标线程上，所以在程序中尽量少用它。在可能的情况下，应该使用更强的线程封闭技术，比如栈封闭或者ThreadLocal类。当决定使用线程封闭技术时，通常是因为要将某个特定的子系统实现为一个单线程子系统。</li>
+<li>栈封闭是指只能通过局部变量才能访问对象。</li>
+<li>维持线程封闭性的一种更规范方法是使用ThreadLocal，通常用于防止对可变的单实例变量或全局变量进行共享。概念上看，可以将Thread Local<t>视为包含Map&lt;Thread,T&gt;，其中保存了特定与该线程的值，不过实现上是将特定于线程的值保存在Thread对象中，当线程结束后这些值会被GC回收。</t></li>
+</ol>
+<h3 id="不变性"><a href="#不变性" class="headerlink" title="不变性"></a>不变性</h3><ol>
+<li>对象创建以后其状态就不能修改。</li>
+<li>对象的所有字段都是final类型。</li>
+<li>对象被正确创建。在对象的创建期间，this引用没有逸出。</li>
+</ol>
+<h3 id="安全发布"><a href="#安全发布" class="headerlink" title="安全发布"></a>安全发布</h3><p><strong>初始化安全性</strong></p>
+<ol>
+<li>要安全地发布一个对象，对象的引用以及对象的状态必须同时对其他线程可见。即使某个对象的引用对其他线程是可见的，也并不意味着对象状态对于其他线程一定是可见的。</li>
+<li>不可变对象有一种特殊的初始化安全性保证，发布不可变对象的引用时即使没有同步，也仍然可以安全地访问对象。这种保证还将延申到被正确创建对象中的所有final类型的字段，在没有额外同步的情况下，也可以安全地访问final类型的字段，但不能保证可以访问final类型字段的状态。</li>
+<li>最简单和最安全的方式是使用静态初始化器，静态初始化器由JVM在类的初始化阶段执行，由于JVM内部存在着同步机制，所以可以被安全地发布。</li>
+<li>将一个键或者值放入并发安全容器中，可以安全地将它发布给任何从这些容器中访问它的线程。</li>
+</ol>
+<p><strong>安全发布方式</strong></p>
+<ol>
+<li>在静态初始化函数中初始化一个对象引用。</li>
+<li>将对象的引用保存到volatile类型的字段或者AtomicReferance对象中。</li>
+<li>将对象的引用保存到某个正确构造对象的final类型字段中。</li>
+<li>将对象的引用保存到一个由锁保护的字段中。</li>
+</ol>
+<p><strong>发布需求取决于可变性</strong></p>
+<ol>
+<li>不可变对象可以通过任意机制来发布。</li>
+<li>事实不可变对象必须通过安全方式来发布。</li>
+<li>可变对象必须通过安全方式来发布，并且必须是线程安全的或者由某个锁保护起来。</li>
+</ol>
+<p><strong>安全地共享对象</strong></p>
+<ol>
+<li>线程封闭。</li>
+<li>只读共享。</li>
+<li>线程安全共享。</li>
+<li>保护对象。</li>
+</ol>
+<h2 id="对象的组合"><a href="#对象的组合" class="headerlink" title="对象的组合"></a>对象的组合</h2><h3 id="设计线程安全的类"><a href="#设计线程安全的类" class="headerlink" title="设计线程安全的类"></a>设计线程安全的类</h3><p><strong>3个基本要素</strong></p>
+<ol>
+<li>找出构成对象状态的所有变量。</li>
+<li>找出约束状态变量的不变性条件。</li>
+<li>建立对象状态的并发访问管理策略。</li>
+</ol>
+
       
     </div>
     
@@ -509,6 +581,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/25/正则表达式/" rel="prev" title="正则表达式">
+                正则表达式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -592,7 +668,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -603,7 +679,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -647,7 +723,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#并发的原因"><span class="nav-number">1.1.</span> <span class="nav-text">并发的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的优势"><span class="nav-number">1.2.</span> <span class="nav-text">线程的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程带来的风险"><span class="nav-number">1.3.</span> <span class="nav-text">线程带来的风险</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程安全性"><span class="nav-number">2.1.</span> <span class="nav-text">线程安全性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程安全性-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">线程安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原子性"><span class="nav-number">2.1.2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加锁机制"><span class="nav-number">2.1.3.</span> <span class="nav-text">加锁机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用锁来保护状态"><span class="nav-number">2.1.4.</span> <span class="nav-text">用锁来保护状态</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#并发的原因"><span class="nav-number">1.1.</span> <span class="nav-text">并发的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的优势"><span class="nav-number">1.2.</span> <span class="nav-text">线程的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程带来的风险"><span class="nav-number">1.3.</span> <span class="nav-text">线程带来的风险</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程安全性"><span class="nav-number">2.1.</span> <span class="nav-text">线程安全性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程安全性-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">线程安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原子性"><span class="nav-number">2.1.2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加锁机制"><span class="nav-number">2.1.3.</span> <span class="nav-text">加锁机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用锁来保护状态"><span class="nav-number">2.1.4.</span> <span class="nav-text">用锁来保护状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#活跃性与性能"><span class="nav-number">2.1.5.</span> <span class="nav-text">活跃性与性能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的共享"><span class="nav-number">2.2.</span> <span class="nav-text">对象的共享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可见性"><span class="nav-number">2.2.1.</span> <span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布与逸出"><span class="nav-number">2.2.2.</span> <span class="nav-text">发布与逸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程封闭"><span class="nav-number">2.2.3.</span> <span class="nav-text">线程封闭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不变性"><span class="nav-number">2.2.4.</span> <span class="nav-text">不变性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全发布"><span class="nav-number">2.2.5.</span> <span class="nav-text">安全发布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的组合"><span class="nav-number">2.3.</span> <span class="nav-text">对象的组合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计线程安全的类"><span class="nav-number">2.3.1.</span> <span class="nav-text">设计线程安全的类</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -681,7 +757,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">24.4k</span>
+    <span title="Site words total count">26.1k</span>
   
 </div>
 
