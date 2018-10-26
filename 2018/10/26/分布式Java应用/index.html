@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="分布式," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="malloc/free和new/delete的区别 malloc/free成对使用，是C语言的函数。new/delete和new[]/delete[]也是成对使用，是C++语言的操作符。 new会先调用构造函数，delete会先调用析构函数，而malloc和free不会。  C++的const 常量的指针也必须是指向常量的指针，而变量的指针没有限制。  1234567const int* p=1;">
+<meta name="description" content="概述大型网站架构演化大型网站软件系统的特点 高并发，大流量。 高可用。不间断服务。 海量数据。 用户分布广泛，网络情况复杂。 安全环境恶劣。 需求快速变更，发布频繁。 渐进式发展。  大型网站架构演化发展历程 初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。 应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。 应用服务器需要处理大量的业务逻辑，需要更快CP">
+<meta name="keywords" content="分布式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#x2F;C++">
-<meta property="og:url" content="https://lin-rudong.github.io/2018/10/22/C/index.html">
+<meta property="og:title" content="分布式Java应用">
+<meta property="og:url" content="https://lin-rudong.github.io/2018/10/26/分布式Java应用/index.html">
 <meta property="og:site_name" content="林如东的博客">
-<meta property="og:description" content="malloc/free和new/delete的区别 malloc/free成对使用，是C语言的函数。new/delete和new[]/delete[]也是成对使用，是C++语言的操作符。 new会先调用构造函数，delete会先调用析构函数，而malloc和free不会。  C++的const 常量的指针也必须是指向常量的指针，而变量的指针没有限制。  1234567const int* p=1;">
+<meta property="og:description" content="概述大型网站架构演化大型网站软件系统的特点 高并发，大流量。 高可用。不间断服务。 海量数据。 用户分布广泛，网络情况复杂。 安全环境恶劣。 需求快速变更，发布频繁。 渐进式发展。  大型网站架构演化发展历程 初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。 应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。 应用服务器需要处理大量的业务逻辑，需要更快CP">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-24T08:02:03.030Z">
+<meta property="og:image" content="https://lin-rudong.github.io/images/大型网站架构.png">
+<meta property="og:updated_time" content="2018-10-26T14:15:15.119Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C&#x2F;C++">
-<meta name="twitter:description" content="malloc/free和new/delete的区别 malloc/free成对使用，是C语言的函数。new/delete和new[]/delete[]也是成对使用，是C++语言的操作符。 new会先调用构造函数，delete会先调用析构函数，而malloc和free不会。  C++的const 常量的指针也必须是指向常量的指针，而变量的指针没有限制。  1234567const int* p=1;">
+<meta name="twitter:title" content="分布式Java应用">
+<meta name="twitter:description" content="概述大型网站架构演化大型网站软件系统的特点 高并发，大流量。 高可用。不间断服务。 海量数据。 用户分布广泛，网络情况复杂。 安全环境恶劣。 需求快速变更，发布频繁。 渐进式发展。  大型网站架构演化发展历程 初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。 应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。 应用服务器需要处理大量的业务逻辑，需要更快CP">
+<meta name="twitter:image" content="https://lin-rudong.github.io/images/大型网站架构.png">
 
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://lin-rudong.github.io/2018/10/22/C/"/>
+  <link rel="canonical" href="https://lin-rudong.github.io/2018/10/26/分布式Java应用/"/>
 
 
 
 
 
-  <title>C/C++ | 林如东的博客</title>
+  <title>分布式Java应用 | 林如东的博客</title>
   
 
 
@@ -288,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/10/22/C/">
+    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/10/26/分布式Java应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="林如东">
@@ -305,7 +308,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">C/C++</h2>
+          <h2 class="post-title" itemprop="name headline">分布式Java应用</h2>
         
 
         <div class="post-meta">
@@ -317,8 +320,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-22T15:51:20+08:00">
-                2018-10-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T20:35:40+08:00">
+                2018-10-26
               </time>
             
 
@@ -333,8 +336,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-24T16:02:03+08:00">
-                2018-10-24
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-26T22:15:15+08:00">
+                2018-10-26
               </time>
             
           </span>
@@ -352,8 +355,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -370,8 +373,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/22/C/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/22/C/" itemprop="commentCount"></span>
+                <a href="/2018/10/26/分布式Java应用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/26/分布式Java应用/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -379,7 +382,7 @@
 
           
           
-             <span id="/2018/10/22/C/" class="leancloud_visitors" data-flag-title="C/C++">
+             <span id="/2018/10/26/分布式Java应用/" class="leancloud_visitors" data-flag-title="分布式Java应用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -404,7 +407,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  252
+                  1.1k
                 </span>
               
 
@@ -420,7 +423,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  3
                 </span>
               
             </div>
@@ -441,22 +444,66 @@
       
 
       
-        <h1 id="malloc-free和new-delete的区别"><a href="#malloc-free和new-delete的区别" class="headerlink" title="malloc/free和new/delete的区别"></a>malloc/free和new/delete的区别</h1><ol>
-<li>malloc/free成对使用，是C语言的函数。new/delete和new[]/delete[]也是成对使用，是C++语言的操作符。</li>
-<li>new会先调用构造函数，delete会先调用析构函数，而malloc和free不会。</li>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="大型网站架构演化"><a href="#大型网站架构演化" class="headerlink" title="大型网站架构演化"></a>大型网站架构演化</h2><h3 id="大型网站软件系统的特点"><a href="#大型网站软件系统的特点" class="headerlink" title="大型网站软件系统的特点"></a>大型网站软件系统的特点</h3><ol>
+<li>高并发，大流量。</li>
+<li>高可用。不间断服务。</li>
+<li>海量数据。</li>
+<li>用户分布广泛，网络情况复杂。</li>
+<li>安全环境恶劣。</li>
+<li>需求快速变更，发布频繁。</li>
+<li>渐进式发展。</li>
 </ol>
-<h1 id="C-的const"><a href="#C-的const" class="headerlink" title="C++的const"></a>C++的const</h1><ol>
-<li>常量的指针也必须是指向常量的指针，而变量的指针没有限制。</li>
+<h3 id="大型网站架构演化发展历程"><a href="#大型网站架构演化发展历程" class="headerlink" title="大型网站架构演化发展历程"></a>大型网站架构演化发展历程</h3><ol>
+<li>初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。</li>
+<li>应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。<ul>
+<li>应用服务器需要处理大量的业务逻辑，需要更快CPU资源。</li>
+<li>数据库服务器需要快速磁盘检索和数据缓存，需要更快硬盘和更大内存。</li>
+<li>文件服务器需要存储大量用户上传的文件，需要更大的硬盘。</li>
+</ul>
+</li>
+<li>使用缓存改善网站性能。<ul>
+<li>数据库压力太大导致访问延迟。</li>
+<li>80%的业务访问集中在20%的数据上。</li>
+<li>2种缓存，应用服务器上的本地缓存和分布式缓存服务器的远程缓存。本地缓存速度更快一些，但受内存限制。远程分布式缓存可以使用集群的方式，部署大内存的服务器作为专门的缓存服务器。</li>
+</ul>
+</li>
+<li>使用应用服务器集群改善网站的并发处理能力。<ul>
+<li>使用集群是网站解决高并发、海量数据问题的常用手段。</li>
+<li>通过负载均衡调用服务器，可将访问请求分发到应用服务器集群。</li>
+</ul>
+</li>
+<li>数据库读写分离。<ul>
+<li>使用缓存后仍然有一部分读操作和全部写操作需要访问数据库，这个阶段数据库成为了瓶颈。</li>
+<li>数据库大多都提供主从热备功能，通过配置2台数据库主从关系，可以将一台数据库的数据更新同步到另一台服务器上。网站利用这一功能实现数据库读写分离，主数据库负责写操作，从数据库负责读操作，主数据库会将数据复制到从数据库。</li>
+<li>为了数据库读写分离对应用透明，通常在应用服务器端使用专门的数据访问模块。</li>
+</ul>
+</li>
+<li>使用反向代理和CDN加速网站响应。<ul>
+<li>不同地区的用户访问网站时，速度差别大，导致有的地方访问延迟高。</li>
+<li>CDN（内容分发网络）和反向代理的基本原理都是缓存，区别在于CDN部署在网络提供商的机房，使用户可以从最近的网络提供商机房获取数据；反向代理则部署在网站的中心机房，当用户请求到达中心机房后，首先访问的是反向代理服务器，如果反向代理服务器中缓存着用户请求的资源，就直接返回给用户。</li>
+<li>加快用户访问速度，减轻后端服务器的负载压力。</li>
+</ul>
+</li>
+<li>使用分布式文件系统和分布式数据库系统。<ul>
+<li>数据库拆分手段是业务分库。</li>
+</ul>
+</li>
+<li>使用NoSQL和搜索引擎。<ul>
+<li>数据存储和检索需要越来越复杂，采用非关系数据库技术如NoSQL服务器和非关系数据库查询技术如搜索引擎服务器。</li>
+<li>应用服务器通过一个统一的数据访问模块来访问，分布式缓存服务器、分布式文件服务器、分布式数据库服务器、搜索引擎服务器和NoSQL服务器。</li>
+</ul>
+</li>
+<li>业务拆分。<ul>
+<li>不同业务应用服务器通过消息队列服务器进行数据分发。</li>
+</ul>
+</li>
+<li>分布式服务。<ul>
+<li>随着业务拆分越来越小，存储系统越来越庞大，部署维护越来越难，导致数据库连接资源不足。</li>
+<li>每一个应用系统都需要执行很多相同的业务操作，比如用户管理、商品管理等，可以将这些共用的业务提取出来，独立部署。由这些可复用的业务连接数据库，提供共用业务服务，而应用系统只需要管理用户界面，通过分布式服务器调用共用服务完成具体业务操作。</li>
+</ul>
+</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const int* p=1; //表示指针指向常量。</span><br><span class="line">int* const p=1; //表示指针是常量。</span><br><span class="line"></span><br><span class="line">const int a=1;</span><br><span class="line">int* ap=&amp;a; //出错，const int*不能转成int*。</span><br><span class="line">int b=1;</span><br><span class="line">const int* bp=&amp;b; //正常，int*可以转成const int*。</span><br></pre></td></tr></table></figure>
-<h1 id="C和C-的const的区别"><a href="#C和C-的const的区别" class="headerlink" title="C和C++的const的区别"></a>C和C++的const的区别</h1><ol>
-<li>作用域不同。C的全局const作用域是整个程序，C++的全局const作用域是当前文件。</li>
-<li>在ANSI标准下，C的const表示只读变量，C++<br>表示的是常量。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const int size=5;</span><br><span class="line">int array[size]; //在ANSI标准的C中是错误的，size是变量，虽然是只读。在C++中是正确的。</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>C++的const作用范围广，可以作用于函数。</li>
-</ol>
+<p><img src="/images/大型网站架构.png" alt=""></p>
 
       
     </div>
@@ -472,6 +519,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/分布式/" rel="tag"><i class="fa fa-tag"></i> 分布式</a>
+          
+        </div>
+      
 
       
       
@@ -481,8 +534,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/19/JSP/" rel="next" title="JSP">
-                <i class="fa fa-chevron-left"></i> JSP
+              <a href="/2018/10/25/正则表达式/" rel="next" title="正则表达式">
+                <i class="fa fa-chevron-left"></i> 正则表达式
               </a>
             
           </div>
@@ -490,10 +543,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/23/算法/" rel="prev" title="算法">
-                算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -632,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#malloc-free和new-delete的区别"><span class="nav-number">1.</span> <span class="nav-text">malloc/free和new/delete的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-的const"><span class="nav-number">2.</span> <span class="nav-text">C++的const</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C和C-的const的区别"><span class="nav-number">3.</span> <span class="nav-text">C和C++的const的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构演化"><span class="nav-number">1.1.</span> <span class="nav-text">大型网站架构演化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站软件系统的特点"><span class="nav-number">1.1.1.</span> <span class="nav-text">大型网站软件系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化发展历程"><span class="nav-number">1.1.2.</span> <span class="nav-text">大型网站架构演化发展历程</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
