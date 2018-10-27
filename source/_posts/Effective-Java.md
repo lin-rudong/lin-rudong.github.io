@@ -17,7 +17,7 @@ tags:
     * 对于JDBC来说，Connection是服务接口，DriverManager.registerDriver是提供者注册API，DriverManager.getConnection是服务访问API以及Driver就是服务提供者接口。
 1. 创建参数化类型实例的时候，可以实现类型推导。
 
-```
+```Java
 public class HashMap{
     public static <K,V> HashMap<K,V> newInstance(){
         return new HashMap<K,V>();
@@ -39,7 +39,7 @@ Map<String,List<String>> map=HashMap.newIntstance();
 **重叠构造器模式**
 1. 当参数过多时，代码会变得难编写，并且较难阅读。
 
-```
+```Java
 public class Student{
     private String id;
     private String name;
@@ -65,7 +65,7 @@ public class Student{
 **Builder模式**
 1. 既保证了安全性，也有很好的可读性。
 
-```
+```Java
 public class Student{
     private final String id;
     private final String name;
@@ -107,7 +107,7 @@ Student student=new Student.Builder().id("id").name("name").age(1).build();
 1. 没有限制的话，可以通过反射调用私有构造器。
 1. 由于反序列化时会创建一个新的实例，所以可序列化的Singleton类的实例字段必须都是transient。
 
-```
+```Java
 public class Student{
     private static final Student INSTANCE=new Student();
 
@@ -175,7 +175,7 @@ public class Student{
     * 不要企图让equals方法过于智能。
     * 不要将equals声明中的Object对象替换成其他的类型。重写时参数类型必须是一样的，返回类型可以是子类型。
 
-```
+```Java
 public class Student{
     private String id;
     private String name;
@@ -216,7 +216,7 @@ public class Student{
     * return hash。
     * 测试。
 
-```
+```Java
 public class Studnet{
     @Override
     public int hashCode(){
@@ -232,7 +232,7 @@ public class Studnet{
 2. 散列码的计算必须排除equals比较计算中没有用到的任何域。之所以选择31奇素数，如果是偶数的话，乘法溢出会导致信息丢失，因为与2相乘等价于移位运算。而使用素数只是习惯使然，并且31可以很容易用移位和减法代替乘法，31*i==(i<<5)-i。
 1. 如果是不可变类，计算散列码的开销也比较大，可以考虑把散列码缓存在对象内部。如果类的大多数对象会被用做散列键，可以在实例的时候计算散列码，否则可以延迟初始化散列码。
 
-```
+```Java
 //缓存，延迟初始化。
 private volatile int hashCode;
 
@@ -257,7 +257,7 @@ public int hashCode(){
 1. Object.clone是protected的，如果子类没有实现Cloneable，那么调用clone会抛出CloneNotSuportedException。
 1. Object.clone是特殊的方法，它会通过反射将当前对象的所有字段进行浅拷贝。
 
-```
+```Java
 class Student implements Cloneable{
     @Override
     public Student clone() throws CloneNotSupportedException {
@@ -270,7 +270,7 @@ class Student implements Cloneable{
 1. 如果想要实现深拷贝，可以递归地调用clone方法。
 1. clone架构与final对象不兼容，final对象无法深拷贝。
 
-```
+```Java
 class Student implements Cloneable{
     private String id="id";
     private String name;
@@ -308,7 +308,7 @@ class Student implements Cloneable{
 1. Comparable接口是参数化的，因此compareTo方法不必进行类型检查和类型转换。
 1. 浮点的比较用Float.compare和Double.compare。
 
-```
+```Java
 public static int compare(double d1, double d2) {
         if (d1 < d2) return -1; 
         if (d1 > d2) return 1; 
@@ -320,7 +320,7 @@ public static int compare(double d1, double d2) {
 }
 ```
 
-```
+```Java
 class Student implements Comparable<Student>{
     private String id="id";
     private String name;
@@ -363,7 +363,7 @@ class Student implements Comparable<Student>{
     * 可以将数组变成私有的，并增加一个公有的不可变列表视图。
     * 也可以将数组变成私有的，并添加一个公有方法访问数组的一个备份。
 
-```
+```Java
 private static final Student[] PRIVATE_STUDENTS={...};
 public static final List<Student> STUDENTS=Collections.unmodifiableList(Arrays.asList(PRIVATE_STUDENTS));
 ```
@@ -386,7 +386,7 @@ public static final List<Student> STUDENTS=Collections.unmodifiableList(Arrays.a
 1. 不可变类的如果需要进行运算，会创建并返回新的实例，这种模式是函数式的做法。与之相对应的是更常见的过程式的或者命令式的做法。
 1. 不可变对象本质上是线程安全的，它们不要求同步。不可变对象可以被自由地共享，影应该鼓励客户端尽可能地重用现有的实例，最简单的办法就是，对于频繁用到的值，为它们提供public static final常量。静态工厂可以进一步把频繁被请求的实例缓存起来。
 
-```
+```Java
 public static final Complex ZERO=new Complex(0,0);
 ```
 
@@ -413,7 +413,7 @@ public static final Complex ZERO=new Complex(0,0);
 1. 对于为了继承而设计的类，唯一的测试方法就是编写子类。
 1. 构造器决不能调用可被重写的方法。这样会导致子类中重写版本的方法将会在子类的构造器运行之前就先被调用。
 
-```
+```Java
 class People{
     public People(){
         f();
@@ -480,7 +480,7 @@ public class Main {
 ## 请不要在新代码中使用原生态类型
 1. 数组的协变，数组之间和其元素类型有着一致的继承关系。如下，由于编译时只能确定引用的静态类型，fruits的静态类型是Fruit[]，所以可以编译通过。但是运行时可以知道数组的实际类型，所以会出现ArrayStoreException。
 
-```
+```Java
 Fruit[] fruits=new Apple[10];
 fruits[0]=new Fruit();
 ```
@@ -488,7 +488,7 @@ fruits[0]=new Fruit();
 2. 所有泛型都是原生态类型的一个子类型，List<Object>和List<String>之间没有继承关系，都是继承于List。
 1. 可以使用无限制的通配符类型`?`来代替原生态类型。原生态类型不安全，因为它可以包装所有的泛型子类型，然后擅自帮泛型添加元素，导致泛型在运行时可能会出现类型转换异常。List<?>用来代替List,表示不知道具体类型，所以不能限制存，只能存null，但不影响get。
 
-```
+```Java
 List<Apple> apples=new ArrayList<Apple>();
 List list=apples;
 
@@ -510,7 +510,7 @@ apples.get(0); //运行错误，泛型在运行时会自动进行类型转换。
 1. 数组是具体化的，运行时有实际类型，而泛型通过擦除，运行时没有元素类型信息。
 1. 泛型数组不是类型安全的，如果创建泛型数组，泛型的类型擦除会让数组不能保存泛型的元素类型，从而可能导致运行时数组的类型检查失效，另外数组协变可以避过泛型的编译时类型检查，导致泛型在运行时的自动类型转换异常。
 
-```
+```Java
 List<String>[] stringLists=new List<String>[1];
 Object[] objects=stringLists;
 objects[0]=new List<Integer>();
@@ -527,7 +527,7 @@ stringLists[0].get(0);
 1. 泛型方法无需明确指定类型参数的值，可以通过类型推导确定。
 2. 类型限制，在声明定义时使用，作用是限制参数的类型。
 
-```
+```Java
 public static <T extends Comparable<T>> void sort(List<T> list){}
 ```
 
@@ -550,7 +550,7 @@ public static <T extends Comparable<T>> void sort(List<T> list){}
 ## 用EnumSet代替位字段
 1. 位字段，能用OR位运算将多个常量合并表示集合的字段。
 
-```
+```Java
 public class Text{
     public static final int BOLD=1 << 0;
     public static final int ITALIC=1 << 1;
@@ -560,7 +560,7 @@ public class Text{
 
 2. EnumSet底层的枚举类型元素小于或等于64，那么整个EnumSet是用1个long来表示的。EnumSet的方法是采用位算法实现的。
 
-```
+```Java
 public class Text{
     public enum Style{
         BOLD,ITATIC,...
@@ -579,7 +579,7 @@ text.applyStyles(EnumSet.of(Style.BOLD,style.ITALIC));
 ## 用接口模拟可伸缩的枚举
 1. 枚举不可以继承类，但是可以实现接口。枚举的构造函数不可以是public，因为枚举不可以通过构造函数实例化。
 
-```
+```Java
 public interface Operation{
     double apply(double x,double y);
 }
@@ -644,7 +644,7 @@ public enum BasicOperation implements Operation{
 1. 覆盖方法是在运行时做出决定的，由调用者的实际类型决定的，即动态分配，并且只由调用者单独决定，即动态单分派。
 1. 安全而保守的策略是，永远不要导出2个具有相同参数数目的重载方法。次之就是保证相同数目的参数的类型有明显的不同，即不能互相转换,这时需要注意基本类型和对应的包装类型。
 
-```
+```Java
 List<Integer> list=new ArrayList<>(Arrays.asList(4,3,2,1,0));
 list.remove(0); //index
 list.remove((Integer) 0); //Object
@@ -659,7 +659,7 @@ set.remove(0); //Object
 1. 可变参数方法接受0个或者多个指定类型的参数，会将这些参数转变成数组，0个参数时也会转变成数组，而不会是null。
 1. 没有参数时的检查只能在运行时，可以通过2个参数，1个是指定类型的参数，1个是可变参数，限制没有参数的发生。
 
-```
+```Java
 static int min(int firstArg,int... remainingArgs){
     ...
 }
@@ -667,7 +667,7 @@ static int min(int firstArg,int... remainingArgs){
 
 3. 提供常用的重载方法可以提高可变参数的性能。
 
-```
+```Java
 public void f(int a1){}
 public void f(int a1,int a2){}
 public void f(int a1,int a2,int a3){}
@@ -678,7 +678,7 @@ public void f(int a1,int a2,int a3,int ...rest){}
 1. 0长度数组是不可变的，所以很可能被自由共享。
 1. toArray数组参数的长度为0，指明所期望的返回类型，因为不能创建泛型数组，而可以通过参数创建具体的数组。如果toArray的数组参数的长度够长，则不会创建数组，采用数组参数并返回数组参数。
 
-```
+```Java
 List<Integer> list= Arrays.asList(1,2,3);
 Integer[] array=list.toArray(new Integer[0]);
 ```
@@ -796,7 +796,7 @@ Integer[] array=list.toArray(new Integer[0]);
 1. 同步不仅可以阻止一个线程看到对象处于不一致的状态之中，它还可以保证进入同步方法或者同步代码块的每个线程，都看到由同一个锁保护的之前所有的修改效果。
 1. 语言规范保证读写变量是原子的，除非这个变量的类型为long或double，但是不保证一个线程写入的值对于另一个线程将是可见的。
 
-```
+```Java
 //没有同步，done没有线程可见性。
 while(!done)
     i++;
@@ -828,7 +828,7 @@ if(!done)
 1. 同步器的作用是使线程能够等待另一个线程，允许它们协调动作。最常用的同步器是CountDownLatch和Semaphone，较不常用的是CyclicBarrier和Exchanger。
 1. 不应该是使用wait和notify，如若不可避免，也应该在条件循环中调用wait方法，nofity和notifyAll可以唤醒等待线程，保守的建议是你总是应该使用notifyAll。
 
-```
+```Java
 while(!condition)
     wait(); //释放锁，加入等待队列。继续执行需要唤醒和锁，而且还需要再判断条件，因为很可能被nofifyAll过度唤醒。
 
@@ -847,7 +847,7 @@ while(!condition)
 1. 大多数的字段应该正常地进行初始化，除非了为了达到性能目标，或者为了破坏有害地初始化循环。
 1. 如果出于性能的考虑而需要对静态字段使用延迟初始化，就使用lazy initialization holder class模式，可以保证类要到被用到的时候才会被初始化。
 
-```
+```Java
 private static class FieldHolder{
     static final FieldType field=new FieldType();
 }
@@ -860,7 +860,7 @@ static FieldType getField(){
 
 3. 如果出于性能的考虑而需要对实例字段使用延迟初始化，就使用双重检查模式。静态字段也可以用这个模式，但不如上面介绍的模式好。如果可以接受重复初始化的实例字段，也可以考虑使用单重检查模式，而不需要同步。
 
-```
+```Java
 private volatile FieldType field;
 
 FiledType getField(){
@@ -905,7 +905,7 @@ FiledType getField(){
 1. 它会消耗过多的时间。序列化逻辑不了解对象图的拓扑关系，必须经过一个昂贵的突变里过程。
 1. 它会引起栈溢出。默认的序列化过程要对对象图执行一次递归遍历。
 
-```
+```Java
 public class StringList implements Serializable{
     private int size;
     private Entry head;
@@ -923,7 +923,7 @@ public class StringList implements Serializable{
 1. 私有的writeObjet和readObject通过反射机制可以自定义序列化形式。defaultWriteObject和defaultReadObject可以方便以后的发行版本中增加非transient的实例字段。
 1. 序列化形式需要文档注释，哪怕是私有的也将作为API的一部分。
 
-```
+```Java
 public class StringList implements Serializable{
     private transient int size;
     private transient Entry head;
@@ -971,7 +971,7 @@ public class StringList implements Serializable{
 1. readResolve特性允许你用另一个实例代替readObject创建的实例。对于一个正在被反序列化的对象，如果它的类定义了一个readResolve方法，并且具备正确的声明，那么在反序列化之后，新建对象上的readResolve方法就会被调用。然后，该方法返回的对象引用将被返回，取代新建的对象，新建对象的引用不需要再被保留。
 1. 如果依赖readResolve进行实例控制，那么所有实例字段要么是基本类型，要么是transient。因为该方法忽略了被反序列化的对象，所以序列化形式并不需要包含任何是的数据。如果Singleton包含一个非transient对象引用字段，这个字段的内容就可以在Singleton的readResolve方法运行之前被反序列化，当对象引用字段的内容被反序列化时，它将允许一个精心制作的流盗用指向最初被反序列化的Singleton的引用。
 
-```
+```Java
 private Object readResovle(){
     return INSTANCE;
 }
@@ -983,7 +983,7 @@ private Object readResovle(){
 1. 为可序列化的类设计一个私有的静态嵌套类，精确地表示外围类的实例的逻辑状态，这个嵌套类被称作序列化代理，它应该有一个单独的构造器，参数类型是外围类。
 1. 外围类添加writeReplace方法，在序列化之前，产生代理类实例代替外围类的实例。这样将永远不会产生外围类的序列化实例，为了防止伪造攻击，可以禁用readObject。
 
-```
+```Java
 private static class SerializationProxy implements Serializable{
     private final Date start;
     private final Date end;

@@ -1,11 +1,12 @@
 ---
 title: 高性能MySQL
 categories: MySQL
-abbrlink: 58527
 date: 2018-10-08 16:08:42
 tags:
 ---
+
 # MySQL架构
+
 ## MySQL逻辑架构
 1. 连接/线程处理
 2. 查询缓存 解析器 优化器

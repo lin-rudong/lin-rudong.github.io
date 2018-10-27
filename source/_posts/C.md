@@ -1,8 +1,8 @@
 ---
-title: C++
+title: C/C++
 date: 2018-10-22 15:51:20
 tags:
-categories: C++
+categories: C/C++
 ---
 
 # malloc/free和new/delete的区别
@@ -12,7 +12,7 @@ categories: C++
 # C++的const
 1. 常量的指针也必须是指向常量的指针，而变量的指针没有限制。
 
-```
+```C++
 const int* p=1; //表示指针指向常量。
 int* const p=1; //表示指针是常量。
 
@@ -24,10 +24,9 @@ const int* bp=&b; //正常，int*可以转成const int*。
 
 # C和C++的const的区别
 1. 作用域不同。C的全局const作用域是整个程序，C++的全局const作用域是当前文件。
-1. 在ANSI标准下，C的const表示只读变量，C++
-表示的是常量。
+1. 在ANSI标准下，C的const表示只读变量，C++表示的是常量。
 
-```
+```C++
 const int size=5;
 int array[size]; //在ANSI标准的C中是错误的，size是变量，虽然是只读。在C++中是正确的。
 ```
