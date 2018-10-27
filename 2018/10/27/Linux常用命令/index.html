@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JDK8," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="Java语言Lambda表达式与Functional接口 访问局部变量时，会将变量隐式转换成常量。 接口的静态方法和默认方法不影响函数式接口。 @FunctionalInterface。  方法引用 方法引用用来支持Lambda简写。 构造器引用T::new，构造器本质上静态方法。 静态方法引用T::staticMethod。 类的任意对象的方法引用T::Method，第一个参数是对象。 对象的方">
-<meta name="keywords" content="JDK8">
+<meta name="description" content="进程类top 实时显示系统中各个进程的资源占用状态，类似于Windows的任务管理器。  pmap 查看进程的内存占用情况。 pmap 1  ps 显示进程的相关信息。  文件类grep Global Regular Expression Print 文件中搜索特定的内容，并将含有这些内容的行标准输出。 grep ‘[a-z]\{2\}’ file  awk 把文件逐行的读入，以空位或者tab为默">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JDK8新特性">
-<meta property="og:url" content="https://lin-rudong.github.io/2018/10/07/JDK8新特性/index.html">
+<meta property="og:title" content="Linux常用命令">
+<meta property="og:url" content="https://lin-rudong.github.io/2018/10/27/Linux常用命令/index.html">
 <meta property="og:site_name" content="林如东的博客">
-<meta property="og:description" content="Java语言Lambda表达式与Functional接口 访问局部变量时，会将变量隐式转换成常量。 接口的静态方法和默认方法不影响函数式接口。 @FunctionalInterface。  方法引用 方法引用用来支持Lambda简写。 构造器引用T::new，构造器本质上静态方法。 静态方法引用T::staticMethod。 类的任意对象的方法引用T::Method，第一个参数是对象。 对象的方">
+<meta property="og:description" content="进程类top 实时显示系统中各个进程的资源占用状态，类似于Windows的任务管理器。  pmap 查看进程的内存占用情况。 pmap 1  ps 显示进程的相关信息。  文件类grep Global Regular Expression Print 文件中搜索特定的内容，并将含有这些内容的行标准输出。 grep ‘[a-z]\{2\}’ file  awk 把文件逐行的读入，以空位或者tab为默">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-08T12:21:09.942Z">
+<meta property="og:updated_time" content="2018-10-27T14:20:18.144Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JDK8新特性">
-<meta name="twitter:description" content="Java语言Lambda表达式与Functional接口 访问局部变量时，会将变量隐式转换成常量。 接口的静态方法和默认方法不影响函数式接口。 @FunctionalInterface。  方法引用 方法引用用来支持Lambda简写。 构造器引用T::new，构造器本质上静态方法。 静态方法引用T::staticMethod。 类的任意对象的方法引用T::Method，第一个参数是对象。 对象的方">
+<meta name="twitter:title" content="Linux常用命令">
+<meta name="twitter:description" content="进程类top 实时显示系统中各个进程的资源占用状态，类似于Windows的任务管理器。  pmap 查看进程的内存占用情况。 pmap 1  ps 显示进程的相关信息。  文件类grep Global Regular Expression Print 文件中搜索特定的内容，并将含有这些内容的行标准输出。 grep ‘[a-z]\{2\}’ file  awk 把文件逐行的读入，以空位或者tab为默">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://lin-rudong.github.io/2018/10/07/JDK8新特性/"/>
+  <link rel="canonical" href="https://lin-rudong.github.io/2018/10/27/Linux常用命令/"/>
 
 
 
 
 
-  <title>JDK8新特性 | 林如东的博客</title>
+  <title>Linux常用命令 | 林如东的博客</title>
   
 
 
@@ -289,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/10/07/JDK8新特性/">
+    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/10/27/Linux常用命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="林如东">
@@ -306,7 +305,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">JDK8新特性</h2>
+          <h2 class="post-title" itemprop="name headline">Linux常用命令</h2>
         
 
         <div class="post-meta">
@@ -318,8 +317,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-07T22:02:53+08:00">
-                2018-10-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-27T21:29:03+08:00">
+                2018-10-27
               </time>
             
 
@@ -334,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-08T20:21:09+08:00">
-                2018-10-08
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-27T22:20:18+08:00">
+                2018-10-27
               </time>
             
           </span>
@@ -353,8 +352,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -371,8 +370,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/07/JDK8新特性/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/07/JDK8新特性/" itemprop="commentCount"></span>
+                <a href="/2018/10/27/Linux常用命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/27/Linux常用命令/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -380,7 +379,7 @@
 
           
           
-             <span id="/2018/10/07/JDK8新特性/" class="leancloud_visitors" data-flag-title="JDK8新特性">
+             <span id="/2018/10/27/Linux常用命令/" class="leancloud_visitors" data-flag-title="Linux常用命令">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -405,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  414
+                  270
                 </span>
               
 
@@ -442,83 +441,51 @@
       
 
       
-        <h1 id="Java语言"><a href="#Java语言" class="headerlink" title="Java语言"></a>Java语言</h1><h2 id="Lambda表达式与Functional接口"><a href="#Lambda表达式与Functional接口" class="headerlink" title="Lambda表达式与Functional接口"></a>Lambda表达式与Functional接口</h2><ul>
-<li>访问局部变量时，会将变量隐式转换成常量。</li>
-<li>接口的静态方法和默认方法不影响函数式接口。</li>
-<li>@<em>FunctionalInterface</em>。</li>
-</ul>
-<h2 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h2><ul>
-<li>方法引用用来支持Lambda简写。</li>
-<li>构造器引用<em>T::new</em>，构造器本质上静态方法。</li>
-<li>静态方法引用<em>T::staticMethod</em>。</li>
-<li>类的任意对象的方法引用<em>T::Method</em>，第一个参数是对象。</li>
-<li>对象的方法引用<em>O::Method</em>。</li>
-</ul>
-<h2 id="接口的静态方法与默认方法"><a href="#接口的静态方法与默认方法" class="headerlink" title="接口的静态方法与默认方法"></a>接口的静态方法与默认方法</h2><ul>
-<li>接口的字段是<em>public static final</em>,接口的方法是<em>public</em>。</li>
-<li>接口的方法新增<em>static</em>与<em>default</em>。</li>
-</ul>
-<h2 id="类型推测机制"><a href="#类型推测机制" class="headerlink" title="类型推测机制"></a>类型推测机制</h2><ul>
-<li>List<t> list=new List&lt;&gt;();</t></li>
-</ul>
-<h2 id="重复注解"><a href="#重复注解" class="headerlink" title="重复注解"></a>重复注解</h2><ul>
-<li>@R<em>epeatable</em>。</li>
-</ul>
-<h2 id="注解类型"><a href="#注解类型" class="headerlink" title="注解类型"></a>注解类型</h2><ul>
-<li>field、constructor、method、parameter、local_variable、package和type(类、接口和enum)。</li>
-</ul>
-<h1 id="Java编译器"><a href="#Java编译器" class="headerlink" title="Java编译器"></a>Java编译器</h1><h2 id="参数名字"><a href="#参数名字" class="headerlink" title="参数名字"></a>参数名字</h2><ul>
-<li>参数名字保存在Java字节码中，<em>javac -parameters</em>。</li>
-</ul>
-<h2 id="Java类库"><a href="#Java类库" class="headerlink" title="Java类库"></a>Java类库</h2><h2 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h2><ul>
-<li>集合函数式编程</li>
-</ul>
-<h2 id="并行数组"><a href="#并行数组" class="headerlink" title="并行数组"></a>并行数组</h2><ul>
-<li>数组并行处理。</li>
-</ul>
-<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><ul>
-<li>ConcurrentHashMap。<ol>
-<li><em>取消段segments</em>，采用transient volatile hashEntry保存数据，实现<em>对每一行数据进行加锁</em>代替原来的段加锁，减少并发冲突。</li>
-<li>数据结构改为<em>数组+单向链表+红黑树</em>。</li>
+        <h1 id="进程类"><a href="#进程类" class="headerlink" title="进程类"></a>进程类</h1><h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><ol>
+<li>实时显示系统中各个进程的资源占用状态，类似于Windows的任务管理器。</li>
 </ol>
+<h2 id="pmap"><a href="#pmap" class="headerlink" title="pmap"></a>pmap</h2><ol>
+<li>查看进程的内存占用情况。</li>
+<li>pmap 1</li>
+</ol>
+<h2 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h2><ol>
+<li>显示进程的相关信息。</li>
+</ol>
+<h1 id="文件类"><a href="#文件类" class="headerlink" title="文件类"></a>文件类</h1><h2 id="grep-Global-Regular-Expression-Print"><a href="#grep-Global-Regular-Expression-Print" class="headerlink" title="grep Global Regular Expression Print"></a>grep Global Regular Expression Print</h2><ol>
+<li>文件中搜索特定的内容，并将含有这些内容的行标准输出。</li>
+<li>grep ‘[a-z]\{2\}’ file</li>
+</ol>
+<h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><ol>
+<li>把文件逐行的读入，以空位或者tab为默认分隔符将每行切片，切开的部分再进行各种分析处理。</li>
+<li>awk -F ‘:’ ‘{print $1}’ file <ul>
+<li>以:作为分隔符切片，输出每行的第一个切片。</li>
+</ul>
 </li>
-<li>ForkJoinPool支持共有资源池。</li>
-<li>容量锁StampedLock，代替ReadWriteLock。</li>
-<li>atomic增加：<ol>
-<li>DoubleAccumulator</li>
-<li>DoubleAdder</li>
-<li>LongAccumulator</li>
-<li>LongAdder</li>
-</ol>
+<li>awk ‘{printf(“first:%05d\n”,$1)}’ file<ul>
+<li>可以执行编程语句，有内置变量。</li>
+</ul>
 </li>
-</ul>
-<h2 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h2><h2 id="Date-Time-API"><a href="#Date-Time-API" class="headerlink" title="Date/Time API"></a>Date/Time API</h2><ol>
-<li>Clock</li>
 </ol>
-<ul>
-<li>替换System.currentTimeMillis()和TimeZone.getDefault()。</li>
-</ul>
-<ol start="2">
-<li>LocaleDate LocalTime LocalDateTime</li>
+<h2 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h2><ol>
+<li>处理单位为行。</li>
+<li>-b -nb 以字节剪切，n表示不要分割多字节字符。</li>
+<li>-c 以字符剪切。</li>
+<li>-f [-d] 以字段剪切，默认是tab分割字段，d可以自定义分割字符。<br> cut -d ‘:’ -f 2,3 file</li>
 </ol>
-<ul>
-<li>无时区。</li>
+<h2 id="sed-stream-edit"><a href="#sed-stream-edit" class="headerlink" title="sed stream edit"></a>sed stream edit</h2><ol>
+<li>sed ‘/^$/d’ file<ul>
+<li>删除空白行</li>
 </ul>
-<ol start="3">
-<li>ZonedDateTIme</li>
-<li>Duration</li>
+</li>
+<li>sed ‘2d’ file<ul>
+<li>删除第2行</li>
+</ul>
+</li>
+<li>sed ‘/^test/‘d file<ul>
+<li>删除开头是test的行</li>
+</ul>
+</li>
 </ol>
-<ul>
-<li>时间差</li>
-</ul>
-<h2 id="JS引擎"><a href="#JS引擎" class="headerlink" title="JS引擎"></a>JS引擎</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ScriptEngineManager manager = new ScriptEngineManager();</span><br><span class="line">ScriptEngine engine = manager.getEngineByName( &quot;JavaScript&quot; );</span><br><span class="line">engine.eval( &quot;function f() &#123; return 1; &#125;; f() + 1;&quot; );</span><br></pre></td></tr></table></figure>
-<h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><ul>
-<li>编码。</li>
-</ul>
-<h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="元空间Metaspace代替永久代PermGen"><a href="#元空间Metaspace代替永久代PermGen" class="headerlink" title="元空间Metaspace代替永久代PermGen"></a>元空间Metaspace代替永久代PermGen</h2><ul>
-<li>字符串和静态变量转移到Java堆。</li>
-<li>元空间使用本地内存而不在JVM中，元空间受本地内存限制，可以用-XX:MetaspaceSize -XX:MaxMetaspaceSize限制。</li>
-</ul>
 
       
     </div>
@@ -534,12 +501,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/JDK8/" rel="tag"><i class="fa fa-tag"></i> JDK8</a>
-          
-        </div>
-      
 
       
       
@@ -549,15 +510,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/10/26/大型网站技术架构/" rel="next" title="大型网站技术架构">
+                <i class="fa fa-chevron-left"></i> 大型网站技术架构
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/08/MyBatis面试/" rel="prev" title="MyBatis面试">
-                MyBatis面试 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -696,7 +657,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java语言"><span class="nav-number">1.</span> <span class="nav-text">Java语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda表达式与Functional接口"><span class="nav-number">1.1.</span> <span class="nav-text">Lambda表达式与Functional接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法引用"><span class="nav-number">1.2.</span> <span class="nav-text">方法引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的静态方法与默认方法"><span class="nav-number">1.3.</span> <span class="nav-text">接口的静态方法与默认方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型推测机制"><span class="nav-number">1.4.</span> <span class="nav-text">类型推测机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复注解"><span class="nav-number">1.5.</span> <span class="nav-text">重复注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注解类型"><span class="nav-number">1.6.</span> <span class="nav-text">注解类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java编译器"><span class="nav-number">2.</span> <span class="nav-text">Java编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数名字"><span class="nav-number">2.1.</span> <span class="nav-text">参数名字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java类库"><span class="nav-number">2.2.</span> <span class="nav-text">Java类库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stream"><span class="nav-number">2.3.</span> <span class="nav-text">Stream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并行数组"><span class="nav-number">2.4.</span> <span class="nav-text">并行数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发"><span class="nav-number">2.5.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optional"><span class="nav-number">2.6.</span> <span class="nav-text">Optional</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Date-Time-API"><span class="nav-number">2.7.</span> <span class="nav-text">Date/Time API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS引擎"><span class="nav-number">2.8.</span> <span class="nav-text">JS引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Base64"><span class="nav-number">2.9.</span> <span class="nav-text">Base64</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">3.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元空间Metaspace代替永久代PermGen"><span class="nav-number">3.1.</span> <span class="nav-text">元空间Metaspace代替永久代PermGen</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程类"><span class="nav-number">1.</span> <span class="nav-text">进程类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#top"><span class="nav-number">1.1.</span> <span class="nav-text">top</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pmap"><span class="nav-number">1.2.</span> <span class="nav-text">pmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ps"><span class="nav-number">1.3.</span> <span class="nav-text">ps</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件类"><span class="nav-number">2.</span> <span class="nav-text">文件类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#grep-Global-Regular-Expression-Print"><span class="nav-number">2.1.</span> <span class="nav-text">grep Global Regular Expression Print</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk"><span class="nav-number">2.2.</span> <span class="nav-text">awk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cut"><span class="nav-number">2.3.</span> <span class="nav-text">cut</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sed-stream-edit"><span class="nav-number">2.4.</span> <span class="nav-text">sed stream edit</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -87,7 +87,7 @@
 <meta property="og:description" content="概述大型网站架构演化大型网站软件系统的特点 高并发，大流量。 高可用。不间断服务。 海量数据。 用户分布广泛，网络情况复杂。 安全环境恶劣。 需求快速变更，发布频繁。 渐进式发展。  大型网站架构演化发展历程 初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。 应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。 应用服务器需要处理大量的业务逻辑，需要更快CP">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://lin-rudong.github.io/images/大型网站架构.png">
-<meta property="og:updated_time" content="2018-10-27T03:38:10.221Z">
+<meta property="og:updated_time" content="2018-10-27T15:46:49.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大型网站技术架构">
 <meta name="twitter:description" content="概述大型网站架构演化大型网站软件系统的特点 高并发，大流量。 高可用。不间断服务。 海量数据。 用户分布广泛，网络情况复杂。 安全环境恶劣。 需求快速变更，发布频繁。 渐进式发展。  大型网站架构演化发展历程 初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。 应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。 应用服务器需要处理大量的业务逻辑，需要更快CP">
@@ -335,7 +335,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-27T11:38:10+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-27T23:46:49+08:00">
                 2018-10-27
               </time>
             
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  3.4k
+                  5.4k
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  11
+                  18
                 </span>
               
             </div>
@@ -597,13 +597,96 @@
 <li>加快网站响应速度。生产者不用等待消费者处理就可以返回。</li>
 <li>消除并发访问高峰。消息队列可以存储突然增加的访问请求数据，等待消费者服务器处理。</li>
 </ol>
-<h3 id="架构模式在新浪微博的应用"><a href="#架构模式在新浪微博的应用" class="headerlink" title="架构模式在新浪微博的应用"></a>架构模式在新浪微博的应用</h3><h2 id="大型网站核心架构要素"><a href="#大型网站核心架构要素" class="headerlink" title="大型网站核心架构要素"></a>大型网站核心架构要素</h2><h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><ol>
+<h3 id="架构模式在新浪微博的应用"><a href="#架构模式在新浪微博的应用" class="headerlink" title="架构模式在新浪微博的应用"></a>架构模式在新浪微博的应用</h3><ol>
+<li>异步推拉结合的模式。用户发表微博后系统将微博写入消息队列后立即返回，用户响应迅速，消息队列消费者任务将微博推送给所有当前在线粉丝的订阅列表中，非在线用户登录后再根据关注列表拉取微博订阅列表。</li>
+<li>多级缓存策略。热门微博和明星用户的微博缓存在所有的微博服务器上，在线用户的微博和近期微博缓存在分布式缓存集群中，对于微博操作中常见的刷操作，几乎全部都是缓存访问操作。</li>
+<li>多个数据中心。为了提高系统的可用性和性能，多个数据中心可以让用户就近访问最近的数据中心，改善系统性能，同时也是数据冗余复制的灾备中心，所有的数据通过远程消息系统在不同的数据中心之间同步，提高系统可用性。</li>
+</ol>
+<h2 id="大型网站核心架构要素"><a href="#大型网站核心架构要素" class="headerlink" title="大型网站核心架构要素"></a>大型网站核心架构要素</h2><h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><ol>
 <li>浏览器端，通过浏览器缓存、使用页面压缩、合理布局页面、减少Cookie传输改善性能。</li>
 <li>CDN，将网站静态内容分发至离用户最近的网络服务商机房，使用户通过最短访问路径获取数据。可以在网站机房部署反向代理服务器，缓存热点文件，加快请求响应速度，减轻应用服务器负载压力。</li>
 <li>在应用服务器端，可以使用服务器本地缓存和分布式缓存，通过缓存在内存中的热点数据处理用户请求，加快请求处理过程，减轻数据库负载压力。</li>
-<li>也可以通过异步操作将用户请求发送至消息队列等待后续任何处理，而当前请求直接返回响应给用户。</li>
-<li></li>
+<li>可以通过异步操作将用户请求发送至消息队列等待后续任何处理，而当前请求直接返回响应给用户。</li>
+<li>在网站有很多用户高并发请求的情况下，可以将多台应用服务器组成一个而集群共同对外服务，提供整体处理能力，改善性能。</li>
+<li>在代码层面，也可以通过使用多线程、改善内存管理等手段优化性能。</li>
+<li>在数据库服务器端，索引、缓存、SQL优化等性能优化手段都已经比较成熟。而方兴未艾的NoSQL数据库通过优化数据模型、存储结构、伸缩特性等手段在性能方面的优势也日趋明显。</li>
 </ol>
+<h3 id="可用性"><a href="#可用性" class="headerlink" title="可用性"></a>可用性</h3><ol>
+<li>网站高可用的主要手段是冗余。</li>
+<li>对于应用服务器而言，多台应用服务器通过负载均衡设备组成一个集群共同对外提供服务，任何一台服务器宕机，只需把请求切换到其他服务器，但是一个前提条件是应用服务器上不能保存请求的会话信息，否则会导致会话丢失，即使转发到其他服务器也无法完成业务。</li>
+</ol>
+<h3 id="伸缩性"><a href="#伸缩性" class="headerlink" title="伸缩性"></a>伸缩性</h3><ol>
+<li>衡量架构伸缩性的主要标准就是是否可以用多台服务器构建集群，是否容易向集群中添加新的服务器。</li>
+<li>对于应用服务器集群，只要服务器上不保存数据，所有服务器都是对等的，通过使用合适的负载均衡设备就可以向集群中不断加入服务器。</li>
+<li>对于缓存服务器集群，加入新的服务器可能会导致缓存路由失效，需要改进缓存路由算法保证缓存数据的可访问性。</li>
+<li>关系数据库虽然支持数据复制，主从热等机制，但是很难做到大规模集群的可伸缩性，因此关系数据库的集群伸缩性方案必须在数据库之外实现，通过路由分区等手段将部署有多个数据库的服务器组成一个集群。</li>
+<li>至于大部分NoSQL数据库产品，由于其先天就是为海量数据而生，因此其对伸缩性的支持通常都非常好，可以做到在较少运维参与的情况下实现集群规模的线性伸缩。</li>
+</ol>
+<h3 id="扩展性"><a href="#扩展性" class="headerlink" title="扩展性"></a>扩展性</h3><ol>
+<li>衡量网站架构扩展性好坏的主要标准就是在网站增加新的业务产品时，是否可以实现对现有产品透明无影响，无需要任何改动或者很少改动既有业务功能就可以上线新产品。不同产品之间是否很少耦合。</li>
+<li>网站可扩展架构的主要手段是事件驱动架构和分布式服务。</li>
+<li>事件驱动架构在网站通常利用消息队列实现，将用户请求和其他业务事件构造成消息发送到消息队列，消费者从消息队列中获取消息进行处理。通过这种方式将消息产生和消息处理分离开来，可以透明地增加新消息生产者任务或者新的消息消费者任务。</li>
+<li>分布式服务则是将业务和可复用服务分离开来，通过分布式服务框架调用。新增产品可以通过调用可复用的服务实现自身的业务逻辑，而对现有产品没有任何影响。</li>
+<li>大型网站为了保持市场地位，还会吸引第三方开发者，调用网站服务。</li>
+</ol>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><h2 id="瞬时响应：网站的高性能架构"><a href="#瞬时响应：网站的高性能架构" class="headerlink" title="瞬时响应：网站的高性能架构"></a>瞬时响应：网站的高性能架构</h2><h3 id="网站性能测试"><a href="#网站性能测试" class="headerlink" title="网站性能测试"></a>网站性能测试</h3><p><strong>性能优化手段</strong></p>
+<ol>
+<li>前端架构优化手段，通过优化页面HTML样式、利用浏览器端的并发和异步特性、调整浏览器缓存策略、使用CDN服务、反向代理等手段，使浏览器尽快地显示用户感兴趣的内容、尽可能近地获取页面内容。</li>
+<li>后端架构优化手段，使用缓存加速数据读取、使用集群提高吞吐能力，使用异步消息加快请求响应及实现削峰，使用代码优化手段改善程序性能。</li>
+<li>基础设施优化手段，建设优化骨干网、使用高性价比定制服务器、利用虚拟机技术优化资源利用。</li>
+</ol>
+<p><strong>性能测试指标</strong></p>
+<ol>
+<li>响应时间。</li>
+<li>并发数。</li>
+<li>吞吐量。HPS每秒HTTP请求数，QPS每秒查询数，TPS每秒事务数。吞吐量随着并发数增大，先是增加然后下降到系统崩溃0。</li>
+<li>性能计数器。包括System Load、对象与线程数、内存使用、CPU使用、磁盘与网络I/O等指标，也是系统监控的重要参数。<ul>
+<li>System Load系统负载，指当前正在被CPU执行和等待被CPU执行的进程数目总和，是反映系统忙闲程度的重要指标。理想情况是所有CPU都在使用，没有进程在等待处理，所有Load的理想值是CPU的数目。在Linux用top命令查看。</li>
+</ul>
+</li>
+</ol>
+<p><strong>性能测试方法</strong></p>
+<ol>
+<li>性能测试。目标性能。系统最佳运行点，响应时间较短。</li>
+<li>负载测试。最大负载点。</li>
+<li>压力测试。</li>
+<li>稳定性测试。</li>
+</ol>
+<p><strong>性能优化策略</strong></p>
+<ol>
+<li>性能分析。分析影响性能的主要因素是磁盘、内存、CPU还是网络。</li>
+<li>性能优化。Web前端性能优化、应用服务器性能优化、存储服务器性能优化。</li>
+</ol>
+<h3 id="Web前端性能优化"><a href="#Web前端性能优化" class="headerlink" title="Web前端性能优化"></a>Web前端性能优化</h3><ol>
+<li>主要优化手段有优化浏览器访问、使用反向代理、CND。</li>
+</ol>
+<p><strong>浏览器访问优化</strong></p>
+<ol>
+<li>减少http请求。<ul>
+<li>减少http的主要手段是合并CSS、合并JavaScrpt、合并图片。</li>
+</ul>
+</li>
+<li>使用浏览器缓存。<ul>
+<li>静态资源文件通过设置Cache-Control和Expires属性，设定浏览器缓存，缓存时间可以很长。</li>
+<li>如果静态资源文件变化，可以通过改变文件名实现，即更新文件为不是更新文件内容。</li>
+<li>更新静态资源的时候，应该一个文件一个文件逐步更新，并有一定的间隔，降低峰值。</li>
+</ul>
+</li>
+<li>启用压缩。<ul>
+<li>压缩可以减少通信传输的数据量，但会增加服务器和浏览器的压力，如果通信带宽良好，而服务器资源不足的情况要权衡考虑。</li>
+</ul>
+</li>
+<li>CSS放在页面最上面、JavaScript放在页面最下面。<ul>
+<li>浏览器会再下载完全部CSS之后才对整个页面进行渲染，因此最好的做法是将CSS放在页面最上面。JavaScript执行可能会阻塞页面，所以一般JavaScript放在页面最下面，除非页面解析时需要用到JavaScript。</li>
+</ul>
+</li>
+<li>减少Cookie传输。<ul>
+<li>Cookie包含在每次请求和响应中，应尽量减少Cookie中传输的数据量。</li>
+<li>对于某些静态资源的访问，如CSS、JavaScript等，发送Cookie是没有意义的，可以考虑静态资源使用独立域名访问，避免请求静态资源时发送Cookie。</li>
+</ul>
+</li>
+</ol>
+<p><strong>CDN加速</strong></p>
 
       
     </div>
@@ -637,6 +720,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/27/Linux常用命令/" rel="prev" title="Linux常用命令">
+                Linux常用命令 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -720,7 +807,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -731,7 +818,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -775,7 +862,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构演化"><span class="nav-number">1.1.</span> <span class="nav-text">大型网站架构演化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站软件系统的特点"><span class="nav-number">1.1.1.</span> <span class="nav-text">大型网站软件系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化发展历程"><span class="nav-number">1.1.2.</span> <span class="nav-text">大型网站架构演化发展历程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化的价值观"><span class="nav-number">1.1.3.</span> <span class="nav-text">大型网站架构演化的价值观</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构设计误区"><span class="nav-number">1.1.4.</span> <span class="nav-text">网站架构设计误区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构模式"><span class="nav-number">1.2.</span> <span class="nav-text">大型网站架构模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">网站架构模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构模式在新浪微博的应用"><span class="nav-number">1.2.2.</span> <span class="nav-text">架构模式在新浪微博的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站核心架构要素"><span class="nav-number">1.3.</span> <span class="nav-text">大型网站核心架构要素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">1.3.1.</span> <span class="nav-text">性能</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构演化"><span class="nav-number">1.1.</span> <span class="nav-text">大型网站架构演化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站软件系统的特点"><span class="nav-number">1.1.1.</span> <span class="nav-text">大型网站软件系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化发展历程"><span class="nav-number">1.1.2.</span> <span class="nav-text">大型网站架构演化发展历程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化的价值观"><span class="nav-number">1.1.3.</span> <span class="nav-text">大型网站架构演化的价值观</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构设计误区"><span class="nav-number">1.1.4.</span> <span class="nav-text">网站架构设计误区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构模式"><span class="nav-number">1.2.</span> <span class="nav-text">大型网站架构模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">网站架构模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构模式在新浪微博的应用"><span class="nav-number">1.2.2.</span> <span class="nav-text">架构模式在新浪微博的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站核心架构要素"><span class="nav-number">1.3.</span> <span class="nav-text">大型网站核心架构要素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">1.3.1.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可用性"><span class="nav-number">1.3.2.</span> <span class="nav-text">可用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩性"><span class="nav-number">1.3.3.</span> <span class="nav-text">伸缩性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展性"><span class="nav-number">1.3.4.</span> <span class="nav-text">扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性"><span class="nav-number">1.3.5.</span> <span class="nav-text">安全性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构"><span class="nav-number">2.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#瞬时响应：网站的高性能架构"><span class="nav-number">2.1.</span> <span class="nav-text">瞬时响应：网站的高性能架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站性能测试"><span class="nav-number">2.1.1.</span> <span class="nav-text">网站性能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web前端性能优化"><span class="nav-number">2.1.2.</span> <span class="nav-text">Web前端性能优化</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -809,7 +896,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">29.5k</span>
+    <span title="Site words total count">31.8k</span>
   
 </div>
 
