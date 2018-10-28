@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  or条件中的每个列必须都加上索引才能生效，否则失效。 组合索引必须使用第1个才会生效，否则失效。 LIKE查询不能是%开头，否则失效。 条件的列">
+<meta name="description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  避免全表扫描，在where和order by涉及的列上建立索引。 or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。 组合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL">
 <meta property="og:url" content="https://lin-rudong.github.io/2018/10/17/MySQL/index.html">
 <meta property="og:site_name" content="林如东的博客">
-<meta property="og:description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  or条件中的每个列必须都加上索引才能生效，否则失效。 组合索引必须使用第1个才会生效，否则失效。 LIKE查询不能是%开头，否则失效。 条件的列">
+<meta property="og:description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  避免全表扫描，在where和order by涉及的列上建立索引。 or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。 组合">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-17T03:46:58.023Z">
+<meta property="og:updated_time" content="2018-10-28T01:48:48.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL">
-<meta name="twitter:description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  or条件中的每个列必须都加上索引才能生效，否则失效。 组合索引必须使用第1个才会生效，否则失效。 LIKE查询不能是%开头，否则失效。 条件的列">
+<meta name="twitter:description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  避免全表扫描，在where和order by涉及的列上建立索引。 or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。 组合">
 
 
 
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-17T11:46:58+08:00">
-                2018-10-17
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-28T09:48:48+08:00">
+                2018-10-28
               </time>
             
           </span>
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  336
+                  306
                 </span>
               
 
@@ -436,26 +436,20 @@
 </ol>
 <p><strong>索引限制</strong></p>
 <ol>
-<li>or条件中的每个列必须都加上索引才能生效，否则失效。</li>
+<li>避免全表扫描，在where和order by涉及的列上建立索引。</li>
+<li>or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。</li>
 <li>组合索引必须使用第1个才会生效，否则失效。</li>
 <li>LIKE查询不能是%开头，否则失效。</li>
 <li>条件的列不能进行运算，否则失效。</li>
-<li>not in和!=会导致失效。</li>
-<li><p>is null和is not null会导致失效。</p>
+<li>not in和in会导致全表扫描，用between等代替。</li>
+<li><p>is null和is not null会导致失效，不要设置默认值null。</p>
 </li>
 <li><p>如果创建了索引(a,b,c)，实际等同于创建了索引(a)、索引(a,b)和索引(a,b,c)。</p>
 </li>
 <li>索引不会包含有NULL值得列，组合索引只有要一列含有NULL值就无效。</li>
 <li>对字符串索引时限制长度。</li>
 <li>VARCHAR是变长的，可以节约空间，但更新数据时可能产生碎片。</li>
-<li><p>ENUM类型代替字符串类型，数据实际存储为整型。</p>
-</li>
-<li><p>避免全表扫描，在where和order by涉及的列上建立索引。</p>
-</li>
-<li>避免where对null判断，设置默认值不为null。</li>
-<li>避免where使用or连接条件，使用union代替。</li>
-<li>in和not in会导致全表扫描，用between等代替。</li>
-<li>避免使用通配符。</li>
+<li>ENUM类型代替字符串类型，数据实际存储为整型。</li>
 </ol>
 
       
@@ -577,7 +571,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -666,7 +660,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.8k</span>
+    <span title="Site words total count">35k</span>
   
 </div>
 

@@ -87,7 +87,7 @@
 <meta property="og:description" content="概述大型网站架构演化大型网站软件系统的特点 高并发，大流量。 高可用。不间断服务。 海量数据。 用户分布广泛，网络情况复杂。 安全环境恶劣。 需求快速变更，发布频繁。 渐进式发展。  大型网站架构演化发展历程 初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。 应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。 应用服务器需要处理大量的业务逻辑，需要更快CP">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://lin-rudong.github.io/images/大型网站架构.png">
-<meta property="og:updated_time" content="2018-10-27T15:46:49.561Z">
+<meta property="og:updated_time" content="2018-10-28T09:26:56.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大型网站技术架构">
 <meta name="twitter:description" content="概述大型网站架构演化大型网站软件系统的特点 高并发，大流量。 高可用。不间断服务。 海量数据。 用户分布广泛，网络情况复杂。 安全环境恶劣。 需求快速变更，发布频繁。 渐进式发展。  大型网站架构演化发展历程 初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。 应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。 应用服务器需要处理大量的业务逻辑，需要更快CP">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-27T23:46:49+08:00">
-                2018-10-27
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-28T17:26:56+08:00">
+                2018-10-28
               </time>
             
           </span>
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  5.4k
+                  8.3k
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  18
+                  28
                 </span>
               
             </div>
@@ -676,18 +676,110 @@
 <li>压缩可以减少通信传输的数据量，但会增加服务器和浏览器的压力，如果通信带宽良好，而服务器资源不足的情况要权衡考虑。</li>
 </ul>
 </li>
-<li>CSS放在页面最上面、JavaScript放在页面最下面。<ul>
-<li>浏览器会再下载完全部CSS之后才对整个页面进行渲染，因此最好的做法是将CSS放在页面最上面。JavaScript执行可能会阻塞页面，所以一般JavaScript放在页面最下面，除非页面解析时需要用到JavaScript。</li>
-</ul>
-</li>
 <li>减少Cookie传输。<ul>
 <li>Cookie包含在每次请求和响应中，应尽量减少Cookie中传输的数据量。</li>
 <li>对于某些静态资源的访问，如CSS、JavaScript等，发送Cookie是没有意义的，可以考虑静态资源使用独立域名访问，避免请求静态资源时发送Cookie。</li>
 </ul>
 </li>
+<li>CSS放在页面最上面、JavaScript放在页面最下面。<ul>
+<li>浏览器会再下载完全部CSS之后才对整个页面进行渲染，因此最好的做法是将CSS放在页面最上面。JavaScript执行可能会阻塞页面，所以一般JavaScript放在页面最下面，除非页面解析时需要用到JavaScript。</li>
+</ul>
+</li>
 </ol>
 <p><strong>CDN加速</strong></p>
-
+<ol>
+<li>本质是一个缓存，做到网络访问第一跳就能获取数据。缓存静态资源，如图片、文件、CSS、JavaScript、静态网页。</li>
+</ol>
+<p><strong>反向代理</strong></p>
+<ol>
+<li>传统代理服务器位于浏览器一侧，代理浏览器将HTTP请求发送到互联网上，而反向代理服务器位于网站机房一侧，代理网站Web服务器接收HTTP请求。</li>
+<li>和传统代理服务器可以保护浏览器一样，反向代理服务器也具有保护网站安全的作用。</li>
+<li>可以将静态内容缓存在反向代理服务器上，也可以把热点动态内容也缓存在代理服务器上，如果动态内容有变化，通过内部通知机制通知反向代理缓存失效，反向代理会加载最新的动态内容再次缓存起来。</li>
+</ol>
+<h3 id="应用服务器性能优化"><a href="#应用服务器性能优化" class="headerlink" title="应用服务器性能优化"></a>应用服务器性能优化</h3><ol>
+<li>优化手段主要有缓存、集群、异步。</li>
+</ol>
+<p><strong>分布式缓存</strong></p>
+<ol>
+<li>网站性能优化第一定律：优先考虑使用缓存优化性能。分布式体现在不同的缓存服务器缓存的范围数据不同，而集群体现在功能的延申性，多台缓存服务器共同提供缓存功能，且可以通过增加服务器到集群扩容。</li>
+<li>缓存的基本原理，将数据存储在相对较高访问速度的存储介质中。一方面缓存可以减少数据访问的时间，另一方面缓存可以避免重复计算。<ul>
+<li>缓存的本质是一个内存Hash表，数据缓存以一对Key、Value的形式存储在内存Hash表中，Hash表数据读写的时间复杂度是O(1)。</li>
+<li>缓存主要用来存放读写比很高，很少变化的数据。根据二八定律，80%的访问落在20%的数据上，所以缓存热点数据可以很好地改善系统性能。</li>
+</ul>
+</li>
+<li>合理使用缓存。<ul>
+<li>频换修改的数据不适合缓存。没有热点访问也不适合缓存。</li>
+<li>一般会对缓存的数据设置失效时间，一旦超过失效时间就要从数据库中重新加载，因此应用要容忍一定时间的数据不一致。还有一种策略是数据更新时立即更新缓存，这会带来更多的系统开销和事务一致性问题。</li>
+<li>缓存可用性。有的网站通过缓存热备来提高缓存可用性，但这有违缓存的初衷，缓存不应该被当做一个可靠的数据源来使用。通过分布式缓存服务器集群，将缓存数据分布到集群多台服务器可在一定程度上改善缓存的可用性，当一台缓存服务器宕机的时候，只有部分缓存数据丢失，重新加载这部分数据不会对数据库产生很大影响。</li>
+<li>缓存预热。缓存中存放的是热点数据，热点数据又是缓存系统利用LRU（最近最少使用）对不断访问的数据筛选淘汰，这个过程需要花费较长的时间。新启动的缓存系统没有数据，最好在缓存系统启动时就把热点数据加载好。</li>
+<li>缓存穿透。如果因为不恰当的业务、或者恶意攻击持续高并发地请求某个不存在的数据，由于缓存没有保存该数据，所有的请求都会落到数据库上。一个简单的对策是将不存在的数据也缓存起来，value值为null。</li>
+</ul>
+</li>
+<li>分布式缓存架构。<ul>
+<li>JBoss Cache为代表的需要更新同步的分布式缓存。JBoss Cache分布式缓存在集群中所有服务器中保存相同的缓存数据，当集群中的某台服务器有缓存数据更新的时候，会通知集群中其他机器更新缓存数据。通常会将应用程序和缓存部署在同一台服务器上，这样会受限于内存，而且同步带来的代价也很大。因而这种方案更多见于企业应用系统中，大型网站很少使用。</li>
+<li>Memcached为代表的不互相通信的分布式缓存。缓存与应用分离部署，应用程序通过一致性Hash等路由算法选择缓存服务器远程访问缓存数据。</li>
+</ul>
+</li>
+<li>Memcached。<ul>
+<li>简单的通信协议，需要考虑通信协议和通信序列化协议。Memcached使用TCP协议通信（UDP也支持），序列化协议则是基于文本的自定义协议，以命令关键字开头，后面是一组命令操作数。</li>
+<li>丰富的客户端程序。Java、C/C++/C#、Python、PHP、Ruby、Perl等主流的网站编程语言都支持。</li>
+<li>高性能的网络通信。服务端通信模块基于Libevent，支持事件出发的网络通信程序库。</li>
+<li>高效的内存管理。内存管理中一个令人头痛的问题是内存碎片管理。Memcached使用固定空间分配，这会浪费空间，但是避免内存碎片管理提高了效率。</li>
+<li>互不通信的服务器集群架构。客户端路由算法一致性Hash是数据存储伸缩性架构设计的经典范式。正是集群内服务器互不通信使得集群可以做到几乎无限制的线性伸缩。很多NoSQL在数据持久化、支持复杂数据结构、性能上由于Memcached。</li>
+</ul>
+</li>
+</ol>
+<p><strong>异步操作</strong></p>
+<ol>
+<li>使用消息队列将调用异步化，可改善网站的扩展性，还可以改善网站系统的性能。</li>
+<li>消息队列可以削峰填谷，任何可以晚点做的事情都应该晚点再做。</li>
+</ol>
+<p><strong>使用集群</strong></p>
+<ol>
+<li>使用负载均衡技术为一个应用构建一个由多台服务器组成的服务器集群，将分并访问请求分发到多台服务器上处理。</li>
+</ol>
+<p><strong>代码优化</strong></p>
+<ol>
+<li>多线程。使用多线程的2个原因，IO阻塞和多CPU。<ul>
+<li>启动线程数=任务执行时间/（任务执行时间-IO等待时间）*CPU内核数。</li>
+<li>线程安全的主要手段有：将对象设计为无状态对象，使用局部对象，并发访问资源时使用锁。</li>
+</ul>
+</li>
+<li>资源复用。<ul>
+<li>要尽量减少那些开销很大的系统资源的创建和销毁，比如数据库连接、线程、网络通信连接和复杂对象。</li>
+<li>资源复用的主要有2种模式，单例和对象池。数据库连接使用的连接池就属于对象池，多线程使用的线程池也属于对象池。</li>
+</ul>
+</li>
+<li>数据结构。</li>
+<li>垃圾回收。<ul>
+<li>当Eden区空间已满，就触发一次Young GC，将未失效的对象复制到From区；当Eden区空间再次用完，触发一次Yound GC，将Eden和From区的对象复制到To区；下一次则是将Eden和To区复制到From，依次类推。</li>
+<li>进入年老代的3种情况：长期存活的对象进入年老代（年龄大于阈值，或者如果Suivivor中相同年龄的对象总和大于Suivivor的一半，年龄&gt;=该年龄的对象进入年老代）；大对象直接进入年老代；Minor GC后如果存活对象太多Survivor空间不够的话，超出的部分会进入年老代。</li>
+<li>CMS GC：Minor GC发生前，判断是否安全，即年老代是否能容纳年轻代所有对象，如果安全则直接进行Minor GC；如果不安全的，且不允许担保失败，则改为Full GC；如果不安全且允许担保失败，尝试进行Minor GC，失败出现promotion failure则改为Full GC。如果在CMS GC并发标记和并发清除时，业务线程的执行导致进入年老代的对象没有空间容纳，出现concurrent mode failure，这时改用stop the world的Serial Old GC。</li>
+<li>发生Full GC（表示年老代stop the world）的5种情况：System.gc()调用；年老代空间不足，执行后仍不足OutOfMemoryError；永久代空间不足；MinorGC发生前，判断年老代是否能容纳历来晋升平均大小，不能改为Full GC；CMS GC。</li>
+</ul>
+</li>
+</ol>
+<h3 id="存储性能优化"><a href="#存储性能优化" class="headerlink" title="存储性能优化"></a>存储性能优化</h3><ol>
+<li>机械硬盘和固态硬盘。</li>
+<li>B+树和LSM树。<ul>
+<li>由于磁盘访问时都是随机的，而机械硬盘在数据随机访问时性能较差，传统数据库使用B+树，在每次数据访问都需要多次访问磁盘影响性能。</li>
+<li>目前许多NoSQL使用LSM树，LSM的写操作都在内存中进行，并且都会创建一个新记录，这些数据在内存中仍然还是一棵排序树，当数据量超过阈值后，会将这棵排序树和磁盘上的排序树合并。读操作时，会先在内存中的排序树查找，没有再从磁盘上的排序树查找。</li>
+<li>当访问以写操作为主，而读操作则集中在最近写入的数据时，使用LSM树可极大程度地减少磁盘的访问次数。</li>
+<li>LSM和B+树不是独有的，而且随着SSD硬盘技术的成熟，数据库使用的情况可能会改变。但目前是NoSQL多使用LSM，而关系数据库使用B+树，且SSD硬盘价格贵。</li>
+</ul>
+</li>
+<li>RAID和HDFS。<ul>
+<li>RAID（廉价磁盘冗余阵列），多块磁盘通过使用RAID技术，实现数据在多块磁盘上的并发读写和数据备份，改善访问延迟和提高可用性。多用于关系数据库。</li>
+<li>RAID0只分数据不冗余，读写快，但是可用性低。RAID1，2块磁盘2份数据。RAID10，多块磁盘2份数据。RAID3，1块做记录校验，保证1块磁盘损坏得到恢复，但是校验磁盘容易损坏。RAID5，记录校验螺旋式地写入所有磁盘中。RAID6，保证2块磁盘损坏也能得到恢复，用2块磁盘螺旋式记录校验。</li>
+<li>HDFS（Hadoop分布式文件系统），系统在整个存储集群上进行数据并发读写和备份，可以看作在集群规模上实现了类似的RAID的功能。当对文件进行处理计算时，通过MapReduce并发计算任务框架，可以启动多个计算子任务，同时读取文件的多个Block块，并发处理。</li>
+<li>HDFA中有2种重要的服务器角色，NameNode和DataNode。NameNode只部署一个实例，提供元数据服务，相当于操作系统中的FAT，管理文件名的Block分配，维护整个文件系统的目录树结构。应用程序需要写文件时，NameNode会按照一定的负载均衡策略分配数据块。</li>
+</ul>
+</li>
+</ol>
+<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>分布式的方案可以改善网站并发特性，但是分布式不可避免地带来架构复杂、网络通信延迟。这样会缩短高并发访问响应延迟的同时，却延长了低并发访问响应延迟。</li>
+</ol>
+<h2 id="万无一失：网站的高可用架构"><a href="#万无一失：网站的高可用架构" class="headerlink" title="万无一失：网站的高可用架构"></a>万无一失：网站的高可用架构</h2><h3 id="网站可用性的度量与考核"><a href="#网站可用性的度量与考核" class="headerlink" title="网站可用性的度量与考核"></a>网站可用性的度量与考核</h3>
       
     </div>
     
@@ -807,7 +899,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -862,7 +954,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构演化"><span class="nav-number">1.1.</span> <span class="nav-text">大型网站架构演化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站软件系统的特点"><span class="nav-number">1.1.1.</span> <span class="nav-text">大型网站软件系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化发展历程"><span class="nav-number">1.1.2.</span> <span class="nav-text">大型网站架构演化发展历程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化的价值观"><span class="nav-number">1.1.3.</span> <span class="nav-text">大型网站架构演化的价值观</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构设计误区"><span class="nav-number">1.1.4.</span> <span class="nav-text">网站架构设计误区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构模式"><span class="nav-number">1.2.</span> <span class="nav-text">大型网站架构模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">网站架构模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构模式在新浪微博的应用"><span class="nav-number">1.2.2.</span> <span class="nav-text">架构模式在新浪微博的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站核心架构要素"><span class="nav-number">1.3.</span> <span class="nav-text">大型网站核心架构要素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">1.3.1.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可用性"><span class="nav-number">1.3.2.</span> <span class="nav-text">可用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩性"><span class="nav-number">1.3.3.</span> <span class="nav-text">伸缩性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展性"><span class="nav-number">1.3.4.</span> <span class="nav-text">扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性"><span class="nav-number">1.3.5.</span> <span class="nav-text">安全性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构"><span class="nav-number">2.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#瞬时响应：网站的高性能架构"><span class="nav-number">2.1.</span> <span class="nav-text">瞬时响应：网站的高性能架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站性能测试"><span class="nav-number">2.1.1.</span> <span class="nav-text">网站性能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web前端性能优化"><span class="nav-number">2.1.2.</span> <span class="nav-text">Web前端性能优化</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构演化"><span class="nav-number">1.1.</span> <span class="nav-text">大型网站架构演化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站软件系统的特点"><span class="nav-number">1.1.1.</span> <span class="nav-text">大型网站软件系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化发展历程"><span class="nav-number">1.1.2.</span> <span class="nav-text">大型网站架构演化发展历程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化的价值观"><span class="nav-number">1.1.3.</span> <span class="nav-text">大型网站架构演化的价值观</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构设计误区"><span class="nav-number">1.1.4.</span> <span class="nav-text">网站架构设计误区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构模式"><span class="nav-number">1.2.</span> <span class="nav-text">大型网站架构模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">网站架构模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构模式在新浪微博的应用"><span class="nav-number">1.2.2.</span> <span class="nav-text">架构模式在新浪微博的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站核心架构要素"><span class="nav-number">1.3.</span> <span class="nav-text">大型网站核心架构要素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">1.3.1.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可用性"><span class="nav-number">1.3.2.</span> <span class="nav-text">可用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩性"><span class="nav-number">1.3.3.</span> <span class="nav-text">伸缩性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展性"><span class="nav-number">1.3.4.</span> <span class="nav-text">扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性"><span class="nav-number">1.3.5.</span> <span class="nav-text">安全性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构"><span class="nav-number">2.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#瞬时响应：网站的高性能架构"><span class="nav-number">2.1.</span> <span class="nav-text">瞬时响应：网站的高性能架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站性能测试"><span class="nav-number">2.1.1.</span> <span class="nav-text">网站性能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web前端性能优化"><span class="nav-number">2.1.2.</span> <span class="nav-text">Web前端性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用服务器性能优化"><span class="nav-number">2.1.3.</span> <span class="nav-text">应用服务器性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储性能优化"><span class="nav-number">2.1.4.</span> <span class="nav-text">存储性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-1"><span class="nav-number">2.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#万无一失：网站的高可用架构"><span class="nav-number">2.2.</span> <span class="nav-text">万无一失：网站的高可用架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站可用性的度量与考核"><span class="nav-number">2.2.1.</span> <span class="nav-text">网站可用性的度量与考核</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -896,7 +988,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.8k</span>
+    <span title="Site words total count">35k</span>
   
 </div>
 
