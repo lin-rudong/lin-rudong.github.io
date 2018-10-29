@@ -87,7 +87,7 @@
 <meta property="og:description" content="概述大型网站架构演化大型网站软件系统的特点 高并发，大流量。 高可用。不间断服务。 海量数据。 用户分布广泛，网络情况复杂。 安全环境恶劣。 需求快速变更，发布频繁。 渐进式发展。  大型网站架构演化发展历程 初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。 应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。 应用服务器需要处理大量的业务逻辑，需要更快CP">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://lin-rudong.github.io/images/大型网站架构.png">
-<meta property="og:updated_time" content="2018-10-29T03:36:28.658Z">
+<meta property="og:updated_time" content="2018-10-29T12:11:34.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大型网站技术架构">
 <meta name="twitter:description" content="概述大型网站架构演化大型网站软件系统的特点 高并发，大流量。 高可用。不间断服务。 海量数据。 用户分布广泛，网络情况复杂。 安全环境恶劣。 需求快速变更，发布频繁。 渐进式发展。  大型网站架构演化发展历程 初始阶段的网络架构。应用程序、数据库、文件都在同一台应用服务器上。 应用服务和数据服务分离。3台服务器，应用服务器、数据库服务器和文件服务器。 应用服务器需要处理大量的业务逻辑，需要更快CP">
@@ -335,7 +335,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-29T11:36:28+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-29T20:11:34+08:00">
                 2018-10-29
               </time>
             
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  11.1k
+                  11.9k
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  37
+                  40
                 </span>
               
             </div>
@@ -875,11 +875,29 @@
 <li>Memcached分布式缓存集群的访问模型。应用程序通过Memcached客户端访问Memcached服务器集群，Memcached客户端有一组API、Memcached服务器集群路由算法、Memcached服务器集群列表及通信模块构成。</li>
 <li>分布式缓存的一致性Hash算法<ul>
 <li>一致性Hash环，每次加入新结点，只影响一小段，这个环一般是用二叉查找树实现的，二叉树的最右边叶子节点和最左边叶子结点相连接，Hash查找过程实际上是在二叉查找树中查找不小于查找树的最小数值。</li>
-<li>新加入的结点的数量可能会导致服务器缓存数据量和负载压力不一样。计算机的任何问题都可以通过在上面增加一个虚拟层来解决。</li>
+<li>新加入的结点可能会导致附近的结点服务器缓存数据量和负载压力不一样。计算机的任何问题都可以通过在上面增加一个虚拟层来解决，将每台物理缓存服务器虚拟为一组虚拟缓存服务器，如果虚拟结点的数据数目足够多，将会较均匀地产生影响。太多会影响性能，太少又会导致负载不均衡。</li>
 </ul>
 </li>
 </ol>
-
+<h3 id="数据存储服务集群地伸缩性设计"><a href="#数据存储服务集群地伸缩性设计" class="headerlink" title="数据存储服务集群地伸缩性设计"></a>数据存储服务集群地伸缩性设计</h3><ol>
+<li>和缓存不同的是，数据存储服务器集群的伸缩性对数据的持久性和可用性提出了更高的要求。</li>
+<li>关系数据库集群的伸缩性设计。<ul>
+<li>主从数据库、读写分离。</li>
+<li>不同业务部署在不同的数据库集群上，即数据分库。这种方式的制约条件是跨库表不能进行JOIN操作。</li>
+<li>如果分库后还是太大，需要对表进行分片，拆开分别存储在多个数据库中。支持数据分片的分布式关系数据库产品主要有开源的Amoeba和Cobar。</li>
+<li>Cobar是一个分布式关系数据库访问代理，介于应用服务器和数据库服务器之间，Cobar服务器根据SQL和分库规则分解SQL，分发到MySQL集群不同的数据库实例上执行。</li>
+<li>Cobar的伸缩有2种：Cobar服务器集群的伸缩和MySQL服务器集群的伸缩。Cobar服务器是无状态的，可以简单使用负载均衡的手段实现。而MySQL中存储着数据，要想保证集群扩容后数据一致负载均衡，必须做数据迁移，将集群中原来机器中的数据迁移到新添加的机器中。具体迁移哪些数据可以利用一致性Hash算法，迁移单位是Schema，在集群初始化时，就根据业务远景规划未来集群规模，提前创建多个Schema。</li>
+<li>Cobar相对于MySQL消耗的时间极少，而且由于Cobar代替应用程序连接数据库，数据库只需要维护更少的连接，减少资源消耗。不过Cobar路由后只能在单一数据库实例上处理查询请求，无法执行跨库JOIN操作。有的分布式数据库可以支持JOIN操作执行复杂的SQL查询，但是访问延迟比较大。</li>
+</ul>
+</li>
+<li>NoSQL数据库的伸缩性设计。<ul>
+<li>NoSQL主要是指非关系的、分布式的数据库设计模式。NoSQL放弃了关系数据库的2大重要基础：SQL和事务一致性保证ACID。而强化了大型网站的特性：高可用性、高可伸缩性。</li>
+<li>NoSQL产品中应用最广泛的是Apache HBase，HBase为可伸缩海量数据存储而设计，HBase的伸缩性主要依赖其可分裂的HRegion及可伸缩的分布式文件系统HDFS实现。</li>
+<li>Zookeeper一个支持分布式一致性的数据管理服务。</li>
+</ul>
+</li>
+</ol>
+<h2 id="随需应变：网站的扩展架构"><a href="#随需应变：网站的扩展架构" class="headerlink" title="随需应变：网站的扩展架构"></a>随需应变：网站的扩展架构</h2>
       
     </div>
     
@@ -1054,7 +1072,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构演化"><span class="nav-number">1.1.</span> <span class="nav-text">大型网站架构演化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站软件系统的特点"><span class="nav-number">1.1.1.</span> <span class="nav-text">大型网站软件系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化发展历程"><span class="nav-number">1.1.2.</span> <span class="nav-text">大型网站架构演化发展历程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化的价值观"><span class="nav-number">1.1.3.</span> <span class="nav-text">大型网站架构演化的价值观</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构设计误区"><span class="nav-number">1.1.4.</span> <span class="nav-text">网站架构设计误区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构模式"><span class="nav-number">1.2.</span> <span class="nav-text">大型网站架构模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">网站架构模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构模式在新浪微博的应用"><span class="nav-number">1.2.2.</span> <span class="nav-text">架构模式在新浪微博的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站核心架构要素"><span class="nav-number">1.3.</span> <span class="nav-text">大型网站核心架构要素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">1.3.1.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可用性"><span class="nav-number">1.3.2.</span> <span class="nav-text">可用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩性"><span class="nav-number">1.3.3.</span> <span class="nav-text">伸缩性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展性"><span class="nav-number">1.3.4.</span> <span class="nav-text">扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性"><span class="nav-number">1.3.5.</span> <span class="nav-text">安全性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构"><span class="nav-number">2.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#瞬时响应：网站的高性能架构"><span class="nav-number">2.1.</span> <span class="nav-text">瞬时响应：网站的高性能架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站性能测试"><span class="nav-number">2.1.1.</span> <span class="nav-text">网站性能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web前端性能优化"><span class="nav-number">2.1.2.</span> <span class="nav-text">Web前端性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用服务器性能优化"><span class="nav-number">2.1.3.</span> <span class="nav-text">应用服务器性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储性能优化"><span class="nav-number">2.1.4.</span> <span class="nav-text">存储性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-1"><span class="nav-number">2.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#万无一失：网站的高可用架构"><span class="nav-number">2.2.</span> <span class="nav-text">万无一失：网站的高可用架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用的网站架构"><span class="nav-number">2.2.1.</span> <span class="nav-text">高可用的网站架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用的应用"><span class="nav-number">2.2.2.</span> <span class="nav-text">高可用的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用的服务"><span class="nav-number">2.2.3.</span> <span class="nav-text">高可用的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用的数据"><span class="nav-number">2.2.4.</span> <span class="nav-text">高可用的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用网站的软件质量保证"><span class="nav-number">2.2.5.</span> <span class="nav-text">高可用网站的软件质量保证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站运行监控"><span class="nav-number">2.2.6.</span> <span class="nav-text">网站运行监控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#永无止境：网站的伸缩性架构"><span class="nav-number">2.3.</span> <span class="nav-text">永无止境：网站的伸缩性架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构的伸缩性设计"><span class="nav-number">2.3.1.</span> <span class="nav-text">网站架构的伸缩性设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用服务器集群的伸缩性设计"><span class="nav-number">2.3.2.</span> <span class="nav-text">应用服务器集群的伸缩性设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式缓存集群的伸缩性设计"><span class="nav-number">2.3.3.</span> <span class="nav-text">分布式缓存集群的伸缩性设计</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构演化"><span class="nav-number">1.1.</span> <span class="nav-text">大型网站架构演化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站软件系统的特点"><span class="nav-number">1.1.1.</span> <span class="nav-text">大型网站软件系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化发展历程"><span class="nav-number">1.1.2.</span> <span class="nav-text">大型网站架构演化发展历程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型网站架构演化的价值观"><span class="nav-number">1.1.3.</span> <span class="nav-text">大型网站架构演化的价值观</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构设计误区"><span class="nav-number">1.1.4.</span> <span class="nav-text">网站架构设计误区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站架构模式"><span class="nav-number">1.2.</span> <span class="nav-text">大型网站架构模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">网站架构模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构模式在新浪微博的应用"><span class="nav-number">1.2.2.</span> <span class="nav-text">架构模式在新浪微博的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型网站核心架构要素"><span class="nav-number">1.3.</span> <span class="nav-text">大型网站核心架构要素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">1.3.1.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可用性"><span class="nav-number">1.3.2.</span> <span class="nav-text">可用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伸缩性"><span class="nav-number">1.3.3.</span> <span class="nav-text">伸缩性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展性"><span class="nav-number">1.3.4.</span> <span class="nav-text">扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性"><span class="nav-number">1.3.5.</span> <span class="nav-text">安全性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构"><span class="nav-number">2.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#瞬时响应：网站的高性能架构"><span class="nav-number">2.1.</span> <span class="nav-text">瞬时响应：网站的高性能架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站性能测试"><span class="nav-number">2.1.1.</span> <span class="nav-text">网站性能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web前端性能优化"><span class="nav-number">2.1.2.</span> <span class="nav-text">Web前端性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用服务器性能优化"><span class="nav-number">2.1.3.</span> <span class="nav-text">应用服务器性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储性能优化"><span class="nav-number">2.1.4.</span> <span class="nav-text">存储性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-1"><span class="nav-number">2.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#万无一失：网站的高可用架构"><span class="nav-number">2.2.</span> <span class="nav-text">万无一失：网站的高可用架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用的网站架构"><span class="nav-number">2.2.1.</span> <span class="nav-text">高可用的网站架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用的应用"><span class="nav-number">2.2.2.</span> <span class="nav-text">高可用的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用的服务"><span class="nav-number">2.2.3.</span> <span class="nav-text">高可用的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用的数据"><span class="nav-number">2.2.4.</span> <span class="nav-text">高可用的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用网站的软件质量保证"><span class="nav-number">2.2.5.</span> <span class="nav-text">高可用网站的软件质量保证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站运行监控"><span class="nav-number">2.2.6.</span> <span class="nav-text">网站运行监控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#永无止境：网站的伸缩性架构"><span class="nav-number">2.3.</span> <span class="nav-text">永无止境：网站的伸缩性架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站架构的伸缩性设计"><span class="nav-number">2.3.1.</span> <span class="nav-text">网站架构的伸缩性设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用服务器集群的伸缩性设计"><span class="nav-number">2.3.2.</span> <span class="nav-text">应用服务器集群的伸缩性设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式缓存集群的伸缩性设计"><span class="nav-number">2.3.3.</span> <span class="nav-text">分布式缓存集群的伸缩性设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据存储服务集群地伸缩性设计"><span class="nav-number">2.3.4.</span> <span class="nav-text">数据存储服务集群地伸缩性设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随需应变：网站的扩展架构"><span class="nav-number">2.4.</span> <span class="nav-text">随需应变：网站的扩展架构</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1088,7 +1106,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">37.9k</span>
+    <span title="Site words total count">38.6k</span>
   
 </div>
 
