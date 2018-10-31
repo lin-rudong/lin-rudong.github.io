@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="Java语言Lambda表达式与Functional接口 访问局部变量时，会将变量隐式转换成常量。 接口的静态方法和默认方法不影响函数式接口。 @FunctionalInterface。  方法引用 方法引用用来支持Lambda简写。 构造器引用T::new，构造器本质上静态方法。 静态方法引用T::staticMethod。 类的任意对象的方法引用T::Method，第一个参数是对象。 对象的方">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-08T12:21:09.942Z">
+<meta property="og:updated_time" content="2018-10-30T15:44:20.429Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JDK8新特性">
 <meta name="twitter:description" content="Java语言Lambda表达式与Functional接口 访问局部变量时，会将变量隐式转换成常量。 接口的静态方法和默认方法不影响函数式接口。 @FunctionalInterface。  方法引用 方法引用用来支持Lambda简写。 构造器引用T::new，构造器本质上静态方法。 静态方法引用T::staticMethod。 类的任意对象的方法引用T::Method，第一个参数是对象。 对象的方">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-08T20:21:09+08:00">
-                2018-10-08
+              <time title="Post modified" itemprop="dateModified" datetime="2018-10-30T23:44:20+08:00">
+                2018-10-30
               </time>
             
           </span>
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  414
+                  401
                 </span>
               
 
@@ -445,14 +445,14 @@
         <h1 id="Java语言"><a href="#Java语言" class="headerlink" title="Java语言"></a>Java语言</h1><h2 id="Lambda表达式与Functional接口"><a href="#Lambda表达式与Functional接口" class="headerlink" title="Lambda表达式与Functional接口"></a>Lambda表达式与Functional接口</h2><ul>
 <li>访问局部变量时，会将变量隐式转换成常量。</li>
 <li>接口的静态方法和默认方法不影响函数式接口。</li>
-<li>@<em>FunctionalInterface</em>。</li>
+<li><code>@FunctionalInterface</code>。</li>
 </ul>
 <h2 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h2><ul>
 <li>方法引用用来支持Lambda简写。</li>
-<li>构造器引用<em>T::new</em>，构造器本质上静态方法。</li>
-<li>静态方法引用<em>T::staticMethod</em>。</li>
-<li>类的任意对象的方法引用<em>T::Method</em>，第一个参数是对象。</li>
-<li>对象的方法引用<em>O::Method</em>。</li>
+<li>构造器引用<code>T::new</code>，构造器本质上静态方法。</li>
+<li>静态方法引用<code>T::staticMethod</code>。</li>
+<li>类的任意对象的方法引用<code>T::Method</code>，第一个参数是对象。</li>
+<li>对象的方法引用<code>O::Method</code>。</li>
 </ul>
 <h2 id="接口的静态方法与默认方法"><a href="#接口的静态方法与默认方法" class="headerlink" title="接口的静态方法与默认方法"></a>接口的静态方法与默认方法</h2><ul>
 <li>接口的字段是<em>public static final</em>,接口的方法是<em>public</em>。</li>
@@ -462,13 +462,13 @@
 <li>List<t> list=new List&lt;&gt;();</t></li>
 </ul>
 <h2 id="重复注解"><a href="#重复注解" class="headerlink" title="重复注解"></a>重复注解</h2><ul>
-<li>@R<em>epeatable</em>。</li>
+<li><code>@Repeatable</code>。</li>
 </ul>
 <h2 id="注解类型"><a href="#注解类型" class="headerlink" title="注解类型"></a>注解类型</h2><ul>
 <li>field、constructor、method、parameter、local_variable、package和type(类、接口和enum)。</li>
 </ul>
 <h1 id="Java编译器"><a href="#Java编译器" class="headerlink" title="Java编译器"></a>Java编译器</h1><h2 id="参数名字"><a href="#参数名字" class="headerlink" title="参数名字"></a>参数名字</h2><ul>
-<li>参数名字保存在Java字节码中，<em>javac -parameters</em>。</li>
+<li>参数名字保存在Java字节码中，<code>javac -parameters</code>。</li>
 </ul>
 <h2 id="Java类库"><a href="#Java类库" class="headerlink" title="Java类库"></a>Java类库</h2><h2 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h2><ul>
 <li>集合函数式编程</li>
@@ -478,8 +478,8 @@
 </ul>
 <h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><ul>
 <li>ConcurrentHashMap。<ol>
-<li><em>取消段segments</em>，采用transient volatile hashEntry保存数据，实现<em>对每一行数据进行加锁</em>代替原来的段加锁，减少并发冲突。</li>
-<li>数据结构改为<em>数组+单向链表+红黑树</em>。</li>
+<li><code>取消段segments</code>，采用transient volatile hashEntry保存数据，实现<code>对每一行数据进行加锁</code>代替原来的段加锁，减少并发冲突。</li>
+<li>数据结构改为<code>数组+单向链表+红黑树</code>。</li>
 </ol>
 </li>
 <li>ForkJoinPool支持共有资源池。</li>
@@ -493,24 +493,10 @@
 </li>
 </ul>
 <h2 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h2><h2 id="Date-Time-API"><a href="#Date-Time-API" class="headerlink" title="Date/Time API"></a>Date/Time API</h2><ol>
-<li>Clock</li>
-</ol>
-<ul>
-<li>替换System.currentTimeMillis()和TimeZone.getDefault()。</li>
-</ul>
-<ol start="2">
+<li>Instance Duration</li>
 <li>LocaleDate LocalTime LocalDateTime</li>
-</ol>
-<ul>
-<li>无时区。</li>
-</ul>
-<ol start="3">
 <li>ZonedDateTIme</li>
-<li>Duration</li>
 </ol>
-<ul>
-<li>时间差</li>
-</ul>
 <h2 id="JS引擎"><a href="#JS引擎" class="headerlink" title="JS引擎"></a>JS引擎</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ScriptEngineManager manager = new ScriptEngineManager();</span><br><span class="line">ScriptEngine engine = manager.getEngineByName( &quot;JavaScript&quot; );</span><br><span class="line">engine.eval( &quot;function f() &#123; return 1; &#125;; f() + 1;&quot; );</span><br></pre></td></tr></table></figure>
 <h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><ul>
 <li>编码。</li>
@@ -730,7 +716,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">38.6k</span>
+    <span title="Site words total count">41.7k</span>
   
 </div>
 
