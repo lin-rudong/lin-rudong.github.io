@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Android开发初体验应用开发基础 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。  用户界面设计 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独">
+<meta name="description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android编程权威指南">
 <meta property="og:url" content="https://lin-rudong.github.io/2018/11/04/Android编程权威指南/index.html">
 <meta property="og:site_name" content="林如东的博客">
-<meta property="og:description" content="Android开发初体验应用开发基础 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。  用户界面设计 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独">
+<meta property="og:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-04T02:19:42.709Z">
+<meta property="og:updated_time" content="2018-11-09T02:51:11.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android编程权威指南">
-<meta name="twitter:description" content="Android开发初体验应用开发基础 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。  用户界面设计 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独">
+<meta name="twitter:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
 
 
 
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-11-04T10:19:42+08:00">
-                2018-11-04
+              <time title="Post modified" itemprop="dateModified" datetime="2018-11-09T10:51:11+08:00">
+                2018-11-09
               </time>
             
           </span>
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  140
+                  500
                 </span>
               
 
@@ -419,12 +419,27 @@
       
 
       
-        <h1 id="Android开发初体验"><a href="#Android开发初体验" class="headerlink" title="Android开发初体验"></a>Android开发初体验</h1><h2 id="应用开发基础"><a href="#应用开发基础" class="headerlink" title="应用开发基础"></a>应用开发基础</h2><ol>
+        <h1 id="Android开发初体验"><a href="#Android开发初体验" class="headerlink" title="Android开发初体验"></a>Android开发初体验</h1><ol>
 <li>应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。</li>
-</ol>
-<h2 id="用户界面设计"><a href="#用户界面设计" class="headerlink" title="用户界面设计"></a>用户界面设计</h2><ol>
 <li>activity定义widget，组件是用户界面的构造模块。</li>
 <li>android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XML文件中。</li>
+<li>Android的toast是用来通知用户的简短弹出消息，用户无需输入或进行任何操作。</li>
+<li>setContentView方法会实例化布局文件中定义的每一个View对象。</li>
+</ol>
+<h1 id="Android与MVC设计模式"><a href="#Android与MVC设计模式" class="headerlink" title="Android与MVC设计模式"></a>Android与MVC设计模式</h1><ol>
+<li>activity作为控制器，向内通过业务逻辑和数据获得模型状态，向外展现视图布局。</li>
+<li>模型对象，表示应用的状态，即数据和业务逻辑，通常用来映射与应用相关的一些事物。</li>
+<li>视图对象，负责与用户进行交互。</li>
+<li>控制对象，应用的逻辑单元，是视图和模型的联系纽带，管理模型与视图间的数据流动。</li>
+</ol>
+<h1 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h1><ol>
+<li>FrameLayout是最简单的ViewGroup醉驾案，它不以特定方式安排其子视图的位置，子视图的位置排列取决于它们各自的gravity。</li>
+<li>在应用运行中，只要设备配置发生了改变，就会销毁当前activity，然后再创建新的activity。</li>
+<li>Android回收内存时，只有在暂停或停止状态才可能会被销毁，此时，会调用onSaveInstanceState方法将用户数据保存在Bundle对象中，然后操作系统将Bundle对象放入activity记录中。</li>
+<li>后退键会彻底销毁当前的activity，并清除暂存的activity记录，系统重启或长时间不使用activity也会清除暂存的activity记录。</li>
+</ol>
+<h1 id="第二个activity"><a href="#第二个activity" class="headerlink" title="第二个activity"></a>第二个activity</h1><ol>
+<li>intent对象是component用来与操作系统通信的一种媒介工具。</li>
 </ol>
 
       
@@ -597,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android开发初体验"><span class="nav-number">1.</span> <span class="nav-text">Android开发初体验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用开发基础"><span class="nav-number">1.1.</span> <span class="nav-text">应用开发基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户界面设计"><span class="nav-number">1.2.</span> <span class="nav-text">用户界面设计</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android开发初体验"><span class="nav-number">1.</span> <span class="nav-text">Android开发初体验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android与MVC设计模式"><span class="nav-number">2.</span> <span class="nav-text">Android与MVC设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity的生命周期"><span class="nav-number">3.</span> <span class="nav-text">Activity的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个activity"><span class="nav-number">4.</span> <span class="nav-text">第二个activity</span></a></li></ol></div>
             
 
           </div>
@@ -631,7 +646,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">42.5k</span>
+    <span title="Site words total count">42.9k</span>
   
 </div>
 
