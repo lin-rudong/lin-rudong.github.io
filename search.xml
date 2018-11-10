@@ -7,7 +7,7 @@
       <link href="/2018/11/04/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/"/>
       <url>/2018/11/04/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/</url>
       
-        <content type="html"><![CDATA[<h1 id="Android开发初体验"><a href="#Android开发初体验" class="headerlink" title="Android开发初体验"></a>Android开发初体验</h1><ol><li>应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。</li><li>activity定义widget，组件是用户界面的构造模块。</li><li>android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XML文件中。</li><li>Android的toast是用来通知用户的简短弹出消息，用户无需输入或进行任何操作。</li><li>setContentView方法会实例化布局文件中定义的每一个View对象。</li></ol><h1 id="Android与MVC设计模式"><a href="#Android与MVC设计模式" class="headerlink" title="Android与MVC设计模式"></a>Android与MVC设计模式</h1><ol><li>activity作为控制器，向内通过业务逻辑和数据获得模型状态，向外展现视图布局。</li><li>模型对象，表示应用的状态，即数据和业务逻辑，通常用来映射与应用相关的一些事物。</li><li>视图对象，负责与用户进行交互。</li><li>控制对象，应用的逻辑单元，是视图和模型的联系纽带，管理模型与视图间的数据流动。</li></ol><h1 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h1><ol><li>FrameLayout是最简单的ViewGroup醉驾案，它不以特定方式安排其子视图的位置，子视图的位置排列取决于它们各自的gravity。</li><li>在应用运行中，只要设备配置发生了改变，就会销毁当前activity，然后再创建新的activity。</li><li>Android回收内存时，只有在暂停或停止状态才可能会被销毁，此时，会调用onSaveInstanceState方法将用户数据保存在Bundle对象中，然后操作系统将Bundle对象放入activity记录中。</li><li>后退键会彻底销毁当前的activity，并清除暂存的activity记录，系统重启或长时间不使用activity也会清除暂存的activity记录。</li></ol><h1 id="第二个activity"><a href="#第二个activity" class="headerlink" title="第二个activity"></a>第二个activity</h1><ol><li>intent对象是component用来与操作系统通信的一种媒介工具。</li></ol>]]></content>
+        <content type="html"><![CDATA[<h1 id="Android开发初体验"><a href="#Android开发初体验" class="headerlink" title="Android开发初体验"></a>Android开发初体验</h1><ol><li>应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。</li><li>activity定义widget，组件是用户界面的构造模块。</li><li>android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XML文件中。</li><li>Android的toast是用来通知用户的简短弹出消息，用户无需输入或进行任何操作。</li><li>setContentView方法会实例化布局文件中定义的每一个View对象。</li></ol><h1 id="Android与MVC设计模式"><a href="#Android与MVC设计模式" class="headerlink" title="Android与MVC设计模式"></a>Android与MVC设计模式</h1><ol><li>activity作为控制器，向内通过业务逻辑和数据获得模型状态，向外展现视图布局。</li><li>模型对象，表示应用的状态，即数据和业务逻辑，通常用来映射与应用相关的一些事物。</li><li>视图对象，负责与用户进行交互。</li><li>控制对象，应用的逻辑单元，是视图和模型的联系纽带，管理模型与视图间的数据流动。</li></ol><h1 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h1><ol><li>FrameLayout是最简单的ViewGroup醉驾案，它不以特定方式安排其子视图的位置，子视图的位置排列取决于它们各自的gravity。</li><li>在应用运行中，只要设备配置发生了改变，就会销毁当前activity，然后再创建新的activity。</li><li>Android回收内存时，只有在暂停或停止状态才可能会被销毁，此时，会调用onSaveInstanceState方法将用户数据保存在Bundle对象中，然后操作系统将Bundle对象放入activity记录中。</li><li>后退键会彻底销毁当前的activity，并清除暂存的activity记录，系统重启或长时间不使用activity也会清除暂存的activity记录。</li></ol><h1 id="第二个activity"><a href="#第二个activity" class="headerlink" title="第二个activity"></a>第二个activity</h1><ol><li>intent对象是component用来与操作系统通信的一种媒介工具。</li><li>ActivityManager维护者一个非特定应用独享的回退栈。</li></ol><h1 id="Android-SDK版本与兼容"><a href="#Android-SDK版本与兼容" class="headerlink" title="Android SDK版本与兼容"></a>Android SDK版本与兼容</h1><ol><li>最低版本代表兼容性，编译版本代表新特性。</li><li>目标版本告知Android应用设计的目的版本。</li></ol><h1 id="UI-fragment与fragment管理器"><a href="#UI-fragment与fragment管理器" class="headerlink" title="UI fragment与fragment管理器"></a>UI fragment与fragment管理器</h1><ol><li>fragment会让UI设计变得灵活，也会让应用变得复杂。</li><li>fragment的生命周期方法必须是公共方法，因为托管fragemnt的activity要调用它们。</li></ol>]]></content>
       
       
       
@@ -419,15 +419,6 @@
     
     <entry>
       <title></title>
-      <link href="/googlea5bf63acdc3dbd82.html"/>
-      <url>/googlea5bf63acdc3dbd82.html</url>
-      
-        <content type="html"><![CDATA[google-site-verification: googlea5bf63acdc3dbd82.html]]></content>
-      
-    </entry>
-    
-    <entry>
-      <title></title>
       <link href="/baidu_verify_ysuwxPEgQM.html"/>
       <url>/baidu_verify_ysuwxPEgQM.html</url>
       
@@ -436,11 +427,11 @@
     </entry>
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title></title>
+      <link href="/googlea5bf63acdc3dbd82.html"/>
+      <url>/googlea5bf63acdc3dbd82.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[google-site-verification: googlea5bf63acdc3dbd82.html]]></content>
       
     </entry>
     
@@ -448,6 +439,15 @@
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
