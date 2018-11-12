@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-10T03:19:56.519Z">
+<meta property="og:updated_time" content="2018-11-12T02:47:05.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android编程权威指南">
 <meta name="twitter:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-11-10T11:19:56+08:00">
-                2018-11-10
+              <time title="Post modified" itemprop="dateModified" datetime="2018-11-12T10:47:05+08:00">
+                2018-11-12
               </time>
             
           </span>
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  608
+                  872
                 </span>
               
 
@@ -398,7 +398,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  2
+                  3
                 </span>
               
             </div>
@@ -449,8 +449,16 @@
 <h1 id="UI-fragment与fragment管理器"><a href="#UI-fragment与fragment管理器" class="headerlink" title="UI fragment与fragment管理器"></a>UI fragment与fragment管理器</h1><ol>
 <li>fragment会让UI设计变得灵活，也会让应用变得复杂。</li>
 <li>fragment的生命周期方法必须是公共方法，因为托管fragemnt的activity要调用它们。</li>
+<li>总是使用fragment，但是应用单屏至多使用3个fragment。</li>
+<li>优先使用支持库版fragment，因为使用Android操作系统内置版fragment会降低兼容性，不过支持库版fragment会占用内存空间。</li>
 </ol>
-
+<h1 id="使用布局与组建创建用户界面"><a href="#使用布局与组建创建用户界面" class="headerlink" title="使用布局与组建创建用户界面"></a>使用布局与组建创建用户界面</h1><ol>
+<li>dp/dip，密度无关像素，1dp单位在设备屏幕上总是等于1/160英寸，无论屏幕密度如何，总能获得同样的尺寸。</li>
+<li>sp，缩放无关像素，它是一种与密度无关的像素，这种像素会受用户系统字体大小设置的影响，通常用来设置屏幕上的字体大小。</li>
+<li>布局参数，以layout_开头的属性作用于组件的父组件，它们会告诉父布局如何在内部安排自己的子元素。</li>
+<li>android:layout_weight属性的工作原理，在layout_width分配完空间后，剩余空间会按照layout_weight设置的值的占比分配，通常会设定所有子组件的layout_weight属性值总和为100。</li>
+</ol>
+<h1 id="使用RecyclerView显示列表"><a href="#使用RecyclerView显示列表" class="headerlink" title="使用RecyclerView显示列表"></a>使用RecyclerView显示列表</h1>
       
     </div>
     
@@ -621,7 +629,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android开发初体验"><span class="nav-number">1.</span> <span class="nav-text">Android开发初体验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android与MVC设计模式"><span class="nav-number">2.</span> <span class="nav-text">Android与MVC设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity的生命周期"><span class="nav-number">3.</span> <span class="nav-text">Activity的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个activity"><span class="nav-number">4.</span> <span class="nav-text">第二个activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-SDK版本与兼容"><span class="nav-number">5.</span> <span class="nav-text">Android SDK版本与兼容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UI-fragment与fragment管理器"><span class="nav-number">6.</span> <span class="nav-text">UI fragment与fragment管理器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android开发初体验"><span class="nav-number">1.</span> <span class="nav-text">Android开发初体验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android与MVC设计模式"><span class="nav-number">2.</span> <span class="nav-text">Android与MVC设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity的生命周期"><span class="nav-number">3.</span> <span class="nav-text">Activity的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个activity"><span class="nav-number">4.</span> <span class="nav-text">第二个activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-SDK版本与兼容"><span class="nav-number">5.</span> <span class="nav-text">Android SDK版本与兼容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UI-fragment与fragment管理器"><span class="nav-number">6.</span> <span class="nav-text">UI fragment与fragment管理器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用布局与组建创建用户界面"><span class="nav-number">7.</span> <span class="nav-text">使用布局与组建创建用户界面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用RecyclerView显示列表"><span class="nav-number">8.</span> <span class="nav-text">使用RecyclerView显示列表</span></a></li></ol></div>
             
 
           </div>
@@ -655,7 +663,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">43k</span>
+    <span title="Site words total count">43.3k</span>
   
 </div>
 
