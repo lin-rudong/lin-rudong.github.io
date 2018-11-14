@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-12T02:47:05.806Z">
+<meta property="og:updated_time" content="2018-11-14T02:34:22.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android编程权威指南">
 <meta name="twitter:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-11-12T10:47:05+08:00">
-                2018-11-12
+              <time title="Post modified" itemprop="dateModified" datetime="2018-11-14T10:34:22+08:00">
+                2018-11-14
               </time>
             
           </span>
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  872
+                  922
                 </span>
               
 
@@ -458,7 +458,12 @@
 <li>布局参数，以layout_开头的属性作用于组件的父组件，它们会告诉父布局如何在内部安排自己的子元素。</li>
 <li>android:layout_weight属性的工作原理，在layout_width分配完空间后，剩余空间会按照layout_weight设置的值的占比分配，通常会设定所有子组件的layout_weight属性值总和为100。</li>
 </ol>
-<h1 id="使用RecyclerView显示列表"><a href="#使用RecyclerView显示列表" class="headerlink" title="使用RecyclerView显示列表"></a>使用RecyclerView显示列表</h1>
+<h1 id="使用RecyclerView显示列表"><a href="#使用RecyclerView显示列表" class="headerlink" title="使用RecyclerView显示列表"></a>使用RecyclerView显示列表</h1><ol>
+<li>RecyclerView负责回收再利用以及定位屏幕上的View，而定位功能委托给LayoutManager。</li>
+<li>ViewHolder负责容纳View。</li>
+<li>Adapter作为Controller，负责创建必要的ViewHolder，绑定ViewHolder至模型层数据。</li>
+</ol>
+
       
     </div>
     
