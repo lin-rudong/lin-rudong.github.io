@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  避免全表扫描，在where和order by涉及的列上建立索引。 or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。 组合">
+<meta name="description" content="Java SE8的流库从迭代到流的操作 流并不存储其元素。这些集合可能存储在底层的集合中，或者是按需生成的。 流的操作不会修改其数据源。 流的操作是尽可能惰性执行的。这意味着直至需要其结果时，操作才会执行。  流的创建 集合：stream、parallelStream。 数组：Arrays.stream、Stream.of。 无限流：Stream.generate、Stream.iterate。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL">
-<meta property="og:url" content="https://lin-rudong.github.io/2018/10/17/MySQL/index.html">
+<meta property="og:title" content="Java核心技术2">
+<meta property="og:url" content="https://lin-rudong.github.io/2018/11/26/Java核心技术2/index.html">
 <meta property="og:site_name" content="林如东的博客">
-<meta property="og:description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  避免全表扫描，在where和order by涉及的列上建立索引。 or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。 组合">
+<meta property="og:description" content="Java SE8的流库从迭代到流的操作 流并不存储其元素。这些集合可能存储在底层的集合中，或者是按需生成的。 流的操作不会修改其数据源。 流的操作是尽可能惰性执行的。这意味着直至需要其结果时，操作才会执行。  流的创建 集合：stream、parallelStream。 数组：Arrays.stream、Stream.of。 无限流：Stream.generate、Stream.iterate。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-28T01:48:48.468Z">
+<meta property="og:updated_time" content="2018-11-26T14:43:07.393Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL">
-<meta name="twitter:description" content="模糊查询LIKE或NOT LIKE  %：0个或多个字符。 _：1个字符。 []：括号内字符中的1个字符。 [^]：不在括号内字符中的1个字符。 \：转义。  REGEXP或NOT REGEXP 索引 普通索引 唯一索引 主键索引 组合索引  索引限制  避免全表扫描，在where和order by涉及的列上建立索引。 or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。 组合">
+<meta name="twitter:title" content="Java核心技术2">
+<meta name="twitter:description" content="Java SE8的流库从迭代到流的操作 流并不存储其元素。这些集合可能存储在底层的集合中，或者是按需生成的。 流的操作不会修改其数据源。 流的操作是尽可能惰性执行的。这意味着直至需要其结果时，操作才会执行。  流的创建 集合：stream、parallelStream。 数组：Arrays.stream、Stream.of。 无限流：Stream.generate、Stream.iterate。">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://lin-rudong.github.io/2018/10/17/MySQL/"/>
+  <link rel="canonical" href="https://lin-rudong.github.io/2018/11/26/Java核心技术2/"/>
 
 
 
 
 
-  <title>MySQL | 林如东的博客</title>
+  <title>Java核心技术2 | 林如东的博客</title>
   
 
 
@@ -288,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/10/17/MySQL/">
+    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2018/11/26/Java核心技术2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="林如东">
@@ -305,7 +305,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">MySQL</h2>
+          <h2 class="post-title" itemprop="name headline">Java核心技术2</h2>
         
 
         <div class="post-meta">
@@ -317,8 +317,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-17T10:37:12+08:00">
-                2018-10-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-26T15:07:45+08:00">
+                2018-11-26
               </time>
             
 
@@ -333,12 +333,34 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-10-28T09:48:48+08:00">
-                2018-10-28
+              <time title="Post modified" itemprop="dateModified" datetime="2018-11-26T22:43:07+08:00">
+                2018-11-26
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -348,8 +370,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/17/MySQL/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/17/MySQL/" itemprop="commentCount"></span>
+                <a href="/2018/11/26/Java核心技术2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/26/Java核心技术2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -357,7 +379,7 @@
 
           
           
-             <span id="/2018/10/17/MySQL/" class="leancloud_visitors" data-flag-title="MySQL">
+             <span id="/2018/11/26/Java核心技术2/" class="leancloud_visitors" data-flag-title="Java核心技术2">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -382,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  306
+                  1.1k
                 </span>
               
 
@@ -398,7 +420,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  4
                 </span>
               
             </div>
@@ -419,37 +441,106 @@
       
 
       
-        <h1 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h1><p><strong>LIKE或NOT LIKE</strong></p>
-<ol>
-<li>%：0个或多个字符。</li>
-<li>_：1个字符。</li>
-<li>[]：括号内字符中的1个字符。</li>
-<li>[^]：不在括号内字符中的1个字符。</li>
-<li>\：转义。</li>
+        <h1 id="Java-SE8的流库"><a href="#Java-SE8的流库" class="headerlink" title="Java SE8的流库"></a>Java SE8的流库</h1><h2 id="从迭代到流的操作"><a href="#从迭代到流的操作" class="headerlink" title="从迭代到流的操作"></a>从迭代到流的操作</h2><ol>
+<li>流并不存储其元素。这些集合可能存储在底层的集合中，或者是按需生成的。</li>
+<li>流的操作不会修改其数据源。</li>
+<li>流的操作是尽可能惰性执行的。这意味着直至需要其结果时，操作才会执行。</li>
 </ol>
-<p><strong>REGEXP或NOT REGEXP</strong></p>
-<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ol>
-<li>普通索引</li>
-<li>唯一索引</li>
-<li>主键索引</li>
-<li>组合索引</li>
+<h2 id="流的创建"><a href="#流的创建" class="headerlink" title="流的创建"></a>流的创建</h2><ol>
+<li>集合：stream、parallelStream。</li>
+<li>数组：Arrays.stream、Stream.of。</li>
+<li>无限流：Stream.generate、Stream.iterate。</li>
+<li>空流：Stream.empty。</li>
+<li>正则：splitAsStream。</li>
+<li>文件：Files.lines。</li>
 </ol>
-<p><strong>索引限制</strong></p>
+<h2 id="filter、map和flatMap方法"><a href="#filter、map和flatMap方法" class="headerlink" title="filter、map和flatMap方法"></a>filter、map和flatMap方法</h2><ol>
+<li>filter：的参数是Predicate<t>，从T到boolean的函数。</t></li>
+<li>map：一对一映射。</li>
+<li>flatMap：是一对多映射，需要定义映射成多个流的方式。</li>
+</ol>
+<h2 id="抽取子流和连接流"><a href="#抽取子流和连接流" class="headerlink" title="抽取子流和连接流"></a>抽取子流和连接流</h2><ol>
+<li>limit：抽取前面的子流，常用于裁剪无限流。</li>
+<li>skip：丢弃前面的子流，抽取后面的子流。</li>
+<li>concat：连接流。</li>
+</ol>
+<h2 id="其他的流转换"><a href="#其他的流转换" class="headerlink" title="其他的流转换"></a>其他的流转换</h2><ol>
+<li>distinct：剔除重复元素。</li>
+<li>sorted：排序。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; s;</span><br><span class="line">s.sorted(Comparator.comparing(String::length).reversed())</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>peek：复制流，并通过函数参数遍历，常用于调试。</li>
+</ol>
+<h2 id="简单约简"><a href="#简单约简" class="headerlink" title="简单约简"></a>简单约简</h2><ol>
+<li>约简是一种终结操作。</li>
+<li>count：计数。</li>
+<li>max、min：最大值和最小值。</li>
+<li>findFirst、findAny：第一个值和任意匹配的值，findAny常用于并行处理。</li>
+<li>anyMatch、allMatch和noneMatch：断言匹配。</li>
+</ol>
+<h2 id="Optional类型"><a href="#Optional类型" class="headerlink" title="Optional类型"></a>Optional类型</h2><ol>
+<li>get：如果不存在，抛出异常。</li>
+<li>orElse、orElseGet、orElseThrow：如果不存在，使用默认操作。</li>
+<li>ifPresent：如果存在，执行操作。</li>
+<li>map：类似ifPresent，有返回值。</li>
+<li>flatMap：类似map，不会多重可选包装。</li>
+</ol>
+<p><strong>创建Optional值</strong></p>
 <ol>
-<li>避免全表扫描，在where和order by涉及的列上建立索引。</li>
-<li>or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。</li>
-<li>组合索引必须使用第1个才会生效，否则失效。</li>
-<li>LIKE查询不能是%开头，否则失效。</li>
-<li>条件的列不能进行运算，否则失效。</li>
-<li>not in和in会导致全表扫描，用between等代替。</li>
-<li><p>is null和is not null会导致失效，不要设置默认值null。</p>
-</li>
-<li><p>如果创建了索引(a,b,c)，实际等同于创建了索引(a)、索引(a,b)和索引(a,b,c)。</p>
-</li>
-<li>索引不会包含有NULL值得列，组合索引只有要一列含有NULL值就无效。</li>
-<li>对字符串索引时限制长度。</li>
-<li>VARCHAR是变长的，可以节约空间，但更新数据时可能产生碎片。</li>
-<li>ENUM类型代替字符串类型，数据实际存储为整型。</li>
+<li>Optional.empty：空。</li>
+<li>Optional.of：如果为null，抛出异常。</li>
+<li>Optional.ofNullable：可以是null。</li>
+</ol>
+<h2 id="收集结果"><a href="#收集结果" class="headerlink" title="收集结果"></a>收集结果</h2><ol>
+<li>iterator、forEach、forEachOrdered：遍历。</li>
+<li>toArray：获得由流元素组成的数组。</li>
+<li>collect：收集到另一个目标中，Collectors提供了大量收集方法。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; result=stream.collect(Collectors.toList());</span><br><span class="line">Set&lt;String&gt; result=stream.collect(Collectors.toSet());</span><br><span class="line">TreeSet&lt;String&gt; result=stream.collect(Collectors.toCollection(TreeSet::<span class="keyword">new</span>));</span><br><span class="line"></span><br><span class="line">String result=stream.collect(Collectors.joinning());</span><br><span class="line">String result=stream.collect(Collectors.joining(<span class="string">","</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//约简</span></span><br><span class="line">IntSummaryStatistics summary=stream.collect(Collectors.summarizingInt(String::length));</span><br><span class="line"><span class="keyword">double</span> average=summary.getAverage();</span><br><span class="line"><span class="keyword">double</span> max=summary.getMax();</span><br></pre></td></tr></table></figure>
+<h2 id="收集到映射表中"><a href="#收集到映射表中" class="headerlink" title="收集到映射表中"></a>收集到映射表中</h2><ol>
+<li>Collectors.toMap(key,value)，将元素收集到映射表中。</li>
+<li>Function.identity()，x-&gt;x。</li>
+</ol>
+<h2 id="群组和分区"><a href="#群组和分区" class="headerlink" title="群组和分区"></a>群组和分区</h2><ol>
+<li>Collectors.groupingBy：分组，生成映射表，值为列表。</li>
+<li>Collectors.partitioningBy：分区，类似分组，键值是true或false。</li>
+</ol>
+<h2 id="下游收集器"><a href="#下游收集器" class="headerlink" title="下游收集器"></a>下游收集器</h2><ol>
+<li>用于处理groupingBy生成的映射表的列表值的Collectors，和collect的收集器本质一样。</li>
+<li>counting、summing、maxBy、minBy。</li>
+<li>mapping：先映射，再执行下游收集器。</li>
+</ol>
+<h2 id="约简操作"><a href="#约简操作" class="headerlink" title="约简操作"></a>约简操作</h2><ol>
+<li>reduce。</li>
+<li>提供者、累积器、组合器模式：提供者创建目标类型的新实例，累积器添加元素到实例，组合器合并实例。</li>
+</ol>
+<h2 id="基本类型流"><a href="#基本类型流" class="headerlink" title="基本类型流"></a>基本类型流</h2><ol>
+<li>IntStream、LongStream、DoubleStream。</li>
+<li>range、rangeClosed：生成步长为1的整数范围。</li>
+<li>codePoints和chars会生成IntStream。</li>
+<li>Random类具有ints、longs和doubles方法，会返回基本类型流。</li>
+<li>boxed可以包装基本类型流。</li>
+</ol>
+<p><strong>差异</strong></p>
+<ol>
+<li>toArray方法会直接返回基本类型数组。</li>
+<li>具有max、min、sum、average方法，方法会直接返回结果。</li>
+<li>summaryStatistics也会直接返回结果，而不需要定义参数。</li>
+</ol>
+<h2 id="并行流"><a href="#并行流" class="headerlink" title="并行流"></a>并行流</h2><ol>
+<li>只要在终结方法执行时，流处于并行模式，那么所有的中间流操作都将被并行化。</li>
+<li>并行处理可以导致竞争情况，要避免线程不安全时使用并行模式。</li>
+<li>默认情况下，有序集合、范围、生成器和迭代产生的流，或者通过Stream.sorted产生的流，都是有序的，它们的结果是按照原来元素的顺序累积的，如果运行相同的操作两次，将会得到相同的结果。</li>
+<li>当在流上调用unordered方法时，有些操作可以被更有效地并行化。在有序的流中，distinct会保留所有相同元素中的第一个，这对并行化是一种阻碍。放弃排序还可以提高limit的速度，从流中取出任意n个元素，而不在意要获取哪些。</li>
+<li>流操作都是惰性的，在终结操作前对集合进行修改是可行的，但是并不推荐。</li>
+</ol>
+<p><strong>并行流正常工作的条件</strong></p>
+<ol>
+<li>数据应该在内存中。必须等到数据到达是非常低效的。</li>
+<li>流应该可以被高效地分成若干个子部分。</li>
+<li>流操作的工作量应该具有较大的规模。</li>
+<li>流操作不应该被阻塞。并行流使用fork-join池来操作池的各个部分，如果多个流操作被阻塞，那么池可能就无法做任何事情了。</li>
 </ol>
 
       
@@ -475,8 +566,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/13/全排列/" rel="next" title="全排列">
-                <i class="fa fa-chevron-left"></i> 全排列
+              <a href="/2018/11/04/Android编程权威指南/" rel="next" title="Android编程权威指南">
+                <i class="fa fa-chevron-left"></i> Android编程权威指南
               </a>
             
           </div>
@@ -484,10 +575,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/18/Java面试/" rel="prev" title="Java">
-                Java <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -626,7 +713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模糊查询"><span class="nav-number">1.</span> <span class="nav-text">模糊查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引"><span class="nav-number">2.</span> <span class="nav-text">索引</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-SE8的流库"><span class="nav-number">1.</span> <span class="nav-text">Java SE8的流库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从迭代到流的操作"><span class="nav-number">1.1.</span> <span class="nav-text">从迭代到流的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流的创建"><span class="nav-number">1.2.</span> <span class="nav-text">流的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter、map和flatMap方法"><span class="nav-number">1.3.</span> <span class="nav-text">filter、map和flatMap方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽取子流和连接流"><span class="nav-number">1.4.</span> <span class="nav-text">抽取子流和连接流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他的流转换"><span class="nav-number">1.5.</span> <span class="nav-text">其他的流转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单约简"><span class="nav-number">1.6.</span> <span class="nav-text">简单约简</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optional类型"><span class="nav-number">1.7.</span> <span class="nav-text">Optional类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#收集结果"><span class="nav-number">1.8.</span> <span class="nav-text">收集结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#收集到映射表中"><span class="nav-number">1.9.</span> <span class="nav-text">收集到映射表中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#群组和分区"><span class="nav-number">1.10.</span> <span class="nav-text">群组和分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下游收集器"><span class="nav-number">1.11.</span> <span class="nav-text">下游收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约简操作"><span class="nav-number">1.12.</span> <span class="nav-text">约简操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本类型流"><span class="nav-number">1.13.</span> <span class="nav-text">基本类型流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并行流"><span class="nav-number">1.14.</span> <span class="nav-text">并行流</span></a></li></ol></li></ol></div>
             
 
           </div>
