@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="快速上手：基础知识数和表达式 /，除法；//，整除，向下取整；%，取模，整除的余数；*，乘法；**，乘方/求幂。 0x，十六进制；0，八进制；0b，二进制。  函数 round，内置函数，取最接近的整数，并在两个整数一样近时取偶数。 可以使用变量来引用函数。  模块 import module，导入模块；from module import function，导入函数。  字符串 单引号和双引号作">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-01T16:50:58.511Z">
+<meta property="og:updated_time" content="2018-12-02T03:07:41.012Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python基础教程">
 <meta name="twitter:description" content="快速上手：基础知识数和表达式 /，除法；//，整除，向下取整；%，取模，整除的余数；*，乘法；**，乘方/求幂。 0x，十六进制；0，八进制；0b，二进制。  函数 round，内置函数，取最接近的整数，并在两个整数一样近时取偶数。 可以使用变量来引用函数。  模块 import module，导入模块；from module import function，导入函数。  字符串 单引号和双引号作">
@@ -333,7 +333,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-02T00:50:58+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-02T11:07:41+08:00">
                 2018-12-02
               </time>
             
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  803
+                  1.2k
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  2
+                  4
                 </span>
               
             </div>
@@ -487,16 +487,50 @@
 </ol>
 <h2 id="设置字符串的格式：完整版"><a href="#设置字符串的格式：完整版" class="headerlink" title="设置字符串的格式：完整版"></a>设置字符串的格式：完整版</h2><ol>
 <li>双花括号可以转义花括号。</li>
-<li>{字段名：索引或标识符及其操作结果!转换标志:格式说明符}。</li>
-<li>转换标志，s是普通字符串，r是Python的字符串表示，a是Python的Unicode表示。</li>
+<li>{字段名（索引或标识符及其操作结果）!转换标志:格式说明符}。</li>
+<li>转换标志，s是普通字符串，r是字符串的Python表示，a是字符串的Unicode表示。</li>
 <li>格式说明符。<ul>
-<li>填充字符、=（表示填充字符在符号和数字之间即左右对齐）&lt;&gt;^对齐、-+空格格式化正数、#（二、八、十六进制加上前缀）。</li>
+<li>填充字符、=（表示填充字符在符号和数字之间即左右对齐）&lt;&gt;^对齐、-+空格整数前缀、#进制前缀。</li>
 <li>宽度、精度、千位分隔符，如果加上f，表示小数精度，否则表示全部精度。</li>
 <li>处理类型，转换成其他类型处理。</li>
 </ul>
 </li>
 </ol>
-<h2 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h2>
+<h2 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h2><ol>
+<li>Python的类方法和实例方法本质是一样的。</li>
+</ol>
+<h1 id="当索引行不通时"><a href="#当索引行不通时" class="headerlink" title="当索引行不通时"></a>当索引行不通时</h1><ol>
+<li>字典是Pthon中唯一的内置映射类型，键可能是数、字符串或元组。</li>
+</ol>
+<h2 id="创建和使用字典"><a href="#创建和使用字典" class="headerlink" title="创建和使用字典"></a>创建和使用字典</h2><ol>
+<li>赋值可以实现增、改。</li>
+<li>键的类型可以是任何不可变类型。 </li>
+<li>深复制可以用模块copy中的函数deepcopy实现。</li>
+<li>索引不存在的键时会出错，get则会返回None。</li>
+<li>字典元素的排列顺序是不确定的。</li>
+</ol>
+<h1 id="条件、循环及其他语句"><a href="#条件、循环及其他语句" class="headerlink" title="条件、循环及其他语句"></a>条件、循环及其他语句</h1><h2 id="赋值魔法"><a href="#赋值魔法" class="headerlink" title="赋值魔法"></a>赋值魔法</h2><ol>
+<li>逗号会自动生成元组。</li>
+<li>序列解包，*会收集零或多个值到列表。</li>
+</ol>
+<h2 id="条件和条件语句"><a href="#条件和条件语句" class="headerlink" title="条件和条件语句"></a>条件和条件语句</h2><ol>
+<li>任何值都可用作布尔值，Python会自动转换。</li>
+<li>True和1等同，False和0等同。</li>
+<li>==，相等对象；is，相同对象；is not，不同对象。</li>
+<li>not in，不包含成员。</li>
+<li>不兼容的类型不能进行运算。</li>
+<li>链式比较。</li>
+<li>assert运算符，断言，程序在错误条件出现时立即崩溃。</li>
+</ol>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><ol>
+<li>while循环。</li>
+<li>for循环，只要能够使用for循环，就不要使用while循环。</li>
+<li>遍历字典时，实际上是遍历字典的关键字。</li>
+<li>zip，将两个序列组成一个元组序列，实现并行迭代。</li>
+<li>enumerate，将索引和序列组成一个元组序列，实现迭代时获取索引。</li>
+<li>循环的else子句，循环没有调用break时执行。</li>
+</ol>
+<h2 id="简单推导"><a href="#简单推导" class="headerlink" title="简单推导"></a>简单推导</h2>
       
     </div>
     
@@ -667,7 +701,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速上手：基础知识"><span class="nav-number">1.</span> <span class="nav-text">快速上手：基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数和表达式"><span class="nav-number">1.1.</span> <span class="nav-text">数和表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">1.3.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.4.</span> <span class="nav-text">字符串</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表和元组"><span class="nav-number">2.</span> <span class="nav-text">列表和元组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列概述"><span class="nav-number">2.1.</span> <span class="nav-text">序列概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用的序列操作"><span class="nav-number">2.2.</span> <span class="nav-text">通用的序列操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表：Python的主力"><span class="nav-number">2.3.</span> <span class="nav-text">列表：Python的主力</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用字符串"><span class="nav-number">3.</span> <span class="nav-text">使用字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置字符串的格式：精简版"><span class="nav-number">3.1.</span> <span class="nav-text">设置字符串的格式：精简版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置字符串的格式：完整版"><span class="nav-number">3.2.</span> <span class="nav-text">设置字符串的格式：完整版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串方法"><span class="nav-number">3.3.</span> <span class="nav-text">字符串方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速上手：基础知识"><span class="nav-number">1.</span> <span class="nav-text">快速上手：基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数和表达式"><span class="nav-number">1.1.</span> <span class="nav-text">数和表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">1.3.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.4.</span> <span class="nav-text">字符串</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表和元组"><span class="nav-number">2.</span> <span class="nav-text">列表和元组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列概述"><span class="nav-number">2.1.</span> <span class="nav-text">序列概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用的序列操作"><span class="nav-number">2.2.</span> <span class="nav-text">通用的序列操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表：Python的主力"><span class="nav-number">2.3.</span> <span class="nav-text">列表：Python的主力</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用字符串"><span class="nav-number">3.</span> <span class="nav-text">使用字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置字符串的格式：精简版"><span class="nav-number">3.1.</span> <span class="nav-text">设置字符串的格式：精简版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置字符串的格式：完整版"><span class="nav-number">3.2.</span> <span class="nav-text">设置字符串的格式：完整版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串方法"><span class="nav-number">3.3.</span> <span class="nav-text">字符串方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当索引行不通时"><span class="nav-number">4.</span> <span class="nav-text">当索引行不通时</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和使用字典"><span class="nav-number">4.1.</span> <span class="nav-text">创建和使用字典</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件、循环及其他语句"><span class="nav-number">5.</span> <span class="nav-text">条件、循环及其他语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#赋值魔法"><span class="nav-number">5.1.</span> <span class="nav-text">赋值魔法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件和条件语句"><span class="nav-number">5.2.</span> <span class="nav-text">条件和条件语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">5.3.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单推导"><span class="nav-number">5.4.</span> <span class="nav-text">简单推导</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -701,7 +735,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">45.4k</span>
+    <span title="Site words total count">45.8k</span>
   
 </div>
 
