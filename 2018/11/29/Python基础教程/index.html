@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="快速上手：基础知识数和表达式 /，除法；//，整除，向下取整；%，取模，整除的余数；*，乘法；**，乘方/求幂。 0x，十六进制；0o，八进制；0b，二进制。  函数 round，内置函数，取最接近的整数，并在两个整数一样近时取偶数。 可以使用变量来引用函数。  模块 import module，导入模块；from module import function，导入函数。  字符串 单引号和双引号">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-03T13:36:07.976Z">
+<meta property="og:updated_time" content="2018-12-03T13:49:36.913Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python基础教程">
 <meta name="twitter:description" content="快速上手：基础知识数和表达式 /，除法；//，整除，向下取整；%，取模，整除的余数；*，乘法；**，乘方/求幂。 0x，十六进制；0o，八进制；0b，二进制。  函数 round，内置函数，取最接近的整数，并在两个整数一样近时取偶数。 可以使用变量来引用函数。  模块 import module，导入模块；from module import function，导入函数。  字符串 单引号和双引号">
@@ -333,7 +333,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-03T21:36:07+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-03T21:49:36+08:00">
                 2018-12-03
               </time>
             
@@ -565,7 +565,7 @@
 <li>递归旨在分解问题，直到满足基线条件。</li>
 <li>函数式编程，python提供了map、filter、reduce进行函数式编程，其中map和filter的用途不大，应该用列表推导来替代，至于reduce可以配合lambda表达式。</li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line">l=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">functools.reduce(<span class="keyword">lambda</span> x,y:x+y,l)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line">l=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">functools.reduce(<span class="keyword">lambda</span> x, y:x+y, l)</span><br></pre></td></tr></table></figure>
 <h1 id="再谈抽象"><a href="#再谈抽象" class="headerlink" title="再谈抽象"></a>再谈抽象</h1><h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><ol>
 <li>object.f()可以视为Class.f(object)的简写，但是后者的多态性更低，因为前者object的类是不确定的，f方法会随object的实际类型而确定，后者的f方法局限于Class类。</li>
 <li>Python不支持函数重载。</li>
@@ -626,7 +626,7 @@
 <li>没有元组推导，只有生成器推导，在一对既有的圆括号内使用生成器推导时，无需再添加一对圆括号。</li>
 <li>生成器由生成器的函数和生成器的迭代器组成，对于生成器的函数返回的迭代器，可以像使用其他迭代器一样使用。</li>
 <li>send方法可以指定上次yield语句的返回值，并执行一次next。</li>
-<li>throw方法在表达式yield引发异常，close停止生成器。。</li>
+<li>throw方法在表达式yield引发异常，close停止生成器。</li>
 </ol>
 <h1 id="开箱即用"><a href="#开箱即用" class="headerlink" title="开箱即用"></a>开箱即用</h1><ol>
 <li>标准安装包含一组称为标准库的模块。</li>
@@ -689,27 +689,27 @@
 </ol>
 <h2 id="迭代文件内容"><a href="#迭代文件内容" class="headerlink" title="迭代文件内容"></a>迭代文件内容</h2><ol>
 <li>使用fileinput实现延迟行迭代.</li>
-<li>最常用的方法是文件迭代器,文件实际上是可迭代的.</li>
+<li>最常用的方法是文件迭代器, 文件实际上是可迭代的.</li>
 </ol>
 <h1 id="图形用户界面"><a href="#图形用户界面" class="headerlink" title="图形用户界面"></a>图形用户界面</h1><h2 id="创建GUI实例应用程序"><a href="#创建GUI实例应用程序" class="headerlink" title="创建GUI实例应用程序"></a>创建GUI实例应用程序</h2><ol>
 <li>tkinter内置的GUI.</li>
-<li>Tk,Button,Label,Entry,ScrolledText.</li>
-<li>pack布局默认将主窗口作为主控件,并从窗口顶部居中开始将控件堆叠成一列.</li>
-<li>布局管理器还有grid和place,grid可以把控件放在不可见的表格单元格中,place让你能够手工放置控件,通过help((Pack|Grid|Place).config)了解可用的选项.</li>
-<li>bind事件处理机制,help(Tk.bind).</li>
+<li>Tk, Button, Label, Entry, ScrolledText.</li>
+<li>pack布局默认将主窗口作为主控件, 并从窗口顶部居中开始将控件堆叠成一列.</li>
+<li>布局管理器还有grid和place, grid可以把控件放在不可见的表格单元格中, place让你能够手工放置控件, 通过help((Pack|Grid|Place).config)了解可用的选项.</li>
+<li>bind事件处理机制, help(Tk.bind).</li>
 </ol>
 <h1 id="数据库支持"><a href="#数据库支持" class="headerlink" title="数据库支持"></a>数据库支持</h1><h2 id="Python数据库API"><a href="#Python数据库API" class="headerlink" title="Python数据库API"></a>Python数据库API</h2><ol>
-<li>三个全局变量,apilevel,threadsafety,paramstyle</li>
-<li>线程安全程度是一个0到3的整数,0表示线程不能共享模块,1表示线程可以共享模块本身,但不能共享连接,2表示线程可共享模块和连接,但不能共享游标,而3表示模块是绝对线程安全的.</li>
-<li>connect参数有五个,dsn数据源名称,user,password,host,database;connect返回一个连接对象,表示当前到数据库的会话,有四个方法,commit提交事务,rollback回滚未提交的事务,cursor返回连接的游标对象,close关闭后游标也将不可用;commit和rollback需要事务支持,关闭连接时,如果还有未提交的事务,将会自动回滚.</li>
-<li>cursor游标用来执行SQL查询和查看结果,方法有callproc调用数据库过程,execute,executemany执行多次SQL操作,fetclone返回查询结果的下一行,fetchmany,fetchall余下的所有行,nextset下一个结果集,setinputsizes,setoutputsize.</li>
-<li>cursor字段有description由结果列描述组成的序列,rowcount,arraysize是fetchmany的默认行数.</li>
-<li>时间戳Timestamp包含时区,会因为时区的不同而变化,而DATETIME是绝对值.</li>
-<li>类型,Date,Time,Timestamp,DateFromTicks,TimeFromTicks,TimestampFromTicks,Binary.</li>
-<li>特殊值,STRING,BINARY,NUMBER,DATETIME,ROWID.</li>
+<li>三个全局变量, apilevel, threadsafety, paramstyle.</li>
+<li>线程安全程度是一个0到3的整数, 0表示线程不能共享模块, 1表示线程可以共享模块本身, 但不能共享连接, 2表示线程可共享模块和连接, 但不能共享游标, 而3表示模块是绝对线程安全的.</li>
+<li>connect参数有五个, dsn数据源名称, user, password, host, database; connect返回一个连接对象, 表示当前到数据库的会话, 有四个方法, commit提交事务, rollback回滚未提交的事务, cursor返回连接的游标对象, close关闭后游标也将不可用; commit和rollback需要事务支持, 关闭连接时, 如果还有未提交的事务, 将会自动回滚.</li>
+<li>cursor游标用来执行SQL查询和查看结果, 方法有callproc调用数据库过程, execute, executemany执行多次SQL操作, fetclone返回查询结果的下一行, fetchmany, fetchall余下的所有行, nextset下一个结果集, setinputsizes, setoutputsize.</li>
+<li>cursor字段有description由结果列描述组成的序列, rowcount, arraysize是fetchmany的默认行数.</li>
+<li>时间戳Timestamp包含时区, 会因为时区的不同而变化, 而DATETIME是绝对值.</li>
+<li>类型, Date, Time, Timestamp, DateFromTicks, TimeFromTicks, TimestampFromTicks, Binary.</li>
+<li>特殊值, STRING, BINARY, NUMBER, DATETIME, ROWID.</li>
 </ol>
 <h2 id="SQLite和PySQLite"><a href="#SQLite和PySQLite" class="headerlink" title="SQLite和PySQLite"></a>SQLite和PySQLite</h2><ol>
-<li>SQLite是小型数据库引擎,不需要作为独立的服务器运行,可直接使用本地文件,不需要集中式数据库存储机制.</li>
+<li>SQLite是小型数据库引擎, 不需要作为独立的服务器运行, 可直接使用本地文件, 不需要集中式数据库存储机制.</li>
 </ol>
 
       
