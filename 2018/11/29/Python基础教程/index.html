@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="快速上手：基础知识数和表达式 /，除法；//，整除，向下取整；%，取模，整除的余数；*，乘法；**，乘方/求幂。 0x，十六进制；0o，八进制；0b，二进制。  函数 round，内置函数，取最接近的整数，并在两个整数一样近时取偶数。 可以使用变量来引用函数。  模块 import module，导入模块；from module import function，导入函数。  字符串 单引号和双引号">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-03T03:31:10.888Z">
+<meta property="og:updated_time" content="2018-12-03T13:36:07.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python基础教程">
 <meta name="twitter:description" content="快速上手：基础知识数和表达式 /，除法；//，整除，向下取整；%，取模，整除的余数；*，乘法；**，乘方/求幂。 0x，十六进制；0o，八进制；0b，二进制。  函数 round，内置函数，取最接近的整数，并在两个整数一样近时取偶数。 可以使用变量来引用函数。  模块 import module，导入模块；from module import function，导入函数。  字符串 单引号和双引号">
@@ -333,7 +333,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-03T11:31:10+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-03T21:36:07+08:00">
                 2018-12-03
               </time>
             
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  3.6k
+                  4.8k
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  12
+                  16
                 </span>
               
             </div>
@@ -666,7 +666,52 @@
 <li>堆是一种优先队列，模块heapq对其提供支持。</li>
 <li>双端队列，模块collections对其提供支持。</li>
 </ol>
-<h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1>
+<h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><ol>
+<li>open位于自动导入的模块io中，默认返回可读的文本文件对象。</li>
+<li>r默认读，w写，x独占写，a附加。写模式会在文件不存在时创建它，独占写模式在文件已存在时引发异常，写模式都会截断文件，附加模式不会截断文件。</li>
+<li>可与其他模式结合使用的值，t默认文本，b二进制，+读写。r+不会截断文件，w+会截断文件。</li>
+<li>默认模式为rt，这意味着把文件视为经过编码的Unicode文本，因此将自动执行解码和编码，且默认使用平台编码，encoding参数可以指定编码，还将自动转换换行字符。<ul>
+<li>newline控制文本模式的换行，默认值是None，输入可以识别所有的换行符并且会转换成\n，输出\n将转换成系统换行符os.linesep。</li>
+<li>如果是空字符串，输入可以识别所有的换行符并且不会转换换行符，输出不会转换换行符。</li>
+<li>如果是\n、\r、\r\n，输入只能识别指定换行符并且不会转换换行符，输出\n会转换成指定的换行符。</li>
+</ul>
+</li>
+</ol>
+<h2 id="文件的基本方法"><a href="#文件的基本方法" class="headerlink" title="文件的基本方法"></a>文件的基本方法</h2><ol>
+<li>read, 读入几个字符或者字节.</li>
+<li>write, 写入字符串或字节串.</li>
+<li>文件流只能按顺序从头到尾读取, 而随机存取可以只访问感兴趣的部分, seek可以移动当前位置, tell返回当前位置.</li>
+<li>readline读入一行, 包括换行符, 也可以限制读取的最大字符数, readlines以列表的方式读取所有行, readlines适用于文件比较小的情况.</li>
+<li>writelines和readlines相反, 写入时要自行添加换行符.</li>
+<li>close关闭文件, 可以避免用完系统可能指定的文件打开配额, 对于写如果的文件, Python可能缓冲写入的数据以提高效率, 如果程序崩溃, 数据可能不会写入到文件中, 关闭文件.</li>
+<li>flush也会将写缓冲刷新到文件中, 根据使用的操作系统和设置, 在写文件时由于锁定可能会禁止其他正在运行的程序访问这个文件.</li>
+<li>with open(filename) as name会自动关闭文件, 即便出现异常.</li>
+</ol>
+<h2 id="迭代文件内容"><a href="#迭代文件内容" class="headerlink" title="迭代文件内容"></a>迭代文件内容</h2><ol>
+<li>使用fileinput实现延迟行迭代.</li>
+<li>最常用的方法是文件迭代器,文件实际上是可迭代的.</li>
+</ol>
+<h1 id="图形用户界面"><a href="#图形用户界面" class="headerlink" title="图形用户界面"></a>图形用户界面</h1><h2 id="创建GUI实例应用程序"><a href="#创建GUI实例应用程序" class="headerlink" title="创建GUI实例应用程序"></a>创建GUI实例应用程序</h2><ol>
+<li>tkinter内置的GUI.</li>
+<li>Tk,Button,Label,Entry,ScrolledText.</li>
+<li>pack布局默认将主窗口作为主控件,并从窗口顶部居中开始将控件堆叠成一列.</li>
+<li>布局管理器还有grid和place,grid可以把控件放在不可见的表格单元格中,place让你能够手工放置控件,通过help((Pack|Grid|Place).config)了解可用的选项.</li>
+<li>bind事件处理机制,help(Tk.bind).</li>
+</ol>
+<h1 id="数据库支持"><a href="#数据库支持" class="headerlink" title="数据库支持"></a>数据库支持</h1><h2 id="Python数据库API"><a href="#Python数据库API" class="headerlink" title="Python数据库API"></a>Python数据库API</h2><ol>
+<li>三个全局变量,apilevel,threadsafety,paramstyle</li>
+<li>线程安全程度是一个0到3的整数,0表示线程不能共享模块,1表示线程可以共享模块本身,但不能共享连接,2表示线程可共享模块和连接,但不能共享游标,而3表示模块是绝对线程安全的.</li>
+<li>connect参数有五个,dsn数据源名称,user,password,host,database;connect返回一个连接对象,表示当前到数据库的会话,有四个方法,commit提交事务,rollback回滚未提交的事务,cursor返回连接的游标对象,close关闭后游标也将不可用;commit和rollback需要事务支持,关闭连接时,如果还有未提交的事务,将会自动回滚.</li>
+<li>cursor游标用来执行SQL查询和查看结果,方法有callproc调用数据库过程,execute,executemany执行多次SQL操作,fetclone返回查询结果的下一行,fetchmany,fetchall余下的所有行,nextset下一个结果集,setinputsizes,setoutputsize.</li>
+<li>cursor字段有description由结果列描述组成的序列,rowcount,arraysize是fetchmany的默认行数.</li>
+<li>时间戳Timestamp包含时区,会因为时区的不同而变化,而DATETIME是绝对值.</li>
+<li>类型,Date,Time,Timestamp,DateFromTicks,TimeFromTicks,TimestampFromTicks,Binary.</li>
+<li>特殊值,STRING,BINARY,NUMBER,DATETIME,ROWID.</li>
+</ol>
+<h2 id="SQLite和PySQLite"><a href="#SQLite和PySQLite" class="headerlink" title="SQLite和PySQLite"></a>SQLite和PySQLite</h2><ol>
+<li>SQLite是小型数据库引擎,不需要作为独立的服务器运行,可直接使用本地文件,不需要集中式数据库存储机制.</li>
+</ol>
+
       
     </div>
     
@@ -837,7 +882,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速上手：基础知识"><span class="nav-number">1.</span> <span class="nav-text">快速上手：基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数和表达式"><span class="nav-number">1.1.</span> <span class="nav-text">数和表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">1.3.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.4.</span> <span class="nav-text">字符串</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表和元组"><span class="nav-number">2.</span> <span class="nav-text">列表和元组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列概述"><span class="nav-number">2.1.</span> <span class="nav-text">序列概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用的序列操作"><span class="nav-number">2.2.</span> <span class="nav-text">通用的序列操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表：Python的主力"><span class="nav-number">2.3.</span> <span class="nav-text">列表：Python的主力</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用字符串"><span class="nav-number">3.</span> <span class="nav-text">使用字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置字符串的格式：精简版"><span class="nav-number">3.1.</span> <span class="nav-text">设置字符串的格式：精简版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置字符串的格式：完整版"><span class="nav-number">3.2.</span> <span class="nav-text">设置字符串的格式：完整版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串方法"><span class="nav-number">3.3.</span> <span class="nav-text">字符串方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当索引行不通时"><span class="nav-number">4.</span> <span class="nav-text">当索引行不通时</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和使用字典"><span class="nav-number">4.1.</span> <span class="nav-text">创建和使用字典</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件、循环及其他语句"><span class="nav-number">5.</span> <span class="nav-text">条件、循环及其他语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#赋值魔法"><span class="nav-number">5.1.</span> <span class="nav-text">赋值魔法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件和条件语句"><span class="nav-number">5.2.</span> <span class="nav-text">条件和条件语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">5.3.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单推导"><span class="nav-number">5.4.</span> <span class="nav-text">简单推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三人行"><span class="nav-number">5.5.</span> <span class="nav-text">三人行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象"><span class="nav-number">6.</span> <span class="nav-text">抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义函数"><span class="nav-number">6.1.</span> <span class="nav-text">自定义函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数魔法"><span class="nav-number">6.2.</span> <span class="nav-text">参数魔法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">6.3.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">6.4.</span> <span class="nav-text">递归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#再谈抽象"><span class="nav-number">7.</span> <span class="nav-text">再谈抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类"><span class="nav-number">7.1.</span> <span class="nav-text">类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常"><span class="nav-number">8.</span> <span class="nav-text">异常</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#让事情沿你指定的轨道出错"><span class="nav-number">8.1.</span> <span class="nav-text">让事情沿你指定的轨道出错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获异常"><span class="nav-number">8.2.</span> <span class="nav-text">捕获异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常之禅"><span class="nav-number">8.3.</span> <span class="nav-text">异常之禅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不那么异常的情况"><span class="nav-number">8.4.</span> <span class="nav-text">不那么异常的情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#魔法方法、特性和迭代器"><span class="nav-number">9.</span> <span class="nav-text">魔法方法、特性和迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">9.1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素访问"><span class="nav-number">9.2.</span> <span class="nav-text">元素访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">9.3.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器"><span class="nav-number">9.4.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器"><span class="nav-number">9.5.</span> <span class="nav-text">生成器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开箱即用"><span class="nav-number">10.</span> <span class="nav-text">开箱即用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块-1"><span class="nav-number">10.1.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探索模块"><span class="nav-number">10.2.</span> <span class="nav-text">探索模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准库：一些深受欢迎的模块"><span class="nav-number">10.3.</span> <span class="nav-text">标准库：一些深受欢迎的模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件"><span class="nav-number">11.</span> <span class="nav-text">文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速上手：基础知识"><span class="nav-number">1.</span> <span class="nav-text">快速上手：基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数和表达式"><span class="nav-number">1.1.</span> <span class="nav-text">数和表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">1.3.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.4.</span> <span class="nav-text">字符串</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表和元组"><span class="nav-number">2.</span> <span class="nav-text">列表和元组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列概述"><span class="nav-number">2.1.</span> <span class="nav-text">序列概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用的序列操作"><span class="nav-number">2.2.</span> <span class="nav-text">通用的序列操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表：Python的主力"><span class="nav-number">2.3.</span> <span class="nav-text">列表：Python的主力</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用字符串"><span class="nav-number">3.</span> <span class="nav-text">使用字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置字符串的格式：精简版"><span class="nav-number">3.1.</span> <span class="nav-text">设置字符串的格式：精简版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置字符串的格式：完整版"><span class="nav-number">3.2.</span> <span class="nav-text">设置字符串的格式：完整版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串方法"><span class="nav-number">3.3.</span> <span class="nav-text">字符串方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当索引行不通时"><span class="nav-number">4.</span> <span class="nav-text">当索引行不通时</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和使用字典"><span class="nav-number">4.1.</span> <span class="nav-text">创建和使用字典</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件、循环及其他语句"><span class="nav-number">5.</span> <span class="nav-text">条件、循环及其他语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#赋值魔法"><span class="nav-number">5.1.</span> <span class="nav-text">赋值魔法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件和条件语句"><span class="nav-number">5.2.</span> <span class="nav-text">条件和条件语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">5.3.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单推导"><span class="nav-number">5.4.</span> <span class="nav-text">简单推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三人行"><span class="nav-number">5.5.</span> <span class="nav-text">三人行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象"><span class="nav-number">6.</span> <span class="nav-text">抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义函数"><span class="nav-number">6.1.</span> <span class="nav-text">自定义函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数魔法"><span class="nav-number">6.2.</span> <span class="nav-text">参数魔法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">6.3.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">6.4.</span> <span class="nav-text">递归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#再谈抽象"><span class="nav-number">7.</span> <span class="nav-text">再谈抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类"><span class="nav-number">7.1.</span> <span class="nav-text">类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常"><span class="nav-number">8.</span> <span class="nav-text">异常</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#让事情沿你指定的轨道出错"><span class="nav-number">8.1.</span> <span class="nav-text">让事情沿你指定的轨道出错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获异常"><span class="nav-number">8.2.</span> <span class="nav-text">捕获异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常之禅"><span class="nav-number">8.3.</span> <span class="nav-text">异常之禅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不那么异常的情况"><span class="nav-number">8.4.</span> <span class="nav-text">不那么异常的情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#魔法方法、特性和迭代器"><span class="nav-number">9.</span> <span class="nav-text">魔法方法、特性和迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">9.1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素访问"><span class="nav-number">9.2.</span> <span class="nav-text">元素访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">9.3.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器"><span class="nav-number">9.4.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器"><span class="nav-number">9.5.</span> <span class="nav-text">生成器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开箱即用"><span class="nav-number">10.</span> <span class="nav-text">开箱即用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块-1"><span class="nav-number">10.1.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探索模块"><span class="nav-number">10.2.</span> <span class="nav-text">探索模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准库：一些深受欢迎的模块"><span class="nav-number">10.3.</span> <span class="nav-text">标准库：一些深受欢迎的模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件"><span class="nav-number">11.</span> <span class="nav-text">文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开文件"><span class="nav-number">11.1.</span> <span class="nav-text">打开文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件的基本方法"><span class="nav-number">11.2.</span> <span class="nav-text">文件的基本方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代文件内容"><span class="nav-number">11.3.</span> <span class="nav-text">迭代文件内容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图形用户界面"><span class="nav-number">12.</span> <span class="nav-text">图形用户界面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建GUI实例应用程序"><span class="nav-number">12.1.</span> <span class="nav-text">创建GUI实例应用程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库支持"><span class="nav-number">13.</span> <span class="nav-text">数据库支持</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python数据库API"><span class="nav-number">13.1.</span> <span class="nav-text">Python数据库API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLite和PySQLite"><span class="nav-number">13.2.</span> <span class="nav-text">SQLite和PySQLite</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -871,7 +916,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">48.3k</span>
+    <span title="Site words total count">49.4k</span>
   
 </div>
 
