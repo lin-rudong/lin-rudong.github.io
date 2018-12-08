@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-08T03:33:27.592Z">
+<meta property="og:updated_time" content="2018-12-08T09:36:29.995Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android编程权威指南">
 <meta name="twitter:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
@@ -333,7 +333,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-08T11:33:27+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-08T17:36:29+08:00">
                 2018-12-08
               </time>
             
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  2.1k
+                  2.9k
                 </span>
               
 
@@ -398,7 +398,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  7
+                  10
                 </span>
               
             </div>
@@ -503,12 +503,38 @@
 </ol>
 <h2 id="可选菜单项"><a href="#可选菜单项" class="headerlink" title="可选菜单项"></a>可选菜单项</h2><ol>
 <li>getString可以替换字符串资源中的占位符;要访问工具栏,将activity转换成AppCompatActivity.</li>
+<li>activity.invalidateOptionsMenu重建工具;考虑后退键情况; 层级式导航回退到的目标activity会被完全重建,父activity是全新的,实例变量值以及保存的实例转台显然会彻底丢失;一种方案是在启动子activity时,把状态作为extraextra信息传给它,然后在子activity中覆盖getParentActivityIntent,用附带了extra信息的intent重建父activity;解决设备旋转问题,只要利用实例状态保存机制,在onSaveInstanceState中保存实例变量值就能解决问题.</li>
 </ol>
-<p><strong>切换菜单项标题</strong></p>
+<h1 id="SQLite数据库"><a href="#SQLite数据库" class="headerlink" title="SQLite数据库"></a>SQLite数据库</h1><ol>
+<li>Android设备上的应用都有一个沙盒目录,将文件保存在沙盒中,可阻止其他应用甚至是设备用户的访问和窥探,如果设备被root了,用户就可以为所欲为;应用的沙盒目录是/data/data/应用的包名称;需要保存大量数据时,大多数应用不会使用类似txt的普通文件,因为在仅需要修改少量数据时,就得首先读取整个文件的内容,完成修改后再全部保存,数据量大的话非常耗时;SQLite是开源关系型数据库,不同于其他数据库的是,SQLite使用单个文件存储数据,读写数据时使用SQLite库.</li>
+</ol>
+<h2 id="定义schema"><a href="#定义schema" class="headerlink" title="定义schema"></a>定义schema</h2><ol>
+<li>database schema描述表名和数据字段;首先创建定义schema的Java类;在Schama类中,再定义一个描述数据表的Table静态成员类;Table类唯一的用途就是定义描述数据表元素的String常磊,定义数据库表名;接下来定义数据表字段,在Table类中创建静态成员类.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Schema</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Table</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String NAME=<span class="string">"..."</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Cols</span></span>&#123;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String UUID=<span class="string">"uuid"</span>;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建初始数据库"><a href="#创建初始数据库" class="headerlink" title="创建初始数据库"></a>创建初始数据库</h2><ol>
+<li>openOrCreateDatabase和databaseList是Android提供的Context底层方法,用来打开数据库文件并将其转换为SQLiteDatabase实例.</li>
+<li>实践中步骤,一确认目标数据是否存在;二如果不存在,首先创建数据库,然后创建数据表并初始化数据;三如果存在,打开并确认Schema是否为最新;四如果是旧版本,就先升级到最新版本.</li>
+<li>以上工作可借助Android的SQLiteOpenHelper类处理; 调用getWritableDatabase时,会打开沙盒下的数据库文件,如果不存在,就先创建数据库文件;如果是首次创建数据库,就调用onCreate,然后保存最新的版本号;如果已创建过数据库,首先检查它的版本号,如果Dababase类中的版本号更高,就调用onUpgrade升级.</li>
+<li>SQLite数据库表省事又简单,创建表字段时,不需要指定表字段类型.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Database extends SQLiteOpenHelper&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> VERSION=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATABASE_NAME=<span class="string">"database.db"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Database</span><span class="params">(Context context)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context,DATABASE_NAME,<span class="keyword">null</span>,VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(SQLiteDatabase db)</span></span>&#123;</span><br><span class="line">        db.execSQL(<span class="string">"create table "</span>+Table.NAME+<span class="string">"("</span>+</span><br><span class="line">        <span class="string">" id integer primary key autoincrement, "</span>+</span><br><span class="line">        Table.Cols.UUID+<span class="string">", "</span>+</span><br><span class="line">        ...</span><br><span class="line">        <span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onUngrade</span><span class="params">(SQLiteDatabase db,<span class="keyword">int</span> oldVersion,<span class="keyword">int</span> newVersion)</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>使用Android Device Monitor查看文件</strong></p>
 <ol>
-<li>菜单项标题的切换与子标题的显示或隐藏需要联动;在响应菜单项方法中更新菜单项的文字,在设备旋转并重建工具栏时,子标题的变化会丢失;比较好的解决方法是在创建菜单方法内更新菜单项的文字,并在用户点击菜单项时重建工具栏;首先新增跟踪记录子标题状态的成员变量;接着,在响应菜单事件方法中用activity的invalidateOptionsMenu重建工具栏;最后,根据状态变量,联动菜单项标题和子标题.</li>
+<li>需要禁用ADB整合,如果运行应用,出现Instant Run requires ADB的错误,关闭Instant Run.</li>
 </ol>
-<p><strong>“还有个问题”</strong></p>
+<p><strong>处理数据库相关问题</strong></p>
+<ol>
+<li>碰到要调整数据库表结构的情况,常规做法是,在SQLiteOpenHelper中记录版本号,然后在onUpgrade升级数据表; 常规方法编写和维护很少更新版本的代码不好,最好的做法是直接删除数据库文件,再让onCreate重建;直接从设备上删除应用是删除数据库文件最便捷的方法.</li>
+</ol>
+<h2 id="写入数据库"><a href="#写入数据库" class="headerlink" title="写入数据库"></a>写入数据库</h2><ol>
+<li>写操作有增和改.</li>
+</ol>
+<p><strong>使用ContentValues</strong></p>
+<ol>
+<li>负责处理数据库写操作的辅助类是ContentValues,它是一个键值存储类;将记录转换成ContentValuse;ContentValues的键就是数据表字段.</li>
+</ol>
+<p><strong>插入和更新记录</strong></p>
 
       
     </div>
@@ -684,7 +710,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android开发初体验"><span class="nav-number">1.</span> <span class="nav-text">Android开发初体验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android与MVC设计模式"><span class="nav-number">2.</span> <span class="nav-text">Android与MVC设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity的生命周期"><span class="nav-number">3.</span> <span class="nav-text">Activity的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个activity"><span class="nav-number">4.</span> <span class="nav-text">第二个activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-SDK版本与兼容"><span class="nav-number">5.</span> <span class="nav-text">Android SDK版本与兼容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UI-fragment与fragment管理器"><span class="nav-number">6.</span> <span class="nav-text">UI fragment与fragment管理器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用布局与组建创建用户界面"><span class="nav-number">7.</span> <span class="nav-text">使用布局与组建创建用户界面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用RecyclerView显示列表"><span class="nav-number">8.</span> <span class="nav-text">使用RecyclerView显示列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用fragment-argument"><span class="nav-number">9.</span> <span class="nav-text">使用fragment argument</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用ViewPager"><span class="nav-number">10.</span> <span class="nav-text">使用ViewPager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对话框"><span class="nav-number">11.</span> <span class="nav-text">对话框</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具栏"><span class="nav-number">12.</span> <span class="nav-text">工具栏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AppCompat"><span class="nav-number">12.1.</span> <span class="nav-text">AppCompat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具栏菜单"><span class="nav-number">12.2.</span> <span class="nav-text">工具栏菜单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现层级式导航"><span class="nav-number">12.3.</span> <span class="nav-text">实现层级式导航</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选菜单项"><span class="nav-number">12.4.</span> <span class="nav-text">可选菜单项</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android开发初体验"><span class="nav-number">1.</span> <span class="nav-text">Android开发初体验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android与MVC设计模式"><span class="nav-number">2.</span> <span class="nav-text">Android与MVC设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity的生命周期"><span class="nav-number">3.</span> <span class="nav-text">Activity的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个activity"><span class="nav-number">4.</span> <span class="nav-text">第二个activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-SDK版本与兼容"><span class="nav-number">5.</span> <span class="nav-text">Android SDK版本与兼容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UI-fragment与fragment管理器"><span class="nav-number">6.</span> <span class="nav-text">UI fragment与fragment管理器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用布局与组建创建用户界面"><span class="nav-number">7.</span> <span class="nav-text">使用布局与组建创建用户界面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用RecyclerView显示列表"><span class="nav-number">8.</span> <span class="nav-text">使用RecyclerView显示列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用fragment-argument"><span class="nav-number">9.</span> <span class="nav-text">使用fragment argument</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用ViewPager"><span class="nav-number">10.</span> <span class="nav-text">使用ViewPager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对话框"><span class="nav-number">11.</span> <span class="nav-text">对话框</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具栏"><span class="nav-number">12.</span> <span class="nav-text">工具栏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AppCompat"><span class="nav-number">12.1.</span> <span class="nav-text">AppCompat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具栏菜单"><span class="nav-number">12.2.</span> <span class="nav-text">工具栏菜单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现层级式导航"><span class="nav-number">12.3.</span> <span class="nav-text">实现层级式导航</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选菜单项"><span class="nav-number">12.4.</span> <span class="nav-text">可选菜单项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQLite数据库"><span class="nav-number">13.</span> <span class="nav-text">SQLite数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义schema"><span class="nav-number">13.1.</span> <span class="nav-text">定义schema</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建初始数据库"><span class="nav-number">13.2.</span> <span class="nav-text">创建初始数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写入数据库"><span class="nav-number">13.3.</span> <span class="nav-text">写入数据库</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -718,7 +744,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">50.4k</span>
+    <span title="Site words total count">51.2k</span>
   
 </div>
 
