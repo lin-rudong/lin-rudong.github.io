@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="快速上手：基础知识数和表达式 /，除法；//，整除，向下取整；%，取模，整除的余数；*，乘法；**，乘方/求幂。 0x，十六进制；0o，八进制；0b，二进制。  函数 round，内置函数，取最接近的整数，并在两个整数一样近时取偶数。 可以使用变量来引用函数。  模块 import module，导入模块；from module import function，导入函数。  字符串 单引号和双引号">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-03T13:49:36.913Z">
+<meta property="og:updated_time" content="2018-12-03T13:58:39.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python基础教程">
 <meta name="twitter:description" content="快速上手：基础知识数和表达式 /，除法；//，整除，向下取整；%，取模，整除的余数；*，乘法；**，乘方/求幂。 0x，十六进制；0o，八进制；0b，二进制。  函数 round，内置函数，取最接近的整数，并在两个整数一样近时取偶数。 可以使用变量来引用函数。  模块 import module，导入模块；from module import function，导入函数。  字符串 单引号和双引号">
@@ -333,7 +333,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-03T21:49:36+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-03T21:58:39+08:00">
                 2018-12-03
               </time>
             
@@ -542,7 +542,7 @@
 <li>eval和exec类似，区别在于必须返回计算结果。</li>
 </ol>
 <h1 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h1><h2 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h2><ol>
-<li>放在函数体开头的字符串称为文档字符串，将作为函数的<strong>doc</strong>字段。</li>
+<li>放在函数体开头的字符串称为文档字符串，将作为函数的__doc__字段。</li>
 <li>所有的函数都返回值，默认是None。</li>
 </ol>
 <h2 id="参数魔法"><a href="#参数魔法" class="headerlink" title="参数魔法"></a>参数魔法</h2><ol>
@@ -612,9 +612,9 @@
 <h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ol>
 <li>property可以抽象读写方法为字段，如果property没有参数表示不可读写，一个参数表示只读，第三个参数是删除字段的方法，第四个参数指定一个文档字符串。</li>
 <li>@staticmethod静态方法不需要实例或者类作为参数，@classmethod类方法需要将类作为参数，都可以用类名直接调用。</li>
-<li>__getattribute__在属性被访问时自动调用，它会拦截对所有属性的访问，因此将拦截<strong>dict</strong>的访问，访问当前实例属性唯一安全的方式是使用超类的<strong>getattribute</strong>方法。</li>
+<li>__getattribute__在属性被访问时自动调用，它会拦截对所有属性的访问，因此将拦截__dict__的访问，访问当前实例属性唯一安全的方式是使用超类的__getattribute__方法。</li>
 <li>__getattr__在属性被访问而对象没有这样的属性时自动调用。</li>
-<li>__setattr__试图给属性赋值时自动调用，实现用<strong>dict</strong>赋值防止无限循环。</li>
+<li>__setattr__试图给属性赋值时自动调用，实现用__dict__赋值防止无限循环。</li>
 <li>__delattr__试图删除属性时自动调用。</li>
 </ol>
 <h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><ol>
@@ -635,13 +635,13 @@
 <li>模块就是程序，导入模块时会执行其中的代码，由于模块主要是用来定义变量、函数、类等，而不是用来执行操作的，而定义只需执行一次，所以多次导入模块只会执行第一次，这样也可以避免无限循环导入。</li>
 <li>importlib模块的reload可以重新导入。</li>
 <li>python -m progname args将使用命令行参数来执行程序progname。</li>
-<li>主程序中，变量<strong>name</strong>的值是’__main__’，而在导入的模块中，这个变量被设置为该模块的名称，可以用来添加测试代码。 </li>
+<li>主程序中，变量__name__的值是’__main__’，而在导入的模块中，这个变量被设置为该模块的名称，可以用来添加测试代码。 </li>
 <li>解释器会在sys.path的路径查找模块，可以临时添加sys.path路径，也可以永久使用.pth路径配置文件。</li>
 <li>为组织模块，可将其编组为包，包也是一种模块，如果像普通模块一样导入包，__init__.py文件的内容就是包的内容。包虽然组织模块，但是导入包模块时并不会顺带导入其他模块。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pkg</span><br><span class="line"><span class="keyword">import</span> pkg.module</span><br><span class="line"><span class="keyword">from</span> pkg <span class="keyword">import</span> module</span><br></pre></td></tr></table></figure>
 <h2 id="探索模块"><a href="#探索模块" class="headerlink" title="探索模块"></a>探索模块</h2><ol>
-<li>dir查看模块所有属性，__all__查看API，默认import *会导入所有不以下划线打头的属性，而<strong>all</strong>可以自定义API。</li>
+<li>dir查看模块所有属性，__all__查看API，默认import *会导入所有不以下划线打头的属性，而__all__可以自定义API。</li>
 <li>help获得帮助。</li>
 <li>__doc__文档。</li>
 <li>__file__使用源代码。</li>
@@ -916,7 +916,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">49.4k</span>
+    <span title="Site words total count">50.4k</span>
   
 </div>
 

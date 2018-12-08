@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="林如东的博客">
 <meta property="og:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-29T03:18:00.243Z">
+<meta property="og:updated_time" content="2018-12-08T03:33:27.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android编程权威指南">
 <meta name="twitter:description" content="Android开发初体验 应用由activity和layout组成。activity负责管理用户与信息屏的交互；layout定义了一系列用户界面对象以及它们显示在屏幕上的位置，组成布局的定义保存在XML文件中。 activity定义widget，组件是用户界面的构造模块。 android:text属性值一般不硬编码为字符串，而是对字符串资源的引用，字符串资源包含在一个独立的名为strings的XM">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-11-29T11:18:00+08:00">
-                2018-11-29
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-08T11:33:27+08:00">
+                2018-12-08
               </time>
             
           </span>
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.1k
+                  2.1k
                 </span>
               
 
@@ -398,7 +398,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  3
+                  7
                 </span>
               
             </div>
@@ -475,6 +475,40 @@
 <h1 id="对话框"><a href="#对话框" class="headerlink" title="对话框"></a>对话框</h1><ol>
 <li>用DialogFragment封装AlertDialog，方便管理。</li>
 </ol>
+<h1 id="工具栏"><a href="#工具栏" class="headerlink" title="工具栏"></a>工具栏</h1><h2 id="AppCompat"><a href="#AppCompat" class="headerlink" title="AppCompat"></a>AppCompat</h2><ol>
+<li>原生工具栏无法支持比较老的版本，不过Google将它移植到了AppCompat库，这样都可以使用工具栏。</li>
+</ol>
+<p><strong>使用AppCompat库</strong></p>
+<ol>
+<li>添加AppCompat依赖项; 使用一种AppCompat主题; 确保activity都是AppCompatActivity子类.</li>
+<li>AppCompat自带三种主题, Theme.AppCompat黑色, Theme.AppCompat.Light浅色, Theme.AppCompat.Light.DarkActionBar黑色工具栏的浅色; 应用级别的主题设置在AndroidManifest.xml文件中application标签的android.theme属性; 主题定义在styles.xml文件中.</li>
+</ol>
+<h2 id="工具栏菜单"><a href="#工具栏菜单" class="headerlink" title="工具栏菜单"></a>工具栏菜单</h2><p><strong>在XML文件中定义菜单</strong></p>
+<ol>
+<li>菜单是一种类似于布局的资源, 菜单定义文件在res/menu目录; 菜单定义文件一般布局文件同名; showAsAction属性用于指定菜单项是显示在工具栏上, 还是隐藏于溢出菜单.</li>
+<li>app命名空间, 出于兼容性考虑, AppCompat库需要使用app命名空间, 提供了定制版showAsAction属性.</li>
+<li>应用使用的图标有两种, 系统图标和项目资源图标, 系统图标是Android操作系统内置的图标, android:icon属性值@android:drawable/ic_menu_add就引用了系统图标; 不同设备或操作系统版本间, 系统图标的显示风格差异很大, 不能统一应用的界面风格; 一种解决方案是创建定制图标, 针对不同屏幕显示密度或各种可能的设备配置, 准备不同版本的图标; 另一种解决方案是找到适合应用的系统图标, 将它们直接复制到项目的drawable资源目录中; 系统图标可以在Android SDK目录下找; 第三个也是最容易的解决方案, 使用内置的Android Assert Studio工具,生成图像后,通过@drawable引用.</li>
+</ol>
+<p><strong>创建菜单</strong></p>
+<ol>
+<li>Activity类提供了管理菜单的回调函数,需要选项菜单时,Android会调用Activity的onCreateOptionsMenu方法; Fragment有一套自己的选项菜单回调函数,创建菜单和响应菜单项选择事件的两个回调方法,onCreateoptionsMenu和onOptionsItemSelected; onCreateOptionsmenu中调用MenuInflater.inflate创建菜单文件中定义的菜单项目; 创建菜单方法中也调用了超类的方法,作为一项开发规范,推荐这么做;创建菜单方法是由FragmentManager负责调用的,当activity接收到操作系统的回调请求时,我们必须明确告诉FragmentManager,其管理的fragment应接收调用指令,通知FragmentManger需在onCreate中调用setHasOptionsMenu.</li>
+</ol>
+<p><strong>响应菜单项选择</strong></p>
+<ol>
+<li>用户点击菜单项时,fragment会收到onOptionsItemSelected的回调请求,传入参数是描述用户选择的MenuItem实例,可以用switch来判断id;方法返回的是布尔值,true表示任务已完成,如果id不存在,调用超类方法.</li>
+</ol>
+<h2 id="实现层级式导航"><a href="#实现层级式导航" class="headerlink" title="实现层级式导航"></a>实现层级式导航</h2><ol>
+<li>简单的应用主要靠后退键在应用内导航,后退键导航又称为临时性导航,只能返回到上一次浏览过的用户界面,而层级式导航可在应用内逐级向上导航;AndoridManifest.xml中添加parentActivityName属性,开启层级式导航.</li>
+<li>层级式导航的工作原理,会指示Android在回退栈中寻找指定的activity实例,如果实例存在,则弹出栈内所有其他activity.</li>
+</ol>
+<h2 id="可选菜单项"><a href="#可选菜单项" class="headerlink" title="可选菜单项"></a>可选菜单项</h2><ol>
+<li>getString可以替换字符串资源中的占位符;要访问工具栏,将activity转换成AppCompatActivity.</li>
+</ol>
+<p><strong>切换菜单项标题</strong></p>
+<ol>
+<li>菜单项标题的切换与子标题的显示或隐藏需要联动;在响应菜单项方法中更新菜单项的文字,在设备旋转并重建工具栏时,子标题的变化会丢失;比较好的解决方法是在创建菜单方法内更新菜单项的文字,并在用户点击菜单项时重建工具栏;首先新增跟踪记录子标题状态的成员变量;接着,在响应菜单事件方法中用activity的invalidateOptionsMenu重建工具栏;最后,根据状态变量,联动菜单项标题和子标题.</li>
+</ol>
+<p><strong>“还有个问题”</strong></p>
 
       
     </div>
@@ -650,7 +684,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android开发初体验"><span class="nav-number">1.</span> <span class="nav-text">Android开发初体验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android与MVC设计模式"><span class="nav-number">2.</span> <span class="nav-text">Android与MVC设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity的生命周期"><span class="nav-number">3.</span> <span class="nav-text">Activity的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个activity"><span class="nav-number">4.</span> <span class="nav-text">第二个activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-SDK版本与兼容"><span class="nav-number">5.</span> <span class="nav-text">Android SDK版本与兼容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UI-fragment与fragment管理器"><span class="nav-number">6.</span> <span class="nav-text">UI fragment与fragment管理器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用布局与组建创建用户界面"><span class="nav-number">7.</span> <span class="nav-text">使用布局与组建创建用户界面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用RecyclerView显示列表"><span class="nav-number">8.</span> <span class="nav-text">使用RecyclerView显示列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用fragment-argument"><span class="nav-number">9.</span> <span class="nav-text">使用fragment argument</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用ViewPager"><span class="nav-number">10.</span> <span class="nav-text">使用ViewPager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对话框"><span class="nav-number">11.</span> <span class="nav-text">对话框</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android开发初体验"><span class="nav-number">1.</span> <span class="nav-text">Android开发初体验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android与MVC设计模式"><span class="nav-number">2.</span> <span class="nav-text">Android与MVC设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity的生命周期"><span class="nav-number">3.</span> <span class="nav-text">Activity的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个activity"><span class="nav-number">4.</span> <span class="nav-text">第二个activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-SDK版本与兼容"><span class="nav-number">5.</span> <span class="nav-text">Android SDK版本与兼容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UI-fragment与fragment管理器"><span class="nav-number">6.</span> <span class="nav-text">UI fragment与fragment管理器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用布局与组建创建用户界面"><span class="nav-number">7.</span> <span class="nav-text">使用布局与组建创建用户界面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用RecyclerView显示列表"><span class="nav-number">8.</span> <span class="nav-text">使用RecyclerView显示列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用fragment-argument"><span class="nav-number">9.</span> <span class="nav-text">使用fragment argument</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用ViewPager"><span class="nav-number">10.</span> <span class="nav-text">使用ViewPager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对话框"><span class="nav-number">11.</span> <span class="nav-text">对话框</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具栏"><span class="nav-number">12.</span> <span class="nav-text">工具栏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AppCompat"><span class="nav-number">12.1.</span> <span class="nav-text">AppCompat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具栏菜单"><span class="nav-number">12.2.</span> <span class="nav-text">工具栏菜单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现层级式导航"><span class="nav-number">12.3.</span> <span class="nav-text">实现层级式导航</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选菜单项"><span class="nav-number">12.4.</span> <span class="nav-text">可选菜单项</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -684,7 +718,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">49.4k</span>
+    <span title="Site words total count">50.4k</span>
   
 </div>
 
