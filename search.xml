@@ -3,6 +3,23 @@
   
     
     <entry>
+      <title>MySQL必知必会</title>
+      <link href="/2019/03/20/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/"/>
+      <url>/2019/03/20/MySQL%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</url>
+      
+        <content type="html"><![CDATA[<h1 id="使用MySQL"><a href="#使用MySQL" class="headerlink" title="使用MySQL"></a>使用MySQL</h1><h2 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h2><p>最初连接到MySQL时,没有任何数据库打开供你使用,在执行任意数据库操作前,需要选择一个数据库.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use d</span><br></pre></td></tr></table></figure><h2 id="了解数据库和表"><a href="#了解数据库和表" class="headerlink" title="了解数据库和表"></a>了解数据库和表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">show databases</span><br><span class="line">show tables</span><br><span class="line"></span><br><span class="line">-- 等价</span><br><span class="line">show columns from t</span><br><span class="line">describe t</span><br><span class="line"></span><br><span class="line">show create database d</span><br><span class="line">show create table t</span><br><span class="line">show grants</span><br><span class="line"></span><br><span class="line">show status -- 服务器状态信息</span><br><span class="line">show errors</span><br><span class="line">show warnings</span><br></pre></td></tr></table></figure><h1 id="检索数据"><a href="#检索数据" class="headerlink" title="检索数据"></a>检索数据</h1><h2 id="检索所有列"><a href="#检索所有列" class="headerlink" title="检索所有列"></a>检索所有列</h2><p>一般,除非你确实需要表中的每个列,否则最好别使用*通配符,因为检索不需要的列通常会降低检索和应用程序的性能.</p><h2 id="检索不同的行"><a href="#检索不同的行" class="headerlink" title="检索不同的行"></a>检索不同的行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select distinct i from t</span><br></pre></td></tr></table></figure><p>不能部分使用distinct,distinct关键字应用于所有列.</p><h2 id="限制结果"><a href="#限制结果" class="headerlink" title="限制结果"></a>限制结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select i from t limit 5 -- 0,1,2,3,4</span><br><span class="line">select i from t limit 5,5 -- 5,6,7,8,9</span><br><span class="line">select i from t limit 4 offset 3 -- limit 3,4</span><br></pre></td></tr></table></figure><h1 id="排序检索数据"><a href="#排序检索数据" class="headerlink" title="排序检索数据"></a>排序检索数据</h1><h2 id="排序数据"><a href="#排序数据" class="headerlink" title="排序数据"></a>排序数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select i from t order by i</span><br></pre></td></tr></table></figure><p>order by子句中使用的列可以是非检索的列.</p><h2 id="按多个列排序"><a href="#按多个列排序" class="headerlink" title="按多个列排序"></a>按多个列排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select i,n from t order by i,n</span><br></pre></td></tr></table></figure><h2 id="指定排序方向"><a href="#指定排序方向" class="headerlink" title="指定排序方向"></a>指定排序方向</h2><p>默认是升序排序,为了进行降序排序,必须指定desc关键字.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select i from t order by i desc</span><br></pre></td></tr></table></figure><p>desc关键字只应用到直接位于其前面的列明,如果想在多个列上进行降序排序,必须对每个列指定desc关键字.</p><p>与desc相反的关键字是asc.</p><p>order by子句的位置.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select i from t order by i limit 5</span><br></pre></td></tr></table></figure><h1 id="过滤数据"><a href="#过滤数据" class="headerlink" title="过滤数据"></a>过滤数据</h1><h2 id="使用where子句"><a href="#使用where子句" class="headerlink" title="使用where子句"></a>使用where子句</h2><p>where子句的位置.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select i from t where i=1 order by i</span><br></pre></td></tr></table></figure><h2 id="where子句操作符"><a href="#where子句操作符" class="headerlink" title="where子句操作符"></a>where子句操作符</h2><p>MySQL支持的条件操作符有=,&lt;&gt;,!=,&lt;,&lt;=,&gt;,&gt;=,between.</p><h3 id="检查单个值"><a href="#检查单个值" class="headerlink" title="检查单个值"></a>检查单个值</h3><p>MySQL在执行匹配时默认不区分大小写.</p><h3 id="范围值检查"><a href="#范围值检查" class="headerlink" title="范围值检查"></a>范围值检查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select i from t where i between 5 and 10</span><br></pre></td></tr></table></figure><p>between匹配范围中所有的值,包括指定的开始值和结束值.</p><h3 id="空值检查"><a href="#空值检查" class="headerlink" title="空值检查"></a>空值检查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select i from t where i is null</span><br></pre></td></tr></table></figure><h1 id="数据过滤"><a href="#数据过滤" class="headerlink" title="数据过滤"></a>数据过滤</h1><h2 id="组合where子句"><a href="#组合where子句" class="headerlink" title="组合where子句"></a>组合where子句</h2><h3 id="and操作符"><a href="#and操作符" class="headerlink" title="and操作符"></a>and操作符</h3><h3 id="or操作符"><a href="#or操作符" class="headerlink" title="or操作符"></a>or操作符</h3><h3 id="计算次序"><a href="#计算次序" class="headerlink" title="计算次序"></a>计算次序</h3><p>任何时候使用具有and和or操作符的where子句,都应该使用圆括号明确地分组操作符.</p><h2 id="in操作符"><a href="#in操作符" class="headerlink" title="in操作符"></a>in操作符</h2><p>in操作符优点具体如下.</p><ol><li>in操作符一般比or操作符清单执行更快.</li><li>in的最大优点是可以包含其他select语句,使得能够更动态地建立where子句.</li></ol><p>功能与or相当.</p><h2 id="not操作符"><a href="#not操作符" class="headerlink" title="not操作符"></a>not操作符</h2><h1 id="用通配符进行过滤"><a href="#用通配符进行过滤" class="headerlink" title="用通配符进行过滤"></a>用通配符进行过滤</h1><h2 id="like操作符"><a href="#like操作符" class="headerlink" title="like操作符"></a>like操作符</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> MySQL </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
       <title>Python基础教程</title>
       <link href="/2018/11/29/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/"/>
       <url>/2018/11/29/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</url>
@@ -230,6 +247,12 @@
         <content type="html"><![CDATA[<h1 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h1><p><strong>LIKE或NOT LIKE</strong></p><ol><li>%：0个或多个字符。</li><li>_：1个字符。</li><li>[]：括号内字符中的1个字符。</li><li>[^]：不在括号内字符中的1个字符。</li><li>\：转义。</li></ol><p><strong>REGEXP或NOT REGEXP</strong></p><h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ol><li>普通索引</li><li>唯一索引</li><li>主键索引</li><li>组合索引</li></ol><p><strong>索引限制</strong></p><ol><li>避免全表扫描，在where和order by涉及的列上建立索引。</li><li>or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。</li><li>组合索引必须使用第1个才会生效，否则失效。</li><li>LIKE查询不能是%开头，否则失效。</li><li>条件的列不能进行运算，否则失效。</li><li>not in和in会导致全表扫描，用between等代替。</li><li><p>is null和is not null会导致失效，不要设置默认值null。</p></li><li><p>如果创建了索引(a,b,c)，实际等同于创建了索引(a)、索引(a,b)和索引(a,b,c)。</p></li><li>索引不会包含有NULL值得列，组合索引只有要一列含有NULL值就无效。</li><li>对字符串索引时限制长度。</li><li>VARCHAR是变长的，可以节约空间，但更新数据时可能产生碎片。</li><li>ENUM类型代替字符串类型，数据实际存储为整型。</li></ol>]]></content>
       
       
+      <categories>
+          
+          <category> MySQL </category>
+          
+      </categories>
+      
       
     </entry>
     
@@ -453,19 +476,19 @@
     
     <entry>
       <title></title>
-      <link href="/baidu_verify_ysuwxPEgQM.html"/>
-      <url>/baidu_verify_ysuwxPEgQM.html</url>
+      <link href="/googlea5bf63acdc3dbd82.html"/>
+      <url>/googlea5bf63acdc3dbd82.html</url>
       
-        <content type="html"><![CDATA[ysuwxPEgQM]]></content>
+        <content type="html"><![CDATA[google-site-verification: googlea5bf63acdc3dbd82.html]]></content>
       
     </entry>
     
     <entry>
       <title></title>
-      <link href="/googlea5bf63acdc3dbd82.html"/>
-      <url>/googlea5bf63acdc3dbd82.html</url>
+      <link href="/baidu_verify_ysuwxPEgQM.html"/>
+      <url>/baidu_verify_ysuwxPEgQM.html</url>
       
-        <content type="html"><![CDATA[google-site-verification: googlea5bf63acdc3dbd82.html]]></content>
+        <content type="html"><![CDATA[ysuwxPEgQM]]></content>
       
     </entry>
     
