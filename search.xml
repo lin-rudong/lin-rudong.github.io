@@ -240,23 +240,6 @@
     </entry>
     
     <entry>
-      <title>MySQL</title>
-      <link href="/2018/10/17/MySQL/"/>
-      <url>/2018/10/17/MySQL/</url>
-      
-        <content type="html"><![CDATA[<h1 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h1><p><strong>LIKE或NOT LIKE</strong></p><ol><li>%：0个或多个字符。</li><li>_：1个字符。</li><li>[]：括号内字符中的1个字符。</li><li>[^]：不在括号内字符中的1个字符。</li><li>\：转义。</li></ol><p><strong>REGEXP或NOT REGEXP</strong></p><h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><ol><li>普通索引</li><li>唯一索引</li><li>主键索引</li><li>组合索引</li></ol><p><strong>索引限制</strong></p><ol><li>避免全表扫描，在where和order by涉及的列上建立索引。</li><li>or条件中的每个列必须都加上索引才能生效，否则失效，使用union代替。</li><li>组合索引必须使用第1个才会生效，否则失效。</li><li>LIKE查询不能是%开头，否则失效。</li><li>条件的列不能进行运算，否则失效。</li><li>not in和in会导致全表扫描，用between等代替。</li><li><p>is null和is not null会导致失效，不要设置默认值null。</p></li><li><p>如果创建了索引(a,b,c)，实际等同于创建了索引(a)、索引(a,b)和索引(a,b,c)。</p></li><li>索引不会包含有NULL值得列，组合索引只有要一列含有NULL值就无效。</li><li>对字符串索引时限制长度。</li><li>VARCHAR是变长的，可以节约空间，但更新数据时可能产生碎片。</li><li>ENUM类型代替字符串类型，数据实际存储为整型。</li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> MySQL </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    <entry>
       <title>全排列</title>
       <link href="/2018/10/13/%E5%85%A8%E6%8E%92%E5%88%97/"/>
       <url>/2018/10/13/%E5%85%A8%E6%8E%92%E5%88%97/</url>
