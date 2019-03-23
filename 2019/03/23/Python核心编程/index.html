@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="正则表达式简介/动机主要有两种方法完成模式匹配,搜索即在字符串任意部分种搜索匹配的模式,而匹配是指判断一个字符串能否从起始处全部或者部分地匹配某个模式,搜索通过search()函数或方法来实现,而匹配通过调用match()函数或方法实现. 正则表达式描述一个可以识别各种字符串的模式,正则表达式的强大之处在于引入特殊字符来定义字符集,匹配子组和重复模式. 特殊符号和字符   表示法 描述     符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python核心编程(第3版)">
+<meta property="og:url" content="https://lin-rudong.github.io/2019/03/23/Python核心编程/index.html">
+<meta property="og:site_name" content="林如东的博客">
+<meta property="og:description" content="正则表达式简介/动机主要有两种方法完成模式匹配,搜索即在字符串任意部分种搜索匹配的模式,而匹配是指判断一个字符串能否从起始处全部或者部分地匹配某个模式,搜索通过search()函数或方法来实现,而匹配通过调用match()函数或方法实现. 正则表达式描述一个可以识别各种字符串的模式,正则表达式的强大之处在于引入特殊字符来定义字符集,匹配子组和重复模式. 特殊符号和字符   表示法 描述     符">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-23T15:35:11.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python核心编程(第3版)">
+<meta name="twitter:description" content="正则表达式简介/动机主要有两种方法完成模式匹配,搜索即在字符串任意部分种搜索匹配的模式,而匹配是指判断一个字符串能否从起始处全部或者部分地匹配某个模式,搜索通过search()函数或方法来实现,而匹配通过调用match()函数或方法实现. 正则表达式描述一个可以识别各种字符串的模式,正则表达式的强大之处在于引入特殊字符来定义字符集,匹配子组和重复模式. 特殊符号和字符   表示法 描述     符">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lin-rudong.github.io/2019/03/23/Python核心编程/"/>
+
+
+
+
+
+  <title>Python核心编程(第3版) | 林如东的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/lin-rudong"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">林如东的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2019/03/23/Python核心编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="林如东">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林如东的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Python核心编程(第3版)</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-23T23:33:42+08:00">
+                2019-03-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-03-23T23:35:11+08:00">
+                2019-03-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/23/Python核心编程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/23/Python核心编程/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/03/23/Python核心编程/" class="leancloud_visitors" data-flag-title="Python核心编程(第3版)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><h2 id="简介-动机"><a href="#简介-动机" class="headerlink" title="简介/动机"></a>简介/动机</h2><p>主要有两种方法完成模式匹配,搜索即在字符串任意部分种搜索匹配的模式,而匹配是指判断一个字符串能否从起始处全部或者部分地匹配某个模式,搜索通过search()函数或方法来实现,而匹配通过调用match()函数或方法实现.</p>
+<p>正则表达式描述一个可以识别各种字符串的模式,正则表达式的强大之处在于引入特殊字符来定义字符集,匹配子组和重复模式.</p>
+<h2 id="特殊符号和字符"><a href="#特殊符号和字符" class="headerlink" title="特殊符号和字符"></a>特殊符号和字符</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">表示法</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">符号</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">`re1</td>
+<td style="text-align:left">rep2`</td>
+<td>匹配正则表达式re1或者re2.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>.</code></td>
+<td style="text-align:left">匹配任何字符,除了\n之外,Python正则表达式有一个编译标记[S或者DOTALL],该标记可以使点号能够匹配换行符.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>^</code></td>
+<td style="text-align:left">匹配字符串起始部分,等于<code>\A</code>.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>$</code></td>
+<td style="text-align:left">匹配字符串终止部分,等于<code>\Z</code>.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>*</code></td>
+<td style="text-align:left">匹配0次或者多次前面出现的正则表达式.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>+</code></td>
+<td style="text-align:left">匹配1次或者多次前面出现的正则表达式.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>?</code></td>
+<td style="text-align:left">匹配0次或者1次前面出现的正则表达式.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>{n}</code></td>
+<td style="text-align:left">匹配n次前面出现的正则表达式.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>{m,n}</code></td>
+<td style="text-align:left">匹配m~n次前面出现的正则表达式.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[...]</code></td>
+<td style="text-align:left">匹配来自字符集的任意单一字符.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[..x-y..]</code></td>
+<td style="text-align:left">匹配x~y范围内中的任意单一字符.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[^...]</code></td>
+<td style="text-align:left">匹配不在此字符集出现的任何一个字符.</td>
+</tr>
+<tr>
+<td style="text-align:center">`(*</td>
+<td style="text-align:left">+</td>
+<td>?</td>
+<td>{})?`</td>
+<td>用于匹配重复出现符号的非贪婪版本.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>(...)</code></td>
+<td style="text-align:left">匹配封闭的正则表达式,然后里另存为子组.</td>
+</tr>
+</tbody>
+</table>
+<p>特殊字符.</p>
+<ol>
+<li><code>\d</code>匹配任何十进制数字,与[0-9]一致,<code>\D</code>相反.</li>
+<li><code>\w</code>匹配任何字母数字字符,与[A-Za-z0-9]相同,<code>\W</code>相反.</li>
+<li><code>\s</code>匹配任何空格字符,与[\n\t\r\v\f]相同,<code>\S</code>相反.</li>
+<li><code>\b</code>匹配任何单词边界,<code>\B</code>相反.</li>
+<li><code>\n</code>匹配已保存的子组n.</li>
+</ol>
+<p>扩展表示法</p>
+<ol>
+<li><code>(?iLmsux)</code>在正则表达式中嵌入一个或者多个特殊标记参数,或者通过函数/方法.</li>
+<li><code>(?:...)</code>表示一个匹配不用保存的分组.</li>
+<li><code>(?P\&lt;name\&gt;...)</code>像一个仅由name标识而不是数字ID标识的正则分组匹配.</li>
+<li><code>(?P=name)</code>在同一字符串中匹配由(?P&lt;name)分组的之前文本.</li>
+<li><code>(?#...)</code>表示注释,所有内容都被忽略.</li>
+<li><code>(?=...)</code>匹配条件是如果…出现在之后的位置,而不是用输入字符串,称作正向前视断言.</li>
+<li><code>(?!...)</code>匹配条件是如果…不出现在之后的位置,而不是用输入字符串,称作负向前视断言.</li>
+<li><code>(?&lt;=...)</code>匹配条件是如果…出现在之前的位置,而不使用输入字符串,称作正向后视断言.</li>
+<li><code>(?&lt;!...)</code>匹配条件是如果…不出现在之前的位置,而不是用输入字符串,称作负向后视断言.</li>
+<li><code>(?(id/name)Y|N)</code>如果分组所提供的id或者name存在,就返回正则表达式的条件匹配Y,如果不存在,就返回N,N是可选项.</li>
+</ol>
+<h3 id="使用圆括号指定分组"><a href="#使用圆括号指定分组" class="headerlink" title="使用圆括号指定分组"></a>使用圆括号指定分组</h3><p>对正则表达式进行分组的一个原因是对正则表达式进行分组可以在整个正则表达式中使用重复操作符,而不是一个单独的字符或者字符集.</p>
+<p>使用圆括号进行分组的一个副作用就是,匹配模式的子字符串可以保存起来供后续使用,这些子组能够被同一次的匹配或者搜索重复调用,或者提取出来用于后续处理.</p>
+<p>匹配子组那么重要的主要原因是很多时候除了进行匹配操作以外,我们还想要提取所匹配的模式.</p>
+<h3 id="扩展表示法"><a href="#扩展表示法" class="headerlink" title="扩展表示法"></a>扩展表示法</h3><p>它们通常用于在判断匹配之前提供标记,实现一个前视或者后视匹配,或者条件检查,只有(?P\&lt;name>)表述一个分组匹配,所有其他的都没有创建一个分组.</p>
+<ol>
+<li><code>(?:\w+\.)*</code>以句点作为结尾的字符串,但是这些匹配不会保存下来供后续的使用和数据检索.</li>
+<li><code>(?#comment)</code>此处不做匹配,只是作为注释.</li>
+<li><code>(?=.com)</code>如果一个字符串后面跟着.com才做匹配操作,并不使用任何目标字符串.</li>
+<li><code>(?!.net)</code>如果一个字符串后面不是跟着.net才做匹配操作.</li>
+<li><code>(?&lt;=800-)</code>如果字符串之前为800-才做匹配,同样,并不使用任何输入字符串.</li>
+<li><code>(?&lt;!192\.168\.)</code>如果一个字符串之前不是192.168.才做匹配.</li>
+<li><code>(?(1)y|x)</code>如果一个匹配组1存在,就与y匹配,否则,就与x匹配.</li>
+</ol>
+<h2 id="正则表达式和Python语言"><a href="#正则表达式和Python语言" class="headerlink" title="正则表达式和Python语言"></a>正则表达式和Python语言</h2><p>re模块允许许多个线程共享同一个已编译的正则表达式对象,也支持命名子组.</p>
+<p>常见的正则表达式属性.</p>
+<table>
+<thead>
+<tr>
+<th>函数/方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>re模块函数</td>
+<td></td>
+</tr>
+<tr>
+<td><code>compile(pattern,flags=0)</code></td>
+<td>使用任何可选的标记来编译正则表达式的模式,然后返回一个正则表达式对象.</td>
+</tr>
+<tr>
+<td>re模块函数和正则表达式对象的方法</td>
+<td></td>
+</tr>
+<tr>
+<td><code>match(pattern,string,flags=0)</code></td>
+<td>尝试使用带有可选的标记的正则表达式的模式来匹配字符串,如果匹配成功,就返回匹配对象,如果失败,就返回None.</td>
+</tr>
+<tr>
+<td><code>search(pattern,string,flags=0)</code></td>
+<td>使用可选标记搜索字符串中第一次出现的正则表达式模式,如果匹配成功,则返回匹配对象,如果失败,则返回None.</td>
+</tr>
+<tr>
+<td><code>findall(pattern,string[,flags])</code></td>
+<td>查找字符串中所有非重复出现的正则表达式模式,并返回一个匹配列表.</td>
+</tr>
+<tr>
+<td><code>finditer(pattern,string[,flags])</code></td>
+<td>和findall()函数相同,但返回的不是一个列表,而是一个迭代器.</td>
+</tr>
+<tr>
+<td><code>split(pattern,string,max=0)</code></td>
+<td>根据正则表达式的模式分隔符,split函数将字符串分割为列表,然后返回成功匹配的列表,分割最多操作max次,默认分割所有匹配成功的位置.</td>
+</tr>
+<tr>
+<td><code>sub(pattern,repl,string,count=0)</code></td>
+<td>使用repl替换所有正则表达式的模式在字符串中出现的位置,除非定义count,否则将替换所有出现的位置.</td>
+</tr>
+<tr>
+<td>常用的匹配对象方法</td>
+<td></td>
+</tr>
+<tr>
+<td><code>group(num=0)</code></td>
+<td>返回整个匹配对象,或者编号为num的特定子组.</td>
+</tr>
+<tr>
+<td><code>groups(default=None)</code></td>
+<td>返回一个包含所有匹配子组的元组.</td>
+</tr>
+<tr>
+<td><code>groupdict(default=none)</code></td>
+<td>返回一个包含所有匹配的命名子组的字典,所有的子组名称作为字典的键.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用compile-函数编译正则表达式"><a href="#使用compile-函数编译正则表达式" class="headerlink" title="使用compile()函数编译正则表达式"></a>使用compile()函数编译正则表达式</h3><p>如果需要编译,就使用编译过的方法,如果不需要编译,就使用函数,幸运的是,不管使用函数还是方法,它们的名字都是相同的.</p>
+<h3 id="匹配对象以及group-和groups-方法"><a href="#匹配对象以及group-和groups-方法" class="headerlink" title="匹配对象以及group()和groups()方法"></a>匹配对象以及group()和groups()方法</h3><p>匹配对象是成功调用match()或者search()返回的对象,匹配对象有两个主要的方法,group()和groups().</p>
+<p>如果没有子组的要求,groups()返回一个空元组,而group仍然返回整个匹配.</p>
+<h3 id="使用match-方法匹配字符串"><a href="#使用match-方法匹配字符串" class="headerlink" title="使用match()方法匹配字符串"></a>使用match()方法匹配字符串</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>m=re.match(<span class="string">'foo'</span>,<span class="string">'foo'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">if</span> m <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">    	m.group()</span><br><span class="line"><span class="string">'foo'</span></span><br></pre></td></tr></table></figure>
+<p>只要模式从字符串的起始部分开始匹配,即使字符串比模式长,匹配也仍然能够成功.</p>
+<h3 id="使用search-在一个字符串中查找模式"><a href="#使用search-在一个字符串中查找模式" class="headerlink" title="使用search()在一个字符串中查找模式"></a>使用search()在一个字符串中查找模式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>m=re.match(<span class="string">'foo'</span>,<span class="string">'seafood'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">if</span> m <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">		m.group()</span><br><span class="line"><span class="string">'foo'</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用findall-和finditer-查找每一次出现的位置"><a href="#使用findall-和finditer-查找每一次出现的位置" class="headerlink" title="使用findall()和finditer()查找每一次出现的位置"></a>使用findall()和finditer()查找每一次出现的位置</h3><p>findall()查询字符串中某个正则表达式模式全部的非重复出现情况,这与search()在执行字符串搜索时类似,但与match()和search()的不同之处在于,findall()总是返回一个列表.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">'car'</span>, <span class="string">'scary'</span>)</span><br><span class="line">[<span class="string">'car'</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">'car'</span>, <span class="string">'carry the barcardi to the car'</span>)</span><br><span class="line">[<span class="string">'car'</span>, <span class="string">'car'</span>, <span class="string">'car'</span>]</span><br></pre></td></tr></table></figure>
+<p>finditer()函数是与findall()函数类似但是更节省内存的变体,返回的是一个迭代器而不是列表,finditer在匹配对象中迭代.</p>
+<p>对于一个成功的匹配,每个子组匹配是由findall()返回的结果列表中的单一元素,对于多个成功的匹配,每个子组匹配是返回一个元组的单一元素,而且每个元组(每个元组都对应一个成功的匹配)是结果列表中的元素.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'This and that.'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r'(th\w+) and (th\w+)'</span>, s, re.I)</span><br><span class="line">[(<span class="string">'This'</span>, <span class="string">'that'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'This and that.'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r'(th\w+) and th\w+'</span>, s, re.I)</span><br><span class="line">[<span class="string">'This'</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.finditer(<span class="string">r'(th\w+) and (th\w+)'</span>, s,re.I).next().groups()</span><br><span class="line">(<span class="string">'This'</span>, <span class="string">'that'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.finditer(<span class="string">r'(th\w+) and (th\w+)'</span>, s,re.I).next().group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'This'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.finditer(<span class="string">r'(th\w+) and (th\w+)'</span>, s,re.I).next().group(<span class="number">2</span>)</span><br><span class="line"><span class="string">'that'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[g.groups() <span class="keyword">for</span> g <span class="keyword">in</span> re.finditer(<span class="string">r'(th\w+) and (th\w+)'</span>,s, re.I)]</span><br><span class="line">[(<span class="string">'This'</span>, <span class="string">'that'</span>)]</span><br></pre></td></tr></table></figure>
+<h3 id="使用sub-和subn-搜索与替换"><a href="#使用sub-和subn-搜索与替换" class="headerlink" title="使用sub()和subn()搜索与替换"></a>使用sub()和subn()搜索与替换</h3><p>subn()和sub()一样,但subn()还返回一个表示替换的总数,替换后的字符串和表示替换总数的数字一起作为一个拥有两个元素的元组返回.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.sub(<span class="string">'[ae]'</span>, <span class="string">'X'</span>, <span class="string">'abcdef'</span>)</span><br><span class="line"><span class="string">'XbcdXf'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.subn(<span class="string">'[ae]'</span>, <span class="string">'X'</span>, <span class="string">'abcdef'</span>)</span><br><span class="line">(<span class="string">'XbcdXf'</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>\n在替换字符串中使用,能够取出匹配分组.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.sub(<span class="string">r'(\d&#123;1,2&#125;)/(\d&#123;1,2&#125;)/(\d&#123;2&#125;|\d&#123;4&#125;)'</span>,<span class="string">r'\2/\1/\3'</span>, <span class="string">'2/20/91'</span>)</span><br><span class="line"><span class="string">'20/2/91'</span></span><br></pre></td></tr></table></figure>
+<h3 id="在限定模式上使用split-分隔字符串"><a href="#在限定模式上使用split-分隔字符串" class="headerlink" title="在限定模式上使用split()分隔字符串"></a>在限定模式上使用split()分隔字符串</h3><p>如果不想每次模式的出现都分割字符串,可以通过max参数设定.</p>
+<p>如果给定分隔符不是使用特殊符号来匹配多重模式的正则表达式,那么re.split()与str.split()的工作方式相同.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.split(<span class="string">':'</span>, <span class="string">'str1:str2:str3'</span>)</span><br><span class="line">[<span class="string">'str1'</span>, <span class="string">'str2'</span>, <span class="string">'str3'</span>]</span><br></pre></td></tr></table></figure>
+<p>如果对字符串使用split方法已经足够好,就不需要引入额外复杂并且影响性能的正则表达式.</p>
+<h3 id="扩展符号"><a href="#扩展符号" class="headerlink" title="扩展符号"></a>扩展符号</h3><p>通过使用(?iLmsux)系统选项,用户可以直接在正则表达式里面指定一个或者多个标记,而不是通过compile()或者其他re模块函数.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r'(?i)yes'</span>, <span class="string">'yes? Yes. YES!!'</span>) </span><br><span class="line">[<span class="string">'yes'</span>, <span class="string">'Yes'</span>, <span class="string">'YES'</span>]</span><br></pre></td></tr></table></figure>
+<p>i标记忽略大小写.</p>
+<p>m标记能够在目标字符串中实现跨行搜索,而不必将整个字符串视为单个实体.</p>
+<p>s标记表明点号能够用来表示\n符号.</p>
+<p>x标记允许用户通过抑制在正则表达式中使用空白符(除了在字符类中或者在反斜线转义中)来创建更易读的正则表达式,此外,散列,注释和井号也可以用于一个注释的起始,只要它们不在一个用反斜线转义的字符类中.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.search(<span class="string">r'''(?x)</span></span><br><span class="line"><span class="string">	 \((\d&#123;3&#125;)\) # 区号</span></span><br><span class="line"><span class="string">	[ ]          # 空白符</span></span><br><span class="line"><span class="string">	(\d&#123;3&#125;)      # 前缀</span></span><br><span class="line"><span class="string">	-            # 横线</span></span><br><span class="line"><span class="string">	(\d&#123;4&#125;)      # 终点数字</span></span><br><span class="line"><span class="string">	'''</span>, <span class="string">'(800) 555-1212'</span>).groups()</span><br><span class="line">(<span class="string">'800'</span>, <span class="string">'555'</span>, <span class="string">'1212'</span>)</span><br></pre></td></tr></table></figure>
+<p>(?:…)通过使用该符号,可以对部分正则表达式进行分组,但是并不会保存该分组用于后续的检索或者应用.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r'http://(?:\w+\.)*(\w+\.com)'</span>,<span class="string">'http://google.com http://www.google.com http://code.google.com'</span>)</span><br><span class="line">[<span class="string">'google.com'</span>, <span class="string">'google.com'</span>, <span class="string">'google.com'</span>]</span><br><span class="line"></span><br><span class="line"> re.search(<span class="string">r'\((?P&lt;areacode&gt;\d&#123;3&#125;)\) (?P&lt;prefix&gt;\d&#123;3&#125;)-(?:\d&#123;4&#125;)'</span>,<span class="string">'(800) 555-1212'</span>).groupdict()</span><br><span class="line">&#123;<span class="string">'areacode'</span>: <span class="string">'800'</span>, <span class="string">'prefix'</span>: <span class="string">'555'</span>&#125;</span><br><span class="line"></span><br><span class="line"> re.sub(<span class="string">r'\((?P&lt;areacode&gt;\d&#123;3&#125;)\) (?P&lt;prefix&gt;\d&#123;3&#125;)-(?:\d&#123;4&#125;)'</span>,<span class="string">'(\g&lt;areacode&gt;) \g&lt;prefix&gt;-xxxx'</span>, <span class="string">'(800) 555-1212'</span>)</span><br><span class="line"><span class="string">'(800) 555-xxxx'</span></span><br></pre></td></tr></table></figure>
+<p>(?P\&lt;name>)通过使用一个名称标识符而不是使用从1开始的增量数字来保存匹配,可以使用一个类似\g\&lt;name>来检索它们.</p>
+<p>使用(?P=name)可以在一个相同的正则表达式中重用模式.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> bool(re.match(<span class="string">r'\((?P&lt;areacode&gt;\d&#123;3&#125;)\) (?P&lt;prefix&gt;\d&#123;3&#125;)-(?P&lt;number&gt;\d&#123;4&#125;) (?P=areacode)-(?P=prefix)-(?P=number)1(?P=areacode)(?P=prefix)(?P=number)'</span>,<span class="string">'(800) 555-1212 800-555-1212 18005551212'</span>))</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>可以使用(?=…)和(?!…)符号在目标字符串中实现一个前视匹配,而不必实际上使用这些字符串.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">r'\w+(?= van Rossum)'</span>,</span><br><span class="line"> 	<span class="string">'''</span></span><br><span class="line"><span class="string">	Guido van Rossum</span></span><br><span class="line"><span class="string">	Tim Peters</span></span><br><span class="line"><span class="string">	Alex Martelli</span></span><br><span class="line"><span class="string">	Just van Rossum</span></span><br><span class="line"><span class="string">	Raymond Hettinger</span></span><br><span class="line"><span class="string">	'''</span>)</span><br><span class="line">[<span class="string">'Guido'</span>, <span class="string">'Just'</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bool(re.search(<span class="string">r'(?:(x)|y)(?(1)y|x)'</span>, <span class="string">'xy'</span>))</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bool(re.search(<span class="string">r'(?:(x)|y)(?(1)y|x)'</span>, <span class="string">'xx'</span>))</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h3><p>建议使用Python的原始字符串来避免使用特殊ASCII符号,如果不用原始字符串的话,需要用\\转义,和ASCII转义区分开来.</p>
+<p>\w和\W字母数字字符集同时手re.L/LOCALE和re.U/UNICODE标记所影响.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/MySQL必知必会/" rel="next" title="MySQL必知必会">
+                <i class="fa fa-chevron-left"></i> MySQL必知必会
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="林如东" />
+            
+              <p class="site-author-name" itemprop="name">林如东</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介-动机"><span class="nav-number">1.1.</span> <span class="nav-text">简介/动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊符号和字符"><span class="nav-number">1.2.</span> <span class="nav-text">特殊符号和字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用圆括号指定分组"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用圆括号指定分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展表示法"><span class="nav-number">1.2.2.</span> <span class="nav-text">扩展表示法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式和Python语言"><span class="nav-number">1.3.</span> <span class="nav-text">正则表达式和Python语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用compile-函数编译正则表达式"><span class="nav-number">1.3.1.</span> <span class="nav-text">使用compile()函数编译正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配对象以及group-和groups-方法"><span class="nav-number">1.3.2.</span> <span class="nav-text">匹配对象以及group()和groups()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用match-方法匹配字符串"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用match()方法匹配字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用search-在一个字符串中查找模式"><span class="nav-number">1.3.4.</span> <span class="nav-text">使用search()在一个字符串中查找模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用findall-和finditer-查找每一次出现的位置"><span class="nav-number">1.3.5.</span> <span class="nav-text">使用findall()和finditer()查找每一次出现的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用sub-和subn-搜索与替换"><span class="nav-number">1.3.6.</span> <span class="nav-text">使用sub()和subn()搜索与替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在限定模式上使用split-分隔字符串"><span class="nav-number">1.3.7.</span> <span class="nav-text">在限定模式上使用split()分隔字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展符号"><span class="nav-number">1.3.8.</span> <span class="nav-text">扩展符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#杂项"><span class="nav-number">1.3.9.</span> <span class="nav-text">杂项</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林如东</span>
+  
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">71.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'c9wFYOoWTAFtuFlsNOgHNOvF-gzGzoHsz',
+        appKey: '617qvdhmqDgNYl9CgBTnce1u',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("c9wFYOoWTAFtuFlsNOgHNOvF-gzGzoHsz", "617qvdhmqDgNYl9CgBTnce1u");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
