@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="开始词法规范字母概念依赖于区域设置Locale。 --行注释，--[[和]]是块注释，当注释一段代码是，一个常见的技巧是将这些代码放入–[[和–]]中间，当重新启用这段代码时，只需在第一行行首添加-。 1234567--[[print(10)--]]---[[print(10)--]] 全局变量全局变量不需要声明，只需将一个值赋予一个全局变量就可以创建来，访问一个为初始化的变量不会引发错误，访问结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua程序设计（第二版）">
+<meta property="og:url" content="https://lin-rudong.github.io/2019/05/22/Lua程序设计（第二版）/index.html">
+<meta property="og:site_name" content="林如东的博客">
+<meta property="og:description" content="开始词法规范字母概念依赖于区域设置Locale。 --行注释，--[[和]]是块注释，当注释一段代码是，一个常见的技巧是将这些代码放入–[[和–]]中间，当重新启用这段代码时，只需在第一行行首添加-。 1234567--[[print(10)--]]---[[print(10)--]] 全局变量全局变量不需要声明，只需将一个值赋予一个全局变量就可以创建来，访问一个为初始化的变量不会引发错误，访问结">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-21T16:04:04.049Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lua程序设计（第二版）">
+<meta name="twitter:description" content="开始词法规范字母概念依赖于区域设置Locale。 --行注释，--[[和]]是块注释，当注释一段代码是，一个常见的技巧是将这些代码放入–[[和–]]中间，当重新启用这段代码时，只需在第一行行首添加-。 1234567--[[print(10)--]]---[[print(10)--]] 全局变量全局变量不需要声明，只需将一个值赋予一个全局变量就可以创建来，访问一个为初始化的变量不会引发错误，访问结">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lin-rudong.github.io/2019/05/22/Lua程序设计（第二版）/"/>
+
+
+
+
+
+  <title>Lua程序设计（第二版） | 林如东的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/lin-rudong"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">林如东的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lin-rudong.github.io/2019/05/22/Lua程序设计（第二版）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="林如东">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林如东的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Lua程序设计（第二版）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T00:03:08+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-05-22T00:04:04+08:00">
+                2019-05-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Lua/" itemprop="url" rel="index">
+                    <span itemprop="name">Lua</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/22/Lua程序设计（第二版）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/Lua程序设计（第二版）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/05/22/Lua程序设计（第二版）/" class="leancloud_visitors" data-flag-title="Lua程序设计（第二版）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  4.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="词法规范"><a href="#词法规范" class="headerlink" title="词法规范"></a>词法规范</h2><p>字母概念依赖于区域设置Locale。</p>
+<p><code>--</code>行注释，<code>--[[</code>和<code>]]</code>是块注释，当注释一段代码是，一个常见的技巧是将这些代码放入–[[和–]]中间，当重新启用这段代码时，只需在第一行行首添加-。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">print(10)</span></span><br><span class="line"><span class="comment">--]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">---[[</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span>)</span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
+<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><p>全局变量不需要声明，只需将一个值赋予一个全局变量就可以创建来，访问一个为初始化的变量不会引发错误，访问结果是一个特殊的值nil。</p>
+<p>如果一定要删除某个全局变量的话，只需将其赋值为nil。</p>
+<h2 id="解释器程序"><a href="#解释器程序" class="headerlink" title="解释器程序"></a>解释器程序</h2><p>用法是lua [选项参数] [脚本[参数]]。</p>
+<p>选项参数e可以直接在命令行中输入代码，l用于加载库文件，i在运行完其他命令参数后进入交互模式。</p>
+<p>解释器会用所有的参数创建一个名为arg的table，脚本名称位于索引0上。</p>
+<h1 id="类型与值"><a href="#类型与值" class="headerlink" title="类型与值"></a>类型与值</h1><p>Lua是一种动态类型的语言，在语言中没有类型定义的语法，每个值都携带路它自身的类型信息。</p>
+<p>有8种基础类型：nil、boolean、number、string、userdata（自定义类型）、function、thread和table。</p>
+<p>变量没有预定义的类型，任何变量都可以包含任何类型的值。</p>
+<p>在Lua种，函数是作为第一类值来看待的，可以像操作其他值一样来操作一个函数值。</p>
+<h2 id="nil"><a href="#nil" class="headerlink" title="nil"></a>nil</h2><p>nil是一种类型，它只有一个值nil，它的主要功能是用于区别其他任何值，Lua将nil用于表示一种无效值的情况。</p>
+<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>在Lua中任何值都可以表示一个条件，Lua将值false和nil视为假，除此之外的其他值视为真，包括数字零和空字符串。</p>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>number类型用于表示实数，Lua没有整数类型，因为没有必要，只要使用一个双精度来表示一个整数，就不会出现四舍五入的错误，因此，Lua中的数字可以表示任何32位整数，而不会产生四舍五入的错误，此外，大多数CPU的浮点数运算速度和整数运算一样快。</p>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>Lua的字符串是不可变的值。</p>
+<p>Lua的字符串和其他对象一样，都是自动内存管理机制所管理的对象，无须担心字符串的分配和释放。</p>
+<p>字面字符串用单引号或双引号来界定。</p>
+<p>还可以用双方括号来界定一个字母字符串，这种形式可以延伸多行，Lua不会解释其中的转义序列。</p>
+<p>如果字符串需要包含双方括号，可以在双方括号中加上任意数量的等号，这套机制同样适用于注释，可以用来注释已经包含了注释块的代码。</p>
+<p>Lua提供来运行时的数字与字符串的自动转换，在一个字符串上应用算数操作时，Lua会尝试将这个字符串转换成一个数字，Lua不仅在算数操作中会强制转换，还会在其他任何需要数字的地方这么做，相反，在Lua期望一个字符串但却得到一个数字时，它也会将数字转换成字符串。</p>
+<p><code>..</code>是字符串连接操作符，如果在数字后面输入它的时候，要用一个空格隔开，不然会将第一个点理解为小数点。</p>
+<p>数字和字符串的显示转换可以通过函数tonumber和tostring来实现。</p>
+<h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><p>table类型实现来关联数组，关联数组是一种具有特殊索引方式的数组，不仅可以通过整数来索引它，还可以使用字符串或其他除了nil类型的值来索引，table没有固定的大小，table是Lua中仅有的数据结构机制，可以用来表示其他数组结构，Lua也是通过table来表示模块、包和对象的。</p>
+<p>table不是值也不是变量，而是对象，table永远是匿名的，一个持有table的变量和table自身之间没有固定的关联性。</p>
+<p>可以用任何数字作为数组索引的起始值，但就Lua的习惯而言，数组通常以1作为索引的起始值。</p>
+<p>长度操作符<code>#</code>用于返回一个数组或线性表的最后一个索引值，Lua将nil元素作为界定数组结尾的标志。</p>
+<h2 id="function"><a href="#function" class="headerlink" title="function"></a>function</h2><p>函数是作为第一类值来看待的，这表示函数可以存储在变量中，可以通过参数传递给其他函数，还可以作为其他函数的返回值。</p>
+<h2 id="userdata（自定义类型）和thread"><a href="#userdata（自定义类型）和thread" class="headerlink" title="userdata（自定义类型）和thread"></a>userdata（自定义类型）和thread</h2><h1 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h1><p>有别于传统的是，表达式中还可以包括函数定义和table构造式。</p>
+<h2 id="算术操作符"><a href="#算术操作符" class="headerlink" title="算术操作符"></a>算术操作符</h2><p><code>^</code>指数操作符。</p>
+<h2 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h2><p><code>~=</code>不等性测试，nil只与其自身相等，对于table、userdata和函数，Lua是作引用比较的，只有当它们引用同一个对象时，才认为它们相等。</p>
+<p>数字和字符串之外的其他类型只能进行相等性或不等性比较。</p>
+<h2 id="逻辑操作符"><a href="#逻辑操作符" class="headerlink" title="逻辑操作符"></a>逻辑操作符</h2><p>逻辑操作符有<code>and</code>、<code>or</code>和<code>not</code>，and和or都使用短路求值，对于and来说，如果它的第一个操作数为假，就返回第一个操作数，不然返回第二个操作数，对于or来说，如果它的第一个操作数为真，就返回第一个操作数，不然返回第二个操作数。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span> <span class="keyword">and</span> <span class="number">5</span></span><br><span class="line"><span class="comment">--5</span></span><br><span class="line"></span><br><span class="line">x=x <span class="keyword">or</span> v</span><br><span class="line"><span class="comment">--等价</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> x <span class="keyword">then</span> x=v <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接"></a>字符串连接</h2><p><code>..</code>连接字符串。</p>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p>操作符的优先级。</p>
+<table>
+<thead>
+<tr>
+<th>^</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>not  #  -</td>
+</tr>
+<tr>
+<td>*  /  %</td>
+</tr>
+<tr>
+<td>+  -</td>
+</tr>
+<tr>
+<td>..</td>
+</tr>
+<tr>
+<td>&lt;  &gt;  &lt;=  &gt;=  ~=  ==</td>
+</tr>
+<tr>
+<td>and</td>
+</tr>
+<tr>
+<td>or</td>
+</tr>
+</tbody>
+</table>
+<p>在二元操作符中，除了^和..是右结合的，所有其他操作符都是左结合的。</p>
+<h2 id="table构造式"><a href="#table构造式" class="headerlink" title="table构造式"></a>table构造式</h2><p>最简单的构造式就是一个空构造式<code>{}</code>，用于创建一个空table，构造式还可以用于初始化数组。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">days=&#123;<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>&#125;</span><br><span class="line">days[<span class="number">4</span>]</span><br><span class="line"><span class="comment">--4</span></span><br><span class="line"></span><br><span class="line">a=&#123;x=<span class="number">10</span>,y=<span class="number">20</span>&#125;</span><br><span class="line"><span class="comment">--等价</span></span><br><span class="line">a=&#123;&#125;</span><br><span class="line">a.x=<span class="number">10</span></span><br><span class="line">a.y=<span class="number">20</span></span><br></pre></td></tr></table></figure>
+<p>记录风格的初始化和列表风格的初始化可以混合在一个构造式中使用，但是不能使用负数的索引，也不能用运算符作为记录的字段名，为了满足这些要求，Lua还提供来一种更通用的格式，这种格式允许在方括号之间，显示地用一个表达式来初始化索引值。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">opnames=&#123;</span><br><span class="line">	[<span class="string">'+'</span>]=<span class="string">'add'</span>,</span><br><span class="line">	[<span class="number">1</span>+<span class="number">2</span>]=<span class="string">'three'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以在最后一个元素后面写一个逗号，这个特性是可选的也是合法的，在一个构造式中还可以用分号代替逗号，通常会将分号用于分隔构造式中不同的成分，例如将列表部分与记录部分明显地区分开。</p>
+<h1 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h1><p>Lua支持常规语句，包括赋值、控制和过程调用，另外Lua还支持一些不太常见的语句，例如多重赋值和局部变量声明。</p>
+<h2 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h2><p>多重赋值，将多个值赋予多个变量，<code>x,y=y,x</code>交换x与y。</p>
+<p>Lua总是会将等号右边值的个数调整到与左边变量的个数相一致，规则是，若值的个数少于变量的个数，那么多余的变量会被赋为nil，若值的个数更多的haul，那么多余的值会被丢弃。</p>
+<h2 id="局部变量与块"><a href="#局部变量与块" class="headerlink" title="局部变量与块"></a>局部变量与块</h2><p>通过<code>local</code>语句来创建局部变量，与全局变量不同的是，局部变量的作用于仅限于声明它们的那个快，一个块是一个控制结构的执行体、或者是一个函数的执行体再或者是一个程序块。</p>
+<p><code>do-end</code>会创建一个程序块，尽可能地使用局部变量是一种良好的编程风格。</p>
+<p>所声明的局部变量的作用于从声明语句开始，直至所在块的结尾。</p>
+<h2 id="控制结构"><a href="#控制结构" class="headerlink" title="控制结构"></a>控制结构</h2><p>用于条件执行的if，用于迭代的while、repeat和for，所有控制结构都有一个显式的终止符，if、for和while以end作为结尾，repeat以until作为结尾。</p>
+<h3 id="if-then-else"><a href="#if-then-else" class="headerlink" title="if then else"></a>if then else</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> a&lt;<span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">	a=<span class="number">0</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    a=<span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>若要编写嵌套的if可以使用<code>elseif</code>。</p>
+<p>Lua不支持switch语句。</p>
+<h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><p>先测试while的条件，如果条件为假，那么循环结束，不然执行循环体。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i=<span class="number">10</span></span><br><span class="line"><span class="keyword">while</span> i&gt;<span class="number">0</span> <span class="keyword">do</span></span><br><span class="line">	i=i<span class="number">-1</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="repeat"><a href="#repeat" class="headerlink" title="repeat"></a>repeat</h3><p>重复执行其循环体直到条件为真时结束，测试是在循环体之后做的，因此循环体至少会执行一次。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i=<span class="number">10</span></span><br><span class="line"><span class="keyword">repeat</span></span><br><span class="line">	i=i<span class="number">-1</span></span><br><span class="line"><span class="keyword">until</span> i&lt;=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>与其他大多数语言不同的是，在Lua中，一个声明在循环体中的局部变量的作用于包括来条件测试。</p>
+<h3 id="数字型for"><a href="#数字型for" class="headerlink" title="数字型for"></a>数字型for</h3><p>for语句有两种形式，数字型for和泛型for。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--数字型for</span></span><br><span class="line"><span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">10</span>,<span class="number">2</span> <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(i)</span><br><span class="line">    <span class="comment">--1 3 5 7 9</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>for的3个表达式是在循环开始前一次性求值的，控制变量会被自动地声明为for语句的局部变量，如果需要在循环结束后访问控制变量的值，必须将该值保存到另一个变量中。</p>
+<p>不要在循环过程中修改控制变量的值，否则会导致不可预知的效果，break可以提前终止循环。</p>
+<h3 id="泛型for"><a href="#泛型for" class="headerlink" title="泛型for"></a>泛型for</h3><p>通过一个迭代器函数来遍历所有值。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(a) <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(v)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>for循环的相同点：</p>
+<ol>
+<li>循环变量是循环体的局部变量；</li>
+<li>绝不应该对循环变量作任何赋值。</li>
+</ol>
+<h2 id="break与return"><a href="#break与return" class="headerlink" title="break与return"></a>break与return</h2><p>由于语法构造的原因，break或return只能是一个块的最后一条语句。</p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>一个函数若只有一个参数，并且此参数是一个字面字符串或table构造式，那么圆括号便是可有可无。</p>
+<p>一个Lua程序既可以使用以Lua编写的函数，又可以调用以C语言编写的函数。</p>
+<p>调用函数时提供的实参数量可以与形参数量不同，Lua会自动调整实参的数量，以匹配参数表的要求，这项调整与多重赋值很相似。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incCount</span><span class="params">(n)</span></span></span><br><span class="line">	n=n <span class="keyword">or</span> <span class="number">1</span></span><br><span class="line">	count=count+n</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>该函数以1作为默认实参。</p>
+<h2 id="多重返回值"><a href="#多重返回值" class="headerlink" title="多重返回值"></a>多重返回值</h2><p>当一个函数调用作为另一个函数调用的最后一个实参时，第一个函数的所有返回值都将作为实参传入第二个函数，当函数出现在一个表达式中时，Lua会将其返回值数量调整为1。</p>
+<p>table构造式可以完整地接收一个函数调用的所有结果。</p>
+<p>也可以将一个函数调用放入一对圆括号中，从而迫使它只返回一个结果。</p>
+<p>unpack函数，它接受一个数组作为参数，并从下标1开始返回该数组的所有元素。</p>
+<h2 id="变长参数"><a href="#变长参数" class="headerlink" title="变长参数"></a>变长参数</h2><p>参数表中的3个点<code>...</code>表示该函数可接受不同数量的实参，一个函数要访问它的变长参数时，仍需用到3个点作为表达式，<code>{...}</code>表示一个由所有变长参数构成的数组。</p>
+<p>具有变长参数的函数同样也可以拥有过任意数量的固定参数，但固定参数必须放在变长参数之前。</p>
+<p>当变长参数包含nil时，可以用函数select来访问变长参数。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">select</span>(<span class="string">'#,...) --所有变长参数的总数，包括nil。</span></span><br><span class="line"><span class="string">select('</span><span class="number">2</span><span class="string">',...) --第2个参数</span></span><br></pre></td></tr></table></figure>
+<h1 id="深入函数"><a href="#深入函数" class="headerlink" title="深入函数"></a>深入函数</h1><p>函数是一种第一类值，它们具有特定的词法域。</p>
+<p>第一类值的意思是表示在Lua中函数和其他传统类型的值具有相同的权利，函数可以存储到变量中或table中，可以作为实参传递给其他函数，还可以作为其他函数的返回值。</p>
+<p>词法域的意思是指一个函数可以嵌套在另一个函数中，内部的函数可以访问外部函数中的变量，它允许在Lua中应用各种函数式语言中的强大编程技术。</p>
+<p>函数定义是一种语法糖，本质是一条赋值语句，这条语句创建了一种类型为函数的值，并将这个值赋予一个变量。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">--等价</span></span><br><span class="line">f=<span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>函数接受另一个函数作为实参的，称其是一个高阶函数。</p>
+<h2 id="closure（闭合函数）"><a href="#closure（闭合函数）" class="headerlink" title="closure（闭合函数）"></a>closure（闭合函数）</h2><p>外部函数的局部变量，在内部函数内既不是全局变量也不是局部变量，称为非局部的变量。</p>
+<p>非局部变量在内部函数内可能会超出作用范围，Lua会以closure的概念来正确地处理这种情况，简单地讲，一个closure就是一个函数加上该函数所需访问的所有非局部的变量。</p>
+<p>同一个函数可以创建多个不同的closure，它们各自拥有的非局部的变量都是独立的。</p>
+<p>从技术上讲，Lua中只有closure，而不存在函数，因为函数本身就是一种特殊的closure。</p>
+<h2 id="非全局的函数"><a href="#非全局的函数" class="headerlink" title="非全局的函数"></a>非全局的函数</h2><p>在定义递归的局部函数时，采用了基本函数定义语法的代码多数是错误的。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> fact=<span class="function"><span class="keyword">function</span><span class="params">(n)</span></span></span><br><span class="line">	<span class="keyword">if</span> n==<span class="number">0</span> <span class="keyword">then</span> <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n*fact(n<span class="number">-1</span>) <span class="comment">--错误</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>当Lua编译到函数体中调用fact(n-1)的地方时，由于局部的fact尚未定义完毕，因此这句表达式其实是调用了一个全局的fact。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> fact</span><br><span class="line">fact=<span class="function"><span class="keyword">function</span><span class="params">(n)</span></span></span><br><span class="line">	<span class="keyword">if</span> n==<span class="number">0</span> <span class="keyword">then</span> <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n*fact(n<span class="number">-1</span>) <span class="comment">--正确</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>现在函数中的fact调用就表示了局部变量，即使在函数定义时，这个局部变量的值尚未完成定义，但之后在函数执行时，fact则肯定已经拥有了正确的值。</p>
+<p>当Lua展开局部函数定义的语法糖时，并不是使用基本函数定义语法，因此，使用这种语法来定义递归函数不会产生错误。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">fact</span><span class="params">(n)</span></span></span><br><span class="line">	<span class="keyword">if</span> n==<span class="number">0</span> <span class="keyword">then</span> <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n*fact(n<span class="number">-1</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这个技巧对于间接递归的函数而言是无效的，在间接递归的情况中，必须使用一个明确的前向声明。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> f,g</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span></span></span><br><span class="line">	g()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">g</span><span class="params">()</span></span></span><br><span class="line">	f()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="正确的尾调用"><a href="#正确的尾调用" class="headerlink" title="正确的尾调用"></a>正确的尾调用</h2><p>当一个函数调用是另一个函数的最后一个动作时，该调用是一条尾调用，程序不需要返回那个尾调用所在的函数，所以在尾调用之后，程序也不需要保存任何关于该函数的栈信息，返回时，执行控制权可以直接返回到上一级，使得在进行尾调用时不耗费任何栈空间，这种实现称为支持尾调用消除。</p>
+<p>由于尾调用不会耗费栈空间，所以一个程序可以拥有无数嵌套的尾调用，在调用以下函数时，传入任何数字作为参数都不会造成栈溢出。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(n)</span></span></span><br><span class="line">	<span class="keyword">if</span> n&gt;<span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> foo(n<span class="number">-1</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p><code>function f(x) g(x) end</code>不是一条尾调用，当调用完g后，f并不能立即返回，它还需要丢弃g返回的临时结果。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> g(x)+<span class="number">1</span> <span class="comment">--必须做一次假发</span></span><br><span class="line"><span class="keyword">return</span> x <span class="keyword">or</span> g(x) <span class="comment">--必须调整为一个返回值</span></span><br><span class="line"><span class="keyword">return</span> (g(x)) <span class="comment">--必须调整为一个返回值</span></span><br></pre></td></tr></table></figure>
+<p>在Lua中，<code>return &lt;func&gt;(&lt;args&gt;)</code>这样的调用形式才算是一条尾调用，Lua会在调用前对\&lt;func>及其参数求值，所以它们可以是任意复杂的表达式。</p>
+<h1 id="迭代器与泛型for"><a href="#迭代器与泛型for" class="headerlink" title="迭代器与泛型for"></a>迭代器与泛型for</h1><h2 id="迭代器与closure"><a href="#迭代器与closure" class="headerlink" title="迭代器与closure"></a>迭代器与closure</h2><p>在Lua中，通常将迭代器表示为函数，每调用一次函数，即返回集合中下一个元素。</p>
+<p>每个迭代器都需要在每次成功调用之间保持一些状态，这样才能知道它所在的位置及如何步进到下一个位置。为了创建一个新的closure，还必须创建它的非局部的变量，因此一个closure结构通常涉及到两个函数，closure本身和一个用于创建该closure的工厂函数。</p>
+<p>泛型for每次新迭代时调用迭代器，并在迭代器返回nil时结束循环。</p>
+<h2 id="泛型for的语义"><a href="#泛型for的语义" class="headerlink" title="泛型for的语义"></a>泛型for的语义</h2><p>泛型for在循环过程内部保存了迭代器函数，实际上它保存着3个值</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/23/Python核心编程/" rel="next" title="Python核心编程(第3版)">
+                <i class="fa fa-chevron-left"></i> Python核心编程(第3版)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="林如东" />
+            
+              <p class="site-author-name" itemprop="name">林如东</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#词法规范"><span class="nav-number">1.1.</span> <span class="nav-text">词法规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局变量"><span class="nav-number">1.2.</span> <span class="nav-text">全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解释器程序"><span class="nav-number">1.3.</span> <span class="nav-text">解释器程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型与值"><span class="nav-number">2.</span> <span class="nav-text">类型与值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nil"><span class="nav-number">2.1.</span> <span class="nav-text">nil</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boolean"><span class="nav-number">2.2.</span> <span class="nav-text">boolean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#number"><span class="nav-number">2.3.</span> <span class="nav-text">number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">2.4.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table"><span class="nav-number">2.5.</span> <span class="nav-text">table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#function"><span class="nav-number">2.6.</span> <span class="nav-text">function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#userdata（自定义类型）和thread"><span class="nav-number">2.7.</span> <span class="nav-text">userdata（自定义类型）和thread</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表达式"><span class="nav-number">3.</span> <span class="nav-text">表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算术操作符"><span class="nav-number">3.1.</span> <span class="nav-text">算术操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关系操作符"><span class="nav-number">3.2.</span> <span class="nav-text">关系操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑操作符"><span class="nav-number">3.3.</span> <span class="nav-text">逻辑操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串连接"><span class="nav-number">3.4.</span> <span class="nav-text">字符串连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先级"><span class="nav-number">3.5.</span> <span class="nav-text">优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table构造式"><span class="nav-number">3.6.</span> <span class="nav-text">table构造式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语句"><span class="nav-number">4.</span> <span class="nav-text">语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#赋值"><span class="nav-number">4.1.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局部变量与块"><span class="nav-number">4.2.</span> <span class="nav-text">局部变量与块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制结构"><span class="nav-number">4.3.</span> <span class="nav-text">控制结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if-then-else"><span class="nav-number">4.3.1.</span> <span class="nav-text">if then else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while"><span class="nav-number">4.3.2.</span> <span class="nav-text">while</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#repeat"><span class="nav-number">4.3.3.</span> <span class="nav-text">repeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字型for"><span class="nav-number">4.3.4.</span> <span class="nav-text">数字型for</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛型for"><span class="nav-number">4.3.5.</span> <span class="nav-text">泛型for</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#break与return"><span class="nav-number">4.4.</span> <span class="nav-text">break与return</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">5.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多重返回值"><span class="nav-number">5.1.</span> <span class="nav-text">多重返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变长参数"><span class="nav-number">5.2.</span> <span class="nav-text">变长参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深入函数"><span class="nav-number">6.</span> <span class="nav-text">深入函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#closure（闭合函数）"><span class="nav-number">6.1.</span> <span class="nav-text">closure（闭合函数）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非全局的函数"><span class="nav-number">6.2.</span> <span class="nav-text">非全局的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正确的尾调用"><span class="nav-number">6.3.</span> <span class="nav-text">正确的尾调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器与泛型for"><span class="nav-number">7.</span> <span class="nav-text">迭代器与泛型for</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器与closure"><span class="nav-number">7.1.</span> <span class="nav-text">迭代器与closure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型for的语义"><span class="nav-number">7.2.</span> <span class="nav-text">泛型for的语义</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林如东</span>
+  
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">75.7k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'c9wFYOoWTAFtuFlsNOgHNOvF-gzGzoHsz',
+        appKey: '617qvdhmqDgNYl9CgBTnce1u',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("c9wFYOoWTAFtuFlsNOgHNOvF-gzGzoHsz", "617qvdhmqDgNYl9CgBTnce1u");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
