@@ -44,6 +44,7 @@ tags:
 1. android:layout_weight属性的工作原理，在layout_width分配完空间后，剩余空间会按照layout_weight设置的值的占比分配，通常会设定所有子组件的layout_weight属性值总和为100。
 
 # 使用RecyclerView显示列表 
+
 1. RecyclerView负责回收再利用以及定位屏幕上的View，而定位功能委托给LayoutManager。
 1. ViewHolder负责容纳View。
 1. Adapter作为Controller，负责创建必要的ViewHolder，绑定ViewHolder至模型层数据。

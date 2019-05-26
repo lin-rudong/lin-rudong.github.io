@@ -1,5 +1,5 @@
 ---
-title: 高性能MySQL
+title: 高性能MySQL(第3版)
 categories: MySQL
 date: 2018-10-08 16:08:42
 tags:
